@@ -1,0 +1,6 @@
+# Configuración para publicar Validex en Netlify. Next.js se detecta solo.
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
