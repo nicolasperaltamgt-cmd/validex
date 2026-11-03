@@ -174,9 +174,9 @@ test("parseDolar: devuelve null si falta algo o el formato no es el esperado", (
   assert.equal(parseDolar([{ casa: "blue", venta: "x" }, { casa: "oficial", venta: 1 }, { casa: "contadoconliqui", venta: 1 }]), null);
 });
 
-test("real-products: 13 productos con fuentes, fecha y estado sin verificar", () => {
-  assert.equal(realProducts.length, 13);
-  assert.equal(new Set(realProducts.map((p) => p.id)).size, 13);
+test("real-products: 15 productos con fuentes, fecha y estado sin verificar", () => {
+  assert.equal(realProducts.length, 15);
+  assert.equal(new Set(realProducts.map((p) => p.id)).size, 15);
   for (const p of realProducts) {
     assert.equal(p.dataStatus, "unverified", p.id);
     assert.match(p.updatedAt, /^\d{4}-\d{2}-\d{2}$/, p.id);
