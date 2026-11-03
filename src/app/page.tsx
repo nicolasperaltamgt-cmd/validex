@@ -5,15 +5,14 @@ import { getRealProducts } from "@/data";
 import { responder } from "@/lib/importador";
 import { assess } from "@/lib/assessment";
 import { formatMoney, formatPercent } from "@/lib/format";
-import { scoreProduct } from "@/lib/score";
-import { PhoneFrame } from "@/components/home/PhoneFrame";
-import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/ScoreDial";
+import { SCORE_MAX, scoreProduct } from "@/lib/score";
+import { BAND_LABEL } from "@/components/products/ScoreDial";
 import { Faq } from "@/components/ui/Faq";
 import { Logo } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
 import { cardClass } from "@/components/kit/card";
-import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/kit/button";
+import { cn } from "@/lib/cn";
 
 const faq = [
   { q: "¿Los datos son reales?", a: "Son referencias reales sin verificar, con sus fuentes y fecha. Cada producto lo aclara." },
@@ -25,197 +24,391 @@ const faq = [
 ];
 
 const pasos = [
-  { t: "Mirás el drop", d: "Cada día, tres productos con su score." },
-  { t: "Tanteás los números", d: "Elegís cuántas unidades y ves cuánto necesitás y cuánto ganarías." },
-  { t: "Preguntás lo que no sabés", d: "Impuestos, aduana y comisiones, en simple." },
-  { t: "Guardás tu reporte", d: "Lo bajás en PDF para decidir con calma o mostrarlo." },
+  { t: "Mirás el drop", d: "Cada día, tres productos con su score y el dólar de hoy. Nada más para mirar." },
+  { t: "Tanteás los números", d: "Elegís cuántas unidades querés y ves cuánto necesitás y cuánto ganarías, con todo incluido." },
+  { t: "Preguntás lo que no sabés", d: "Impuestos, aduana y comisiones explicados en simple, con las fuentes a la vista." },
+  { t: "Guardás tu reporte", d: "Lo bajás en PDF para decidir con calma o para mostrárselo a un socio." },
 ];
 
-const paraQuien = [
-  { t: "Quien quiere empezar", d: "Querés vender productos importados y no sabés por dónde arrancar." },
-  { t: "Quien ya vende", d: "Ya tenés un negocio y buscás el próximo producto con buen margen." },
-  { t: "Quien revende por Mercado Libre", d: "Necesitás saber cuánto te queda después de la comisión y el envío." },
+const fuentes = ["Mercado Libre (vía MejoresCompras)", "Frávega", "Alibaba", "Made-in-China", "DolarAPI", "Aduana y ARCA (reglas)"];
+
+const reglas = [
+  "El score es una fórmula fija, no una opinión de una IA.",
+  "Lo que no podemos medir lo marcamos como “estimado”, nunca lo rellenamos con un número inventado.",
+  "Si perdés plata en cada unidad, el score no pasa de 29, sin importar lo demás.",
+  "Cada precio tiene su enlace y su fecha para que lo compruebes vos.",
 ];
 
-const origen = [
-  { t: "Precios de referencia", d: "Tomados de tiendas y marketplaces, con el enlace y la fecha en cada producto." },
-  { t: "Dólar del día", d: "Se actualiza solo desde una fuente pública y se muestra en el drop." },
-  { t: "Impuestos y comisión", d: "Reglas de importación y de venta que podés ver y cambiar en Tantear." },
-  { t: "Lo que no sabemos", d: "Si un dato no está verificado, lo decimos en vez de rellenarlo." },
-];
+const formula = [
+  { clave: "margin", nombre: "Margen", donde: "Precio de venta publicado menos costo de proveedor, flete, impuestos y comisión.", origen: "Referencia" },
+  { clave: "trend", nombre: "Tendencia", donde: "Si la demanda sube, está estable o baja. Hoy es una estimación nuestra.", origen: "Estimado" },
+  { clave: "competition", nombre: "Competencia", donde: "Cuántos modelos y vendedores vimos publicados. No es una medición.", origen: "Estimado" },
+  { clave: "capital", nombre: "Capital por unidad", donde: "Costo total por unidad, con impuestos y comisión: menos es más fácil de probar.", origen: "Referencia" },
+] as const;
 
 const retraso = (ms: number) => ({ "--retraso": `${ms}ms` }) as CSSProperties;
 
-const PILDORA_LIMA = cn(buttonVariants({ variant: "light" }), "min-h-12 px-8");
-const PILDORA = cn(buttonVariants({ variant: "dark" }), "min-h-12 px-8");
+const PILDORA_BLANCA = cn(buttonVariants({ variant: "light" }), "min-h-12 px-8");
 const TITULO = "font-display text-3xl font-black leading-[1.05] tracking-tight text-balance sm:text-5xl";
+const ETIQUETA = "text-xs font-bold uppercase tracking-[0.14em] text-radar-dark";
+
+/** Marca el origen de cada factor del score: "Referencia" (hay una fuente) o "Estimado" (es nuestra estimación). */
+function Origen({ tipo }: { tipo: "Referencia" | "Estimado" }) {
+  return (
+    <span
+      className={cn(
+        "rounded-full px-2 py-0.5 text-[0.7rem] font-bold",
+        tipo === "Referencia" ? "bg-radar-soft text-radar-dark" : "bg-ink/10 text-ink-soft",
+      )}
+    >
+      {tipo}
+    </span>
+  );
+}
 
 export default function HomePage() {
   const productos = getRealProducts();
-  const ranking = productos.map((p) => ({ p, s: scoreProduct(p) })).sort((a, b) => b.s.score - a.s.score);
-  const { p: top, s: topScore } = ranking[0];
+  const ranking = productos.map((p) => ({ p, s: scoreProduct(p), a: assess(p) })).sort((a, b) => b.s.score - a.s.score);
+  const { p: top, s: topScore, a: topAssess } = ranking[0];
   const { p: peor, s: peorScore } = ranking[ranking.length - 1];
+  const tres = ranking.slice(0, 3);
   const consulta = responder("¿Qué necesito para importar y revender?", { productos, dolar: null }).parrafos[0];
-
-  const pantallaDrop = (
-    <>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-panel">
-        {top.image ? <Image src={top.image} alt="" fill sizes="272px" className="object-cover" /> : null}
-      </div>
-      <p className="text-sm font-bold leading-snug">{top.name}</p>
-      <div className="flex items-center gap-3">
-        <ScoreDial score={topScore.score} band={topScore.band} size={72} />
-        <p className="font-display text-lg font-bold">{BAND_LABEL[topScore.band]}</p>
-      </div>
-    </>
-  );
+  const origenPorClave: Record<string, "Referencia" | "Estimado"> = {
+    margin: "Referencia",
+    trend: "Estimado",
+    competition: "Estimado",
+    capital: "Referencia",
+  };
 
   return (
     <div>
-      {/* Bloque grande de marca */}
-      <section className="relative left-1/2 -mt-10 w-screen -translate-x-1/2 bg-profundo text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:pb-24">
-          <div className="text-center lg:text-left">
-            <div className="entrada mb-8 flex justify-center lg:justify-start" style={retraso(0)}>
-              <Logo size="grande" showTagline={false} tono="claro" />
-            </div>
-            <p className="entrada mb-4 inline-block rounded-full border border-white/30 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-white" style={retraso(100)}>
-              Para importar y revender en Argentina
-            </p>
-            <h1 className={`entrada text-white ${TITULO} sm:text-6xl`} style={retraso(140)}>
-              Antes de comprar, <span className="text-lima">mirá los números.</span>
-            </h1>
-            <p className="entrada mx-auto mt-6 max-w-md text-lg leading-relaxed text-white/85 lg:mx-0" style={retraso(280)}>
-              Cada día, tres productos con un score de 0 a 100.
-            </p>
-            <div className="entrada mt-8 flex justify-center lg:justify-start" style={retraso(420)}>
-              <Link href="/hoy" className={PILDORA_LIMA}>
-                Ver el drop de hoy <span aria-hidden="true" className="ml-2">→</span>
-              </Link>
-            </div>
-            <p className="entrada mt-4 text-sm text-white/75" style={retraso(560)}>Gratis y sin registro. Cada dato con su fuente y su fecha.</p>
+      {/* Portada: bloque de marca con el título centrado y una tarjeta de score real */}
+      <section className="relative left-1/2 -mt-24 w-screen -translate-x-1/2 bg-profundo pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
+          <p
+            className="entrada mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em]"
+            style={retraso(0)}
+          >
+            <span aria-hidden="true" className="size-2 rounded-full bg-lima" />
+            Versión de prueba · Argentina
+          </p>
+          <h1 className="entrada font-display text-4xl font-black leading-[1.03] tracking-tight text-balance text-white sm:text-6xl" style={retraso(120)}>
+            Antes de comprar, <span className="text-lima">mirá los números.</span>
+          </h1>
+          <p className="entrada mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/85" style={retraso(240)}>
+            Cada día, tres productos con un score de 0 a 100, el costo completo con impuestos y la fuente de cada dato.
+          </p>
+          <div className="entrada mt-8 flex flex-wrap items-center justify-center gap-3" style={retraso(360)}>
+            <Link href="/hoy" className={PILDORA_BLANCA}>
+              Ver el drop de hoy <span aria-hidden="true" className="ml-2">→</span>
+            </Link>
+            <a href="#formula" className="inline-flex min-h-12 items-center rounded-full px-6 text-sm font-bold text-white underline underline-offset-4 hover:text-lima">
+              Cómo se calcula el score
+            </a>
           </div>
-          <div className="entrada" style={retraso(300)}>
-            <Image
-              src="/images/hero-ilustracion.jpg"
-              alt="Un celular con un score rodeado de productos: auriculares, pava, fuente para gatos, cortina y horno de pizza"
-              width={900}
-              height={900}
-              priority
-              sizes="(min-width: 1024px) 460px, 90vw"
-              className="mx-auto w-full max-w-md rounded-[2.5rem] shadow-2xl shadow-black/40"
-            />
-          </div>
+          <ul className="entrada mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/80" style={retraso(480)}>
+            <li>✓ Gratis y sin registro</li>
+            <li>✓ Precios en dólares y pesos</li>
+            <li>✓ Cada dato con su fuente y su fecha</li>
+          </ul>
         </div>
-        <dl className="mx-auto grid max-w-6xl grid-cols-2 gap-6 border-t border-white/20 px-4 py-10 text-center sm:grid-cols-4 sm:px-6">
-          {[
-            [String(productos.length), "productos con fuentes"],
-            ["3", "nuevos por día"],
-            ["4", "factores en el score"],
-            ["$0", "para usarla"],
-          ].map(([n, l]) => (
-            <div key={l}>
-              <dt className="font-display text-4xl font-black text-lima sm:text-5xl">{n}</dt>
-              <dd className="mt-1 text-sm text-white/85">{l}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
 
-      {/* Qué es */}
-      <section aria-labelledby="que-es" className="relative left-1/2 w-screen -translate-x-1/2 bg-panel px-4 py-20 sm:px-6 sm:py-28">
-        <Reveal className="mx-auto block max-w-6xl">
-          <h2 id="que-es" className={`mx-auto max-w-3xl text-center ${TITULO}`}>
-            Validex te muestra si un producto <span className="text-radar">vale la pena</span> antes de gastar.
-          </h2>
-          <div className="mt-14 grid gap-10 md:grid-cols-3">
-            <div>
-              <PhoneFrame label="Pantalla del drop">{pantallaDrop}</PhoneFrame>
-              <p className="mt-5 text-center font-bold">Mirá el drop de hoy</p>
-            </div>
-            <div>
-              <PhoneFrame label="Pantalla con el detalle del score">
-                <p className="text-sm font-bold">Cómo se arma el score</p>
-                <ScoreBreakdown parts={topScore.parts} capped={topScore.capped} />
-              </PhoneFrame>
-              <p className="mt-5 text-center font-bold">Entendé cada número</p>
-            </div>
-            <div>
-              <PhoneFrame label="Pantalla del Importador">
-                <p className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-radar px-3 py-2 text-xs font-medium text-white">
-                  ¿Qué necesito para importar y revender?
+        {/* Tarjeta con un análisis real, con el origen de cada factor (estilo de reporte) */}
+        <div className="entrada mx-auto mt-12 max-w-3xl px-4 sm:px-6" style={retraso(560)}>
+          <div className="rounded-3xl bg-paper p-5 text-left text-ink shadow-2xl shadow-black/30 sm:p-7">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="relative size-20 shrink-0 overflow-hidden rounded-2xl bg-panel">
+                {top.image ? <Image src={top.image} alt="" fill sizes="80px" className="object-contain" priority /> : null}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="font-display text-xl font-bold leading-snug">{top.name}</p>
+                <p className="text-sm text-ink-soft">{top.category} · Argentina · Referencia sin verificar</p>
+              </div>
+              <div className="text-right">
+                <p className="font-display text-5xl font-black leading-none">
+                  {topScore.score}
+                  <span className="text-base font-bold text-ink-soft">/100</span>
                 </p>
-                <p className="max-w-[92%] rounded-2xl rounded-bl-sm bg-panel px-3 py-2 text-xs leading-relaxed text-ink-soft">{consulta}</p>
-              </PhoneFrame>
-              <p className="mt-5 text-center font-bold">Preguntá lo que no sabés</p>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Cómo funciona */}
-      <section aria-labelledby="como" className="py-20 sm:py-28">
-        <Reveal>
-          <h2 id="como" className={`max-w-2xl ${TITULO}`}>Cómo funciona, en cuatro pasos.</h2>
-          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {pasos.map((x, i) => (
-              <li key={x.t} className={cn(cardClass, "p-6")}>
-                <span className="font-display text-5xl font-black text-radar" aria-hidden="true">{i + 1}</span>
-                <h3 className="mt-3 font-display text-lg font-bold">{x.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{x.d}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </section>
-
-      {/* Importar */}
-      <section aria-labelledby="importar" className="py-20 sm:py-28">
-        <Reveal>
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <Image
-              src="/images/seccion-ilustracion.jpg"
-              alt="Una caja con un gráfico que sube, una lupa, una calculadora, monedas y un avión de carga"
-              width={1000}
-              height={750}
-              sizes="(min-width: 1024px) 560px, 100vw"
-              className="w-full rounded-3xl"
-            />
-            <div>
-              <h2 id="importar" className={TITULO}>
-                Importar <span className="text-radar">sin vueltas.</span>
-              </h2>
-              <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
-                Costos, impuestos, comisiones y margen en una sola cuenta, con las fuentes a la vista.
-              </p>
-              <div className="mt-8">
-                <Link href="/importador" className={PILDORA}>Preguntale al Importador</Link>
+                <p className="mt-1 text-sm font-bold text-radar-dark">{BAND_LABEL[topScore.band]}</p>
               </div>
             </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* De dónde sale cada dato */}
-      <section aria-labelledby="origen" className="relative left-1/2 w-screen -translate-x-1/2 bg-profundo py-20 text-white sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <Reveal>
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-lima">Sin datos inventados</p>
-            <h2 id="origen" className={`mt-3 max-w-2xl text-white ${TITULO}`}>Sabés de dónde sale cada número.</h2>
-            <ul className="mt-12 grid gap-4 sm:grid-cols-2">
-              {origen.map((b) => (
-                <li key={b.t} className="rounded-3xl bg-paper p-7 text-ink">
-                  <h3 className="font-display text-xl font-bold">{b.t}</h3>
-                  <p className="mt-2 leading-relaxed text-ink-soft">{b.d}</p>
+            <ul className="mt-5 space-y-3">
+              {topScore.parts.map((part) => (
+                <li key={part.key} className="grid grid-cols-[7.5rem_1fr_auto] items-center gap-3 text-sm sm:grid-cols-[9rem_1fr_9.5rem]">
+                  <span className="font-semibold">{part.label}</span>
+                  <span
+                    className="h-2 overflow-hidden rounded-full bg-line"
+                    role="progressbar"
+                    aria-label={part.label}
+                    aria-valuenow={part.points}
+                    aria-valuemin={0}
+                    aria-valuemax={part.max}
+                  >
+                    <span className="block h-full rounded-full bg-radar" style={{ width: `${(part.points / part.max) * 100}%` }} />
+                  </span>
+                  <span className="flex items-center justify-end gap-2">
+                    <span className="tabular-nums text-ink-soft">
+                      {part.points}/{part.max}
+                    </span>
+                    <span className="hidden sm:inline">
+                      <Origen tipo={origenPorClave[part.key]} />
+                    </span>
+                  </span>
                 </li>
               ))}
             </ul>
+            <p className="mt-4 text-xs text-ink-soft">
+              <Origen tipo="Referencia" /> hay una fuente publicada. <Origen tipo="Estimado" /> es una estimación nuestra. Margen{" "}
+              {formatPercent(topAssess.calc.marginPct)}, ganás {formatMoney(topAssess.calc.profit, "USD")} por unidad.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Productos con sus números: costo, venta, ganancia y margen */}
+      <section aria-labelledby="productos" className="py-20 sm:py-28">
+        <Reveal>
+          <p className={ETIQUETA}>Los números, sin vueltas</p>
+          <h2 id="productos" className={`mt-3 max-w-3xl ${TITULO}`}>
+            Costo, venta, ganancia y margen de cada producto.
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
+            El costo ya incluye flete, impuestos de importación y la comisión de la plataforma. Es lo que de verdad te queda.
+          </p>
+        </Reveal>
+        <div
+          role="region"
+          aria-label="Productos con sus números"
+          tabIndex={0}
+          className="-mx-4 mt-10 flex snap-x gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6"
+        >
+          {ranking.slice(0, 6).map(({ p, s, a }) => (
+            <article key={p.id} className={cn(cardClass, "w-72 shrink-0 snap-start overflow-hidden rounded-3xl")}>
+              <div className="relative aspect-[4/3] bg-panel">
+                {p.image ? <Image src={p.image} alt={p.name} fill sizes="288px" className="object-contain" /> : null}
+                <span className="absolute right-3 top-3 rounded-full bg-ink px-3 py-1 font-display text-lg font-black text-paper">{s.score}</span>
+              </div>
+              <div className="p-4">
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-radar-dark">{p.category}</p>
+                <h3 className="mt-1 font-display text-base font-bold leading-snug">{p.name}</h3>
+                <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 border-t border-line pt-3 text-sm">
+                  <div>
+                    <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted">Costo</dt>
+                    <dd className="font-bold tabular-nums">{formatMoney(a.calc.totalCost, "USD")}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted">Venta</dt>
+                    <dd className="font-bold tabular-nums">{formatMoney(p.referencePriceUsd, "USD")}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted">Ganancia</dt>
+                    <dd className={cn("font-bold tabular-nums", a.calc.profit < 0 && "text-danger")}>{formatMoney(a.calc.profit, "USD")}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-muted">Margen</dt>
+                    <dd className={cn("font-bold tabular-nums", a.calc.marginPct < 0 && "text-danger")}>{formatPercent(a.calc.marginPct)}</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Banda oscura: de dónde salen los datos */}
+      <section aria-labelledby="fuentes" className="relative left-1/2 w-screen -translate-x-1/2 bg-ink py-16 text-white sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
+            <p id="fuentes" className="text-center text-xs font-bold uppercase tracking-[0.14em] text-lima">
+              Validex compara datos publicados en
+            </p>
+            <ul className="mt-6 flex flex-wrap justify-center gap-3">
+              {fuentes.map((f) => (
+                <li key={f} className="rounded-full border border-white/25 px-4 py-2 text-sm font-medium">
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {[
+                [String(productos.length), "productos con fuentes"],
+                ["3", "nuevos por día"],
+                ["4", "factores en el score"],
+                ["$0", "para usarla"],
+              ].map(([n, l]) => (
+                <div key={l} className="rounded-3xl bg-white/10 p-5 text-center">
+                  <dt className="font-display text-4xl font-black text-lima sm:text-5xl">{n}</dt>
+                  <dd className="mt-1 text-sm text-white/85">{l}</dd>
+                </div>
+              ))}
+            </dl>
           </Reveal>
         </div>
       </section>
 
-      {/* También decimos que no */}
-      <section aria-labelledby="no" className="py-20 sm:py-28">
+      {/* Tres funciones, cada una con su ilustración y una mini pantalla real */}
+      <section aria-labelledby="funciones" className="py-20 sm:py-28">
+        <Reveal>
+          <p className={ETIQUETA}>Qué podés hacer</p>
+          <h2 id="funciones" className={`mt-3 max-w-3xl ${TITULO}`}>
+            Todo para decidir con números, en un solo lugar.
+          </h2>
+        </Reveal>
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <article className={cn(cardClass, "overflow-hidden")}>
+            <Image src="/images/feature-drop.jpg" alt="Tres tarjetas de producto flotando junto a un calendario" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
+            <div className="p-6">
+              <h3 className="font-display text-xl font-bold">Un drop por día</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">Tres productos para mirar hoy. Mañana, otros tres.</p>
+              <ul className="mt-4 space-y-2 text-sm">
+                {tres.map(({ p, s }) => (
+                  <li key={p.id} className="flex items-center justify-between gap-3 rounded-xl bg-secondary px-3 py-2">
+                    <span className="truncate font-medium">{p.name}</span>
+                    <span className="font-display font-black tabular-nums">{s.score}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+
+          <article className={cn(cardClass, "overflow-hidden")}>
+            <Image src="/images/feature-tantear.jpg" alt="Una calculadora con monedas, una caja y una lupa" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
+            <div className="p-6">
+              <h3 className="font-display text-xl font-bold">Tantear, con todo incluido</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">Mirá cómo se arma el costo antes de comprar.</p>
+              <dl className="mt-4 space-y-1.5 text-sm">
+                {[
+                  ["Compra", top.costs.purchase],
+                  ["Transporte", top.costs.shipping],
+                  ["Impuestos", top.costs.taxes],
+                  ["Comisión", topAssess.calc.commission],
+                ].map(([nombre, v]) => (
+                  <div key={nombre as string} className="flex justify-between border-b border-line pb-1.5">
+                    <dt className="text-ink-soft">{nombre as string}</dt>
+                    <dd className="font-bold tabular-nums">{formatMoney(v as number, "USD")}</dd>
+                  </div>
+                ))}
+                <div className="flex justify-between pt-1 font-bold">
+                  <dt>Total por unidad</dt>
+                  <dd className="tabular-nums">{formatMoney(topAssess.calc.totalCost, "USD")}</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <article className={cn(cardClass, "overflow-hidden")}>
+            <Image src="/images/feature-importador.jpg" alt="Dos globos de chat junto a un avión de carga y un documento" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
+            <div className="p-6">
+              <h3 className="font-display text-xl font-bold">El Importador</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">Preguntá impuestos, aduana y comisiones.</p>
+              <div className="mt-4 space-y-2 text-xs">
+                <p className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-radar px-3 py-2 font-medium text-white">¿Qué necesito para importar y revender?</p>
+                <p className="line-clamp-4 max-w-[92%] rounded-2xl rounded-bl-sm bg-secondary px-3 py-2 leading-relaxed text-ink-soft">{consulta}</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      {/* Sin números inventados + fórmula */}
+      <section id="formula" aria-labelledby="sin-inventar" className="relative left-1/2 w-screen -translate-x-1/2 bg-panel py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
+            <p className={ETIQUETA}>Sin números inventados</p>
+            <h2 id="sin-inventar" className={`mt-3 max-w-3xl ${TITULO}`}>
+              Una fórmula abierta, con cada factor a la vista.
+            </h2>
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              <ul className="space-y-3">
+                {reglas.map((r) => (
+                  <li key={r} className={cn(cardClass, "flex gap-3 rounded-2xl p-4 text-sm leading-relaxed")}>
+                    <span aria-hidden="true" className="font-black text-radar-dark">✓</span>
+                    {r}
+                  </li>
+                ))}
+              </ul>
+              <div className={cn(cardClass, "overflow-hidden")}>
+                <table className="w-full text-left text-sm">
+                  <caption className="sr-only">Factores del score, su peso y de dónde sale cada uno</caption>
+                  <thead className="bg-secondary">
+                    <tr>
+                      <th scope="col" className="px-4 py-3">Factor</th>
+                      <th scope="col" className="px-4 py-3">Hasta</th>
+                      <th scope="col" className="px-4 py-3">Origen</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-line">
+                    {formula.map((f) => (
+                      <tr key={f.clave}>
+                        <th scope="row" className="px-4 py-3 align-top font-bold">{f.nombre}</th>
+                        <td className="px-4 py-3 align-top font-display font-black tabular-nums">{SCORE_MAX[f.clave]}</td>
+                        <td className="px-4 py-3 align-top text-ink-soft">
+                          <Origen tipo={f.origen} />
+                          <span className="mt-1 block">{f.donde}</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="border-t border-line px-4 py-3 text-xs text-ink-soft">
+                  70 o más: alto. De 45 a 69: medio. Menos de 45: bajo. Es una regla simple, no una predicción de ventas.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Cómo funciona: pasos apilados */}
+      <section aria-labelledby="como" className="py-20 sm:py-28">
+        <Reveal>
+          <p className={ETIQUETA}>Cómo funciona</p>
+          <h2 id="como" className={`mt-3 max-w-3xl ${TITULO}`}>
+            Cuatro pasos, de la duda a la decisión.
+          </h2>
+        </Reveal>
+        <ol className="mt-12 space-y-4">
+          {pasos.map((x, i) => (
+            <li key={x.t} className={cn(cardClass, "grid gap-2 p-6 sm:grid-cols-[10rem_1fr] sm:gap-8 sm:p-8")}>
+              <p className="font-display text-sm font-black uppercase tracking-[0.14em] text-radar-dark">Paso 0{i + 1} {"//"}</p>
+              <div>
+                <h3 className="font-display text-2xl font-bold">{x.t}</h3>
+                <p className="mt-2 max-w-2xl leading-relaxed text-ink-soft">{x.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Antes y después */}
+      <section aria-labelledby="antes" className="pb-20 sm:pb-28">
+        <Reveal>
+          <h2 id="antes" className={`max-w-3xl ${TITULO}`}>
+            Importar a ciegas o con los números adelante.
+          </h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <div className={cn(cardClass, "p-7")}>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-ink-soft">Sin Validex</p>
+              <ul className="mt-4 space-y-3 leading-relaxed text-ink-soft">
+                <li>Comprás porque un video muestra ventas, sin mirar el costo real.</li>
+                <li>Calculás sin impuestos ni comisión y el margen se desvanece.</li>
+                <li>Te enterás de la aduana cuando el pedido ya está pago.</li>
+              </ul>
+            </div>
+            <div className="rounded-3xl border-2 border-profundo bg-profundo p-7 text-white">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-lima">Con Validex</p>
+              <ul className="mt-4 space-y-3 leading-relaxed text-white/90">
+                <li>Ves el costo completo por unidad antes de pagar.</li>
+                <li>Cada dato tiene su fuente y su fecha para comprobarlo.</li>
+                <li>El score también te dice cuándo no conviene.</li>
+              </ul>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Si no conviene, también lo decimos */}
+      <section aria-labelledby="no" className="pb-20 sm:pb-28">
         <Reveal>
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div>
@@ -229,7 +422,7 @@ export default function HomePage() {
             <div className={cn(cardClass, "mx-auto w-full max-w-sm p-6")}>
               <p className="text-sm font-bold leading-snug">{peor.name}</p>
               <div className="mt-3 flex items-center gap-4">
-                <ScoreDial score={peorScore.score} band={peorScore.band} size={88} />
+                <p className="font-display text-5xl font-black leading-none text-danger">{peorScore.score}</p>
                 <div>
                   <p className="font-display text-xl font-bold">{BAND_LABEL[peorScore.band]}</p>
                   <p className="mt-1 text-sm text-ink-soft">No compres todavía.</p>
@@ -240,50 +433,6 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* Ranking ilustrado con productos reales */}
-      <section aria-labelledby="ranking" className="py-20 sm:py-28">
-        <Reveal>
-          <h2 id="ranking" className={`mx-auto max-w-3xl text-center ${TITULO}`}>
-            Los productos, <span className="text-radar">ordenados por score.</span>
-          </h2>
-          <ul className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3">
-            {ranking.slice(0, 6).map(({ p, s }) => (
-              <li key={p.id} className={cn(cardClass, "overflow-hidden rounded-2xl")}>
-                <div className="relative aspect-square bg-panel">
-                  {p.image ? <Image src={p.image} alt={p.name} fill sizes="(min-width: 640px) 260px, 50vw" className="object-cover" /> : null}
-                  <span className="absolute right-3 top-3 rounded-full bg-ink px-3 py-1 font-display text-lg font-black text-paper">{s.score}</span>
-                </div>
-                <div className="px-4 py-3">
-                  <p className="text-sm font-bold leading-snug">{p.name}</p>
-                  <p className="mt-2 text-xs text-ink-soft">
-                    Margen <strong className="text-ink">{formatPercent(assess(p).calc.marginPct)}</strong> · ganás{" "}
-                    <strong className="text-ink">{formatMoney(assess(p).calc.profit, "USD")}</strong> por unidad
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-10 text-center">
-            <Link href="/hoy" className={PILDORA}>Ver el drop de hoy</Link>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Para quién */}
-      <section aria-labelledby="quien" className="pb-20 sm:pb-28">
-        <Reveal>
-          <h2 id="quien" className={`mb-10 ${TITULO}`}>Pensada para vos.</h2>
-          <ul className="grid gap-4 md:grid-cols-3">
-            {paraQuien.map((x) => (
-              <li key={x.t} className="rounded-3xl bg-panel p-7">
-                <h3 className="font-display text-xl font-bold">{x.t}</h3>
-                <p className="mt-2 leading-relaxed text-ink-soft">{x.d}</p>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </section>
-
       <section aria-labelledby="faq" className="relative left-1/2 w-screen -translate-x-1/2 bg-panel px-4 py-20 sm:px-6 sm:py-28">
         <Reveal className="mx-auto block max-w-6xl">
           <h2 id="faq" className={`mb-8 ${TITULO}`}>Preguntas</h2>
@@ -291,13 +440,21 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* Cierre */}
-      <section className="relative left-1/2 -mb-10 w-screen -translate-x-1/2 bg-ink px-4 py-20 text-center text-white sm:px-6 sm:py-24">
-        <h2 className={`mx-auto max-w-2xl text-white ${TITULO}`}>
-          Mirá los números <span className="text-lima">antes de comprar.</span>
-        </h2>
-        <div className="mt-8">
-          <Link href="/hoy" className={PILDORA_LIMA}>Ver el drop de hoy <span aria-hidden="true" className="ml-2">→</span></Link>
+      {/* Cierre con ilustración */}
+      <section className="relative left-1/2 -mb-10 w-screen -translate-x-1/2 overflow-hidden bg-profundo text-white">
+        <Image src="/images/cierre-carga.jpg" alt="" fill sizes="100vw" className="object-cover opacity-60" />
+        <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+          <div className="mb-8">
+            <Logo showTagline={false} tono="claro" />
+          </div>
+          <h2 className={`max-w-2xl text-white ${TITULO}`}>
+            Mirá los números <span className="text-lima">antes de comprar.</span>
+          </h2>
+          <div className="mt-8">
+            <Link href="/hoy" className={PILDORA_BLANCA}>
+              Ver el drop de hoy <span aria-hidden="true" className="ml-2">→</span>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

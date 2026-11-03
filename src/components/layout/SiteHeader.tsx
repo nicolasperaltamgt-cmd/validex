@@ -91,7 +91,7 @@ export function SiteHeader() {
           {pathname !== "/hoy" ? (
             <Link
               href="/hoy"
-              className={cn(buttonVariants({ variant: "dark" }), "min-h-0 px-5 py-2")}
+              className={cn(buttonVariants({ variant: "dark" }), "min-h-0 whitespace-nowrap px-5 py-2")}
             >
               Ver el drop
             </Link>
