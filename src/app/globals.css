@@ -214,14 +214,11 @@ body:has([data-app]) {
 }
 
 /* Recuadros: contorno violeta oscuro que reacciona al pasar el mouse, al tocar o al enfocar con teclado. */
-.tarjeta { border: 2px solid var(--color-profundo); }
-.tarjeta,
 [class~="border-profundo"] {
   box-shadow: 0 8px 22px -10px rgb(43 26 143 / 0.4);
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .tarjeta:has(a[href]):hover,
   [class~="border-profundo"]:has(a[href]):hover {
     border-color: var(--color-radar);
     box-shadow: 0 14px 30px -10px rgb(91 61 245 / 0.55);
@@ -229,13 +226,10 @@ body:has([data-app]) {
   }
 }
 /* Al tocar (celular) también se mueven y cambian de color. */
-.tarjeta:active,
 [class~="border-profundo"]:active { border-color: var(--color-radar); }
 @media (prefers-reduced-motion: no-preference) {
-  .tarjeta:has(a[href]):active,
   [class~="border-profundo"]:has(a[href]):active { transform: translateY(-4px) scale(1.015); }
 }
-.tarjeta:focus-within,
 [class~="border-profundo"]:focus-within { border-color: var(--color-radar); box-shadow: 0 0 0 3px rgb(91 61 245 / 0.3); }
 
 /* Animaciones de los componentes de src/components/kit (Dialog, Tooltip, Dropdown). */
