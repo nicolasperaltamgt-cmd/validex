@@ -9,8 +9,9 @@ import { ProductCard } from "./ProductCard";
 import { t } from "@/i18n";
 import { Input } from "@/components/kit/input";
 import { NativeSelect } from "@/components/kit/native-select";
+import { scoreProduct } from "@/lib/score";
 
-type Sort = "name" | "margin" | "recent";
+type Sort = "score" | "name" | "margin" | "recent";
 
 function normalize(s: string) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
@@ -22,7 +23,7 @@ export function CatalogView({ products }: { products: Product[] }) {
   const [market, setMarket] = useState("");
   const [trend, setTrend] = useState<"" | Trend>("");
   const [competition, setCompetition] = useState<"" | Competition>("");
-  const [sort, setSort] = useState<Sort>("name");
+  const [sort, setSort] = useState<Sort>("score");
 
   const categories = useMemo(() => [...new Set(products.map((p) => p.category))].sort(), [products]);
   const markets = useMemo(() => [...new Set(products.map((p) => p.market))].sort(), [products]);
@@ -38,8 +39,11 @@ export function CatalogView({ products }: { products: Product[] }) {
         (!competition || p.competition === competition),
     );
     const margin = (p: Product) => assess(p).calc.marginPct;
+    const score = (p: Product) => scoreProduct(p).score;
     return [...list].sort((a, b) =>
-      sort === "margin"
+      sort === "score"
+        ? score(b) - score(a)
+        : sort === "margin"
         ? margin(b) - margin(a)
         : sort === "recent"
           ? b.updatedAt.localeCompare(a.updatedAt)
@@ -87,7 +91,7 @@ export function CatalogView({ products }: { products: Product[] }) {
             onChange={(v) => setCompetition(v as "" | Competition)}
             options={(["low", "medium", "high"] as const).map((k) => [k, t.competition[k]])} />
           <Select id="srt" label="Ordenar por" value={sort} onChange={(v) => setSort(v as Sort)}
-            options={[["name", "Nombre"], ["margin", "Margen ilustrativo"], ["recent", "Más recientes"]]}
+            options={[["score", "Score (mayor primero)"], ["name", "Nombre"], ["margin", "Margen ilustrativo"], ["recent", "Más recientes"]]}
             allowEmpty={false} />
         </div>
       </form>

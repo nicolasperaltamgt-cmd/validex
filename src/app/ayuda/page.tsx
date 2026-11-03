@@ -9,9 +9,9 @@ const limits = [
   ["Datos reales y ficticios", "Algunos productos tienen precios publicados en Argentina y costos de listados de proveedores, sin verificar; otros son inventados para probar la plataforma. Cada ficha lo indica."],
   ["Datos reales", "Solo “Oferta por categoría” usa datos reales de la API oficial de Mercado Libre, con su fuente y fecha."],
   ["Sin más fuentes", "Búsqueda, ventas y tendencias de Mercado Libre todavía no están habilitadas para esta aplicación."],
-  ["Reglas simples", "Suma tres señales: margen, tendencia y competencia. No es una predicción."],
+  ["Reglas simples", "El score suma cuatro factores: margen, tendencia, competencia y capital por unidad. No es una predicción. Mirá la metodología para el detalle."],
   ["Tus supuestos", "Impuestos y aranceles los cargás vos. No es una cotización real."],
-  ["Sin IA", "No se usa ningún servicio de IA."],
+  ["IA apagada", "El score no usa IA. Las preguntas libres del Importador solo las contesta una IA si la persona que administra el sitio la activa; hoy está apagada y se responde con reglas fijas."],
   ["Guardados", "Sin cuenta, quedan en este navegador. Con cuenta, quedan en tu cuenta."],
 ];
 

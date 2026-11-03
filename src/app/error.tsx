@@ -1,11 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { StateMessage } from "@/components/ui/StateMessage";
 import { buttonClass } from "@/components/ui/button";
+import { reportarError } from "@/lib/monitoring";
 import { t } from "@/i18n";
 
-export default function ErrorPage({ reset }: { error: Error; reset: () => void }) {
+export default function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
+  useEffect(() => {
+    reportarError(error);
+  }, [error]);
   return (
     <StateMessage
       kind="error"

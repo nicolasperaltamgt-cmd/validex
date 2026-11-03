@@ -351,7 +351,8 @@ export default function HomePage() {
                   </tbody>
                 </table>
                 <p className="border-t border-line px-4 py-3 text-xs text-ink-soft">
-                  70 o más: alto. De 45 a 69: medio. Menos de 45: bajo. Es una regla simple, no una predicción de ventas.
+                  70 o más: alto. De 45 a 69: medio. Menos de 45: bajo. Es una regla simple, no una predicción de ventas.{" "}
+                  <Link href="/metodologia" className="font-bold text-radar-dark underline underline-offset-4">Ver la metodología completa</Link>
                 </p>
               </div>
             </div>
