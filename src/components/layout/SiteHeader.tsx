@@ -7,6 +7,8 @@ import { Logo } from "@/components/ui/Logo";
 import { InstallButton } from "@/components/layout/InstallButton";
 import { useSession } from "@/state/session-store";
 import { t } from "@/i18n";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/kit/button";
 
 /** Lo esencial: lo único que hay en el menú principal. */
 const principales = [
@@ -70,7 +72,7 @@ export function SiteHeader() {
           {pathname !== "/hoy" ? (
             <Link
               href="/hoy"
-              className="whitespace-nowrap rounded-full bg-ink px-5 py-2 text-sm font-bold text-paper transition hover:opacity-90"
+              className={cn(buttonVariants({ variant: "dark" }), "min-h-0 px-5 py-2")}
             >
               Ver el drop
             </Link>

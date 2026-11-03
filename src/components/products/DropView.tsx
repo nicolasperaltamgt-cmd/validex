@@ -14,6 +14,9 @@ import { DataBadge } from "@/components/ui/Badges";
 import { CountUp } from "@/components/ui/CountUp";
 import { DolarStrip } from "@/components/products/DolarStrip";
 import { BAND_LABEL } from "@/components/products/ScoreDial";
+import { cardClass } from "@/components/kit/card";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/kit/button";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("es-AR", {
   weekday: "long",
@@ -76,7 +79,7 @@ export function DropView({ dolar }: { dolar: Dolar | null }) {
             return (
               <li
                 key={p.id}
-                className="entrada relative flex flex-col overflow-hidden rounded-3xl border-2 border-profundo bg-surface transition duration-200 focus-within:border-radar hover:border-radar motion-safe:hover:-translate-y-0.5"
+                className={cn(cardClass, "entrada relative flex flex-col overflow-hidden bg-surface transition duration-200 focus-within:border-radar hover:border-radar motion-safe:hover:-translate-y-0.5")}
                 style={{ "--retraso": `${120 + i * 140}ms` } as React.CSSProperties}
               >
                 <div className="relative flex h-56 flex-col justify-between bg-panel p-4">
@@ -137,7 +140,7 @@ export function DropView({ dolar }: { dolar: Dolar | null }) {
                     </div>
                   </dl>
 
-                  <p aria-hidden="true" className="mt-5 inline-flex min-h-11 w-fit items-center rounded-full bg-radar px-5 text-sm font-bold text-white">
+                  <p aria-hidden="true" className={cn(buttonVariants(), "mt-5 w-fit")}>
                     Explorar producto <span className="ml-2">→</span>
                   </p>
                 </div>
@@ -148,21 +151,21 @@ export function DropView({ dolar }: { dolar: Dolar | null }) {
       )}
 
       <div className="mt-8 grid gap-4 md:grid-cols-2">
-        <div className="tarjeta flex flex-wrap items-center justify-between gap-4 rounded-3xl bg-surface p-6">
+        <div className={cn(cardClass, "flex flex-wrap items-center justify-between gap-4 p-6")}>
           <div>
             <h2 className="font-display text-xl font-bold">¿Y los costos?</h2>
             <p className="mt-1 text-sm text-ink-soft">Armá tu cuenta antes de comprar.</p>
           </div>
-          <Link href="/tantear" className="inline-flex min-h-11 items-center rounded-full bg-radar px-6 text-sm font-bold text-white">
+          <Link href="/tantear" className={buttonVariants()}>
             Tantear
           </Link>
         </div>
-        <div className="tarjeta flex flex-wrap items-center justify-between gap-4 rounded-3xl bg-surface p-6">
+        <div className={cn(cardClass, "flex flex-wrap items-center justify-between gap-4 p-6")}>
           <div>
             <h2 className="font-display text-xl font-bold">Antes de importar.</h2>
             <p className="mt-1 text-sm text-ink-soft">Mirá pasos, impuestos y comisiones.</p>
           </div>
-          <Link href="/importador" className="inline-flex min-h-11 items-center rounded-full border-2 border-profundo px-6 text-sm font-bold">
+          <Link href="/importador" className={buttonVariants({ variant: "outline" })}>
             Leé la guía
           </Link>
         </div>

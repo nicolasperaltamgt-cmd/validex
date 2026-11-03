@@ -6,6 +6,9 @@ import { getRealProducts } from "@/data";
 import type { Dolar } from "@/lib/dolar-parse";
 import { responder, SUGERENCIAS, type Respuesta } from "@/lib/importador";
 import { MAX_PREGUNTA, type Turno } from "@/lib/importador-ia";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/kit/button";
+import { Input } from "@/components/kit/input";
 
 type Mensaje =
   | { id: number; rol: "usuario"; texto: string }
@@ -207,7 +210,7 @@ export function ImportadorChat({ dolar, iaActiva }: { dolar: Dolar | null; iaAct
           noValidate
         >
           <label htmlFor="pregunta" className="sr-only">Tu pregunta</label>
-          <input
+          <Input
             id="pregunta"
             type="text"
             value={texto}
@@ -220,9 +223,9 @@ export function ImportadorChat({ dolar, iaActiva }: { dolar: Dolar | null; iaAct
             placeholder="Escribí tu duda…"
             autoComplete="off"
             maxLength={MAX_PREGUNTA + 50}
-            className="min-h-12 flex-1 rounded-full border border-ink/25 bg-panel px-5 text-base focus:border-radar"
+            className="min-h-12 flex-1 rounded-full bg-panel px-5"
           />
-          <button type="submit" disabled={pensando} className="min-h-12 rounded-full bg-ink px-7 text-sm font-bold text-paper hover:opacity-90 disabled:opacity-50">
+          <button type="submit" disabled={pensando} className={cn(buttonVariants({ variant: "dark" }), "min-h-12 px-7")}>
             Enviar
           </button>
         </form>

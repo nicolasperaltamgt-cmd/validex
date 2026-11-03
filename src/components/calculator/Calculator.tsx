@@ -11,6 +11,7 @@ import { formatMoney, formatPercent } from "@/lib/format";
 import { CURRENCY_OPTIONS, useSession, type CurrencyLabel } from "@/state/session-store";
 import { Disclaimer } from "@/components/ui/PageHeader";
 import { buttonClass } from "@/components/ui/button";
+import { Input } from "@/components/kit/input";
 
 export type CalcDefaults = Record<FieldKey, string>;
 
@@ -89,7 +90,7 @@ export function Calculator({ defaults, productName }: { defaults: CalcDefaults; 
                   {f.label}
                 </label>
                 <div className="relative">
-                  <input
+                  <Input
                     id={id}
                     type="text"
                     inputMode="decimal"
@@ -99,9 +100,7 @@ export function Calculator({ defaults, productName }: { defaults: CalcDefaults; 
                     aria-describedby={`${id}-hint${err ? ` ${id}-err` : ""}`}
                     onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
                     onBlur={() => setTouched((tt) => ({ ...tt, [f.key]: true }))}
-                    className={`min-h-11 w-full rounded-lg border bg-surface px-3 pr-14 text-base tabular-nums ${
-                      err ? "border-danger" : "border-ink/20 focus:border-radar"
-                    }`}
+                    className="pr-14 tabular-nums"
                   />
                   <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted">
                     {f.suffix === "pct" ? "%" : currency}

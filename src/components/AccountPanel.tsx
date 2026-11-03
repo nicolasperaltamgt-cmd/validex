@@ -5,6 +5,7 @@ import { GoogleSignIn } from "@/components/GoogleSignIn";
 import { useSession } from "@/state/session-store";
 import { buttonClass } from "@/components/ui/button";
 import { StateMessage } from "@/components/ui/StateMessage";
+import { Input } from "@/components/kit/input";
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -92,7 +93,7 @@ export function AccountPanel() {
         </>
       ) : null}
       <label htmlFor="acc-email" className="mb-1 block text-sm font-medium">Email</label>
-      <input
+      <Input
         id="acc-email"
         type="email"
         inputMode="email"
@@ -101,7 +102,6 @@ export function AccountPanel() {
         onChange={(e) => setEmail(e.target.value)}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? "acc-err" : undefined}
-        className={`min-h-11 w-full rounded-lg border bg-surface px-3 ${error ? "border-danger" : "border-ink/20 focus:border-radar"}`}
         placeholder="tu@email.com"
       />
       {error ? <p id="acc-err" role="alert" className="mt-2 text-sm font-medium text-danger">{error}</p> : null}

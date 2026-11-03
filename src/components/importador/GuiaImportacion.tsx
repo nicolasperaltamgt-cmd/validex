@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { cardClass } from "@/components/kit/card";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/kit/button";
 
 const PASOS = [
   {
@@ -47,7 +50,7 @@ export function GuiaImportacion() {
 
       <ol className="mt-8 space-y-4">
         {PASOS.map((p, i) => (
-          <li key={p.titulo} className="tarjeta rounded-3xl bg-surface p-6">
+          <li key={p.titulo} className={cn(cardClass, "p-6")}>
             <div className="flex items-start gap-4">
               <span aria-hidden="true" className="font-display text-3xl font-black text-radar-dark">0{i + 1}</span>
               <div>
@@ -62,7 +65,7 @@ export function GuiaImportacion() {
         ))}
       </ol>
 
-      <div className="tarjeta mt-8 rounded-3xl bg-surface p-6">
+      <div className={cn(cardClass, "mt-8 p-6")}>
         <h3 className="font-display text-xl font-bold">Tu checklist antes de avanzar</h3>
         <ul className="mt-4 space-y-2">
           {CHECKLIST.map((texto, i) => (
@@ -84,7 +87,7 @@ export function GuiaImportacion() {
         </p>
         <Link
           href="/tantear"
-          className="mt-4 inline-flex min-h-11 items-center rounded-full bg-radar px-6 text-sm font-bold text-white"
+          className={cn(buttonVariants(), "mt-4")}
         >
           Abrir Tantear
         </Link>

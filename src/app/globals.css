@@ -23,6 +23,28 @@
   --font-sans: var(--font-inter), "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
 
+/*
+ * Nombres que usa shadcn/ui, apuntando a los tokens de Validex (no hay una segunda paleta).
+ * Ojo: en Validex "muted" es un color de texto; para fondos suaves se usa "secondary".
+ */
+@theme inline {
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-ink);
+  --color-primary: var(--color-radar);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-panel);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted-foreground: var(--color-muted);
+  --color-accent: var(--color-lima);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: var(--color-danger);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-radar);
+}
+
 :root {
   color-scheme: light;
 }

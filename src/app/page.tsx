@@ -11,6 +11,9 @@ import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/Sco
 import { Faq } from "@/components/ui/Faq";
 import { Logo } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
+import { cardClass } from "@/components/kit/card";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/kit/button";
 
 const faq = [
   { q: "¿Los datos son reales?", a: "Son referencias reales sin verificar, con sus fuentes y fecha. Cada producto lo aclara." },
@@ -43,10 +46,8 @@ const origen = [
 
 const retraso = (ms: number) => ({ "--retraso": `${ms}ms` }) as CSSProperties;
 
-const PILDORA_LIMA =
-  "inline-flex min-h-12 items-center rounded-full bg-white px-8 text-sm font-bold text-ink shadow-lg shadow-black/20 transition hover:brightness-95";
-const PILDORA =
-  "inline-flex min-h-12 items-center rounded-full bg-ink px-8 text-sm font-bold text-paper transition hover:opacity-90";
+const PILDORA_LIMA = cn(buttonVariants({ variant: "light" }), "min-h-12 px-8");
+const PILDORA = cn(buttonVariants({ variant: "dark" }), "min-h-12 px-8");
 const TITULO = "font-display text-3xl font-black leading-[1.05] tracking-tight text-balance sm:text-5xl";
 
 export default function HomePage() {
@@ -158,7 +159,7 @@ export default function HomePage() {
           <h2 id="como" className={`max-w-2xl ${TITULO}`}>Cómo funciona, en cuatro pasos.</h2>
           <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {pasos.map((x, i) => (
-              <li key={x.t} className="tarjeta rounded-3xl bg-surface p-6">
+              <li key={x.t} className={cn(cardClass, "p-6")}>
                 <span className="font-display text-5xl font-black text-radar" aria-hidden="true">{i + 1}</span>
                 <h3 className="mt-3 font-display text-lg font-bold">{x.t}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{x.d}</p>
@@ -225,7 +226,7 @@ export default function HomePage() {
                 Un score bajo es información útil: te ahorra comprar algo que no deja margen.
               </p>
             </div>
-            <div className="tarjeta mx-auto w-full max-w-sm rounded-3xl bg-surface p-6">
+            <div className={cn(cardClass, "mx-auto w-full max-w-sm p-6")}>
               <p className="text-sm font-bold leading-snug">{peor.name}</p>
               <div className="mt-3 flex items-center gap-4">
                 <ScoreDial score={peorScore.score} band={peorScore.band} size={88} />
@@ -247,7 +248,7 @@ export default function HomePage() {
           </h2>
           <ul className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3">
             {ranking.slice(0, 6).map(({ p, s }) => (
-              <li key={p.id} className="tarjeta overflow-hidden rounded-2xl bg-surface">
+              <li key={p.id} className={cn(cardClass, "overflow-hidden rounded-2xl")}>
                 <div className="relative aspect-square bg-panel">
                   {p.image ? <Image src={p.image} alt={p.name} fill sizes="(min-width: 640px) 260px, 50vw" className="object-cover" /> : null}
                   <span className="absolute right-3 top-3 rounded-full bg-ink px-3 py-1 font-display text-lg font-black text-paper">{s.score}</span>

@@ -7,6 +7,7 @@ import { calculate, parseDecimal, precioParaMargen, validateField, type FieldKey
 import { formatMoney, formatPercent } from "@/lib/format";
 import { scoreInput, scoreProduct } from "@/lib/score";
 import { ScoreBreakdown, ScoreDial, BAND_LABEL } from "@/components/products/ScoreDial";
+import { Input } from "@/components/kit/input";
 
 const FIELDS: { key: FieldKey; label: string; hint: string; suffix: string }[] = [
   { key: "purchase", label: "Costo de compra por unidad", hint: "Lo que pagás al proveedor, en dólares.", suffix: "USD" },
@@ -171,14 +172,14 @@ export function TantearForm() {
             </div>
             <div className="mt-5 border-t border-line pt-4">
               <label htmlFor="cantidad" className="mb-1 block text-sm font-medium">¿Cuántas unidades querés comprar?</label>
-              <input
+              <Input
                 id="cantidad"
                 type="text"
                 inputMode="numeric"
                 autoComplete="off"
                 value={cantidad}
                 onChange={(e) => setCantidad(e.target.value.replace(/\D/g, "").slice(0, 5))}
-                className="min-h-11 w-28 rounded-lg border border-ink/20 bg-surface px-3 text-base tabular-nums focus:border-radar"
+                className="w-28 tabular-nums"
               />
               {unidades > 0 ? (
                 <p className="mt-3 text-sm text-ink-soft" aria-live="polite">
@@ -265,7 +266,7 @@ export function TantearForm() {
               <div key={f.key}>
                 <label htmlFor={id} className="mb-1 block text-sm font-medium">{f.label}</label>
                 <div className="relative">
-                  <input
+                  <Input
                     id={id}
                     type="text"
                     inputMode="decimal"
@@ -275,9 +276,7 @@ export function TantearForm() {
                     aria-describedby={`${id}-hint${err ? ` ${id}-err` : ""}`}
                     onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
                     onBlur={() => setTouched((x) => ({ ...x, [f.key]: true }))}
-                    className={`min-h-11 w-full rounded-lg border bg-surface px-3 pr-14 text-base tabular-nums ${
-                      err ? "border-danger" : "border-ink/20 focus:border-radar"
-                    }`}
+                    className="pr-14 tabular-nums"
                   />
                   <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted">
                     {f.suffix}

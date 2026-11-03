@@ -7,6 +7,7 @@ import { buttonClass } from "@/components/ui/button";
 import { StateMessage } from "@/components/ui/StateMessage";
 import { ProductCard } from "./ProductCard";
 import { t } from "@/i18n";
+import { Input } from "@/components/kit/input";
 
 type Sort = "name" | "margin" | "recent";
 
@@ -69,13 +70,12 @@ export function CatalogView({ products }: { products: Product[] }) {
           <label htmlFor="q" className="mb-1 block text-sm font-medium">
             Buscar
           </label>
-          <input
+          <Input
             id="q"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Nombre, categoría o país"
-            className={field}
           />
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">

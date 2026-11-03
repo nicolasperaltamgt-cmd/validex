@@ -1,15 +1,15 @@
+import { buttonVariants } from "@/components/kit/button";
+import { cn } from "@/lib/cn";
+
 type Variant = "primary" | "secondary" | "ghost";
 
-const base =
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-50";
+/** Nombres viejos de variante, traducidos a los del botón de shadcn. */
+const EQUIVALENTE = { primary: "dark", secondary: "outline", ghost: "ghost" } as const;
 
-const variants: Record<Variant, string> = {
-  primary: "bg-ink text-paper hover:opacity-90",
-  secondary: "border border-ink/25 bg-transparent text-ink hover:border-ink/50 hover:bg-ink/5",
-  ghost: "text-ink-soft hover:bg-ink/5",
-};
-
-/** Clases de botón reutilizables, para <button> y <Link>. Forma de píldora, como el resto de la interfaz. */
+/**
+ * Clases de botón para <button> y <Link>. Se mantiene para no tocar de golpe los usos existentes:
+ * por dentro usa el Button de `@/components/kit/button`, que es la única definición de estilos.
+ */
 export function buttonClass(variant: Variant = "primary", extra = ""): string {
-  return `${base} ${variants[variant]} ${extra}`.trim();
+  return cn(buttonVariants({ variant: EQUIVALENTE[variant] }), extra);
 }
