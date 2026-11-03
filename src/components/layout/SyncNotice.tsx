@@ -1,14 +1,14 @@
 "use client";
 
+import { useEffect } from "react";
+import { toast } from "sonner";
 import { useSession } from "@/state/session-store";
 
-/** Aviso visible en cualquier pantalla si no se pudo guardar un cambio en la cuenta. */
+/** Avisa con un toast, en cualquier pantalla, si no se pudo guardar un cambio en la cuenta. */
 export function SyncNotice() {
   const { syncError } = useSession();
-  if (!syncError) return null;
-  return (
-    <div role="alert" className="bg-danger-soft px-4 py-2 text-center text-sm font-medium text-danger">
-      {syncError}
-    </div>
-  );
+  useEffect(() => {
+    if (syncError) toast.error(syncError, { id: "sync-error" });
+  }, [syncError]);
+  return null;
 }

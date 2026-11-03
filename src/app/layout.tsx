@@ -8,6 +8,8 @@ import { DemoBanner, SiteFooter } from "@/components/layout/SiteFooter";
 import { SyncNotice } from "@/components/layout/SyncNotice";
 import { MobileTabBar } from "@/components/layout/MobileTabBar";
 import { t } from "@/i18n";
+import { Toaster } from "@/components/kit/sonner";
+import { TooltipProvider } from "@/components/kit/tooltip";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
@@ -52,6 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Saltar al contenido
         </a>
         <SessionProvider>
+          <TooltipProvider delayDuration={200}>
           <DemoBanner />
           <SiteHeader />
           <SyncNotice />
@@ -60,7 +63,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </main>
           <SiteFooter />
           <MobileTabBar />
+          <Toaster />
           <RegisterServiceWorker />
+        </TooltipProvider>
         </SessionProvider>
       </body>
     </html>

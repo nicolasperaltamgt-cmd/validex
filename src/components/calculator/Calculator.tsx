@@ -12,6 +12,7 @@ import { CURRENCY_OPTIONS, useSession, type CurrencyLabel } from "@/state/sessio
 import { Disclaimer } from "@/components/ui/PageHeader";
 import { buttonClass } from "@/components/ui/button";
 import { Input } from "@/components/kit/input";
+import { NativeSelect } from "@/components/kit/native-select";
 
 export type CalcDefaults = Record<FieldKey, string>;
 
@@ -68,16 +69,16 @@ export function Calculator({ defaults, productName }: { defaults: CalcDefaults; 
           <label htmlFor="cur" className="mb-1 block text-sm font-medium">
             Moneda (solo etiqueta)
           </label>
-          <select
+          <NativeSelect
             id="cur"
             value={currency}
             onChange={(e) => setCurrency(e.target.value as CurrencyLabel)}
-            className="min-h-11 w-full rounded-lg border border-ink/20 bg-surface px-3 text-sm"
+            className="text-sm"
           >
             {CURRENCY_OPTIONS.map((c) => (
               <option key={c}>{c}</option>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div className="space-y-5">

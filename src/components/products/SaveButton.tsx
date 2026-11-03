@@ -3,6 +3,7 @@
 import { buttonClass } from "@/components/ui/button";
 import { useSession } from "@/state/session-store";
 import { t } from "@/i18n";
+import { toast } from "sonner";
 
 export function SaveButton({ productId, productName }: { productId: string; productName: string }) {
   const { isSaved, toggleSaved } = useSession();
@@ -10,7 +11,10 @@ export function SaveButton({ productId, productName }: { productId: string; prod
   return (
     <button
       type="button"
-      onClick={() => toggleSaved(productId)}
+      onClick={() => {
+        toggleSaved(productId);
+        toast(saved ? "Quitado de guardados" : "Guardado en tu lista");
+      }}
       aria-pressed={saved}
       aria-label={`${saved ? t.actions.unsaveAria : t.actions.saveAria}: ${productName}`}
       className={buttonClass(saved ? "primary" : "secondary")}

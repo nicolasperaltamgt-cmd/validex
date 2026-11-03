@@ -9,6 +9,8 @@ import { useSession } from "@/state/session-store";
 import { t } from "@/i18n";
 import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/kit/button";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/kit/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/kit/dropdown-menu";
 
 /** Lo esencial: lo único que hay en el menú principal. */
 const principales = [
@@ -41,8 +43,8 @@ export function SiteHeader() {
   const menuMas = cuenta ? [...secundarios, cuenta] : secundarios;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
-      <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto] items-center gap-4 px-4 sm:px-6 lg:grid-cols-[1fr_auto_1fr]">
+    <header className="sticky top-2 z-40 px-3 sm:px-6">
+      <div className="mx-auto mt-2 grid h-16 max-w-6xl grid-cols-[1fr_auto] items-center gap-4 rounded-full border border-ink/15 bg-paper/90 px-5 shadow-lg shadow-profundo/10 backdrop-blur lg:grid-cols-[1fr_auto_1fr]">
         <Link href="/" aria-label={`${t.brand} — ${t.nav.home}`} onClick={() => setOpen(false)}>
           <Logo />
         </Link>
@@ -68,6 +70,23 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center justify-end gap-2 lg:flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="inline-flex min-h-0 items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-ink-soft hover:bg-ink/5 hover:text-ink">
+              Más herramientas
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {menuMas.map((l) => (
+                <DropdownMenuItem key={l.href} asChild>
+                  <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
+                    {l.label}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <InstallButton className="whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-radar hover:bg-ink/5" />
           {pathname !== "/hoy" ? (
             <Link
@@ -88,40 +107,37 @@ export function SiteHeader() {
           ) : null}
         </div>
 
-        <button
-          type="button"
-          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/25 px-5 text-sm font-semibold lg:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? t.nav.closeMenu : "Más"}
-        </button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/25 px-5 text-sm font-semibold lg:hidden">
+            Más
+          </DialogTrigger>
+          <DialogContent variant="sheet" closeLabel="Cerrar menú" aria-describedby={undefined}>
+            <DialogTitle className="sr-only">Más opciones</DialogTitle>
+            <nav aria-label="Más opciones" className="pt-8">
+              <ul className="flex flex-col">
+                {menuMas.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      aria-current={pathname === l.href ? "page" : undefined}
+                      className={`flex min-h-11 items-center rounded-lg px-3 text-base font-medium ${
+                        pathname === l.href ? "bg-radar-soft text-radar-dark" : "text-ink"
+                      }`}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-2 px-3">
+                <InstallButton className="min-h-11 w-full rounded-lg border border-radar/40 px-4 text-sm font-semibold text-radar" />
+              </div>
+            </nav>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      {open ? (
-        <nav id="mobile-menu" aria-label="Más opciones" className="border-t border-line bg-paper px-4 pb-4 pt-2 lg:hidden">
-          <ul className="flex flex-col">
-            {menuMas.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={pathname === l.href ? "page" : undefined}
-                  className={`flex min-h-11 items-center rounded-lg px-3 text-base font-medium ${
-                    pathname === l.href ? "bg-radar-soft text-radar-dark" : "text-ink"
-                  }`}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-2 px-3">
-            <InstallButton className="min-h-11 w-full rounded-lg border border-radar/40 px-4 text-sm font-semibold text-radar" />
-          </div>
-        </nav>
-      ) : null}
     </header>
   );
 }

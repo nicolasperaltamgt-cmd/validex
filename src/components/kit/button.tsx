@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 
 /** Variantes del botón de Validex (Figma: capítulo 08, "Acciones con jerarquía"). Siempre en forma de píldora. */
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-bold transition disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 rounded-full text-center font-bold transition disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {

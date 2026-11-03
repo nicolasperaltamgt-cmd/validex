@@ -8,6 +8,8 @@ import { formatMoney, formatPercent } from "@/lib/format";
 import { CompetitionBadge, LevelBadge, TrendBadge } from "@/components/ui/Badges";
 import { StateMessage } from "@/components/ui/StateMessage";
 import { buttonClass } from "@/components/ui/button";
+import { NativeSelect } from "@/components/kit/native-select";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/kit/table";
 
 const SLOTS = 3;
 
@@ -63,11 +65,11 @@ export function CompareView({ products, initialIds }: { products: Product[]; ini
             <label htmlFor={`slot-${i}`} className="mb-1 block text-sm font-medium">
               Producto {i + 1}
             </label>
-            <select
+            <NativeSelect
               id={`slot-${i}`}
               value={ids[i] ?? ""}
               onChange={(e) => setSlot(i, e.target.value)}
-              className="min-h-11 w-full rounded-lg border border-ink/20 bg-surface px-3 text-sm"
+              className="text-sm"
             >
               <option value="">{i < 2 ? "Elegí un producto" : "Ninguno"}</option>
               {products.map((p) => (
@@ -75,7 +77,7 @@ export function CompareView({ products, initialIds }: { products: Product[]; ini
                   {p.name}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
           </div>
         ))}
       </div>
@@ -85,40 +87,36 @@ export function CompareView({ products, initialIds }: { products: Product[]; ini
           Así podemos ponerlos lado a lado.
         </StateMessage>
       ) : (
-        <div className="overflow-x-auto rounded-3xl border-2 border-profundo">
-          <table className="w-full min-w-[36rem] text-left text-sm">
-            <caption className="sr-only">Comparación de productos</caption>
-            <thead className="bg-panel">
-              <tr>
-                <th scope="col" className="px-4 py-3 text-xs font-medium uppercase tracking-wide text-muted">
+        <Table className="min-w-[36rem]">
+            <TableCaption>Comparación de productos</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-xs font-medium uppercase tracking-wide text-muted">
                   <span className="sr-only">Característica</span>
-                </th>
+                </TableHead>
                 {chosen.map(({ p }) => (
-                  <th key={p.id} scope="col" className="px-4 py-3 align-top">
+                  <TableHead key={p.id}>
                     <Link href={`/catalogo/${p.id}`} className="font-display text-base font-bold hover:underline">
                       {p.name}
                     </Link>
                     <span className="mt-1 block text-xs font-normal text-signal">Dato de ejemplo o sin verificar</span>
-                  </th>
+                  </TableHead>
                 ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line bg-surface">
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {rows.map((row) => (
-                <tr key={row.label}>
-                  <th scope="row" className="whitespace-nowrap px-4 py-3 font-normal text-ink-soft">
+                <TableRow key={row.label}>
+                  <TableHead scope="row" className="whitespace-nowrap font-normal text-ink-soft">
                     {row.label}
-                  </th>
+                  </TableHead>
                   {chosen.map((c) => (
-                    <td key={c.p.id} className="px-4 py-3 align-top tabular-nums">
-                      {row.render(c)}
-                    </td>
+                    <TableCell key={c.p.id}>{row.render(c)}</TableCell>
                   ))}
-                </tr>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+        </Table>
       )}
 
       {chosen.length >= 2 ? (

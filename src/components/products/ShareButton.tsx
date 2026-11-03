@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+
 /**
  * Compartir un producto. En el celular abre el menú de compartir del sistema (con WhatsApp incluido);
  * en la PC abre WhatsApp Web con el texto listo. No se manda nada sin que la persona lo confirme ahí.
@@ -15,6 +17,7 @@ export function ShareButton({ texto, ruta, className = "" }: { texto: string; ru
         // Si la persona cancela o falla, se prueba con WhatsApp.
       }
     }
+    toast("Se abrió WhatsApp con el texto listo.");
     window.open(`https://wa.me/?text=${encodeURIComponent(`${texto} ${url}`)}`, "_blank", "noopener,noreferrer");
   }
   return (

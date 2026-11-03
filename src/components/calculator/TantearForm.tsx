@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getRealProducts } from "@/data";
 import type { Competition, Product, Trend } from "@/data/types";
 import { calculate, parseDecimal, precioParaMargen, validateField, type FieldKey } from "@/lib/calculator";
@@ -8,6 +8,8 @@ import { formatMoney, formatPercent } from "@/lib/format";
 import { scoreInput, scoreProduct } from "@/lib/score";
 import { ScoreBreakdown, ScoreDial, BAND_LABEL } from "@/components/products/ScoreDial";
 import { Input } from "@/components/kit/input";
+import { NativeSelect } from "@/components/kit/native-select";
+import { ScoreInfo } from "@/components/products/ScoreInfo";
 
 const FIELDS: { key: FieldKey; label: string; hint: string; suffix: string }[] = [
   { key: "purchase", label: "Costo de compra por unidad", hint: "Lo que pagás al proveedor, en dólares.", suffix: "USD" },
@@ -71,6 +73,9 @@ export function TantearForm() {
   const [competition, setCompetition] = useState<Competition>(inicial.competition);
   const [ajustar, setAjustar] = useState(false);
   const [cantidad, setCantidad] = useState("10");
+  // La fecha del reporte se pone en el navegador: la página se arma el día de la publicación y no coincidiría.
+  const [fecha, setFecha] = useState("");
+  useEffect(() => setFecha(new Date().toLocaleDateString("es-AR")), []);
 
   function elegir(id: string) {
     setElegido(id);
@@ -127,23 +132,26 @@ export function TantearForm() {
     <div className="mx-auto max-w-5xl space-y-5">
       <div>
         <label htmlFor="partir" className="mb-1 block text-sm font-medium">¿Qué producto querés tantear?</label>
-        <select
+        <NativeSelect
           id="partir"
           value={elegido}
           onChange={(e) => elegir(e.target.value)}
-          className="min-h-12 w-full rounded-full border border-ink/25 bg-surface px-5 text-base"
+          className="min-h-12 rounded-full px-5"
         >
           {productos.map((p) => (
             <option key={p.id} value={p.id}>{p.name}</option>
           ))}
           <option value={PROPIO}>Otro producto: cargo mis números</option>
-        </select>
+        </NativeSelect>
       </div>
 
       <header>
         <p className="text-xs font-bold uppercase tracking-[0.14em] text-radar-dark">Herramienta de tanteo</p>
         <h1 className="mt-2 font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">Antes de avanzar, tanteá.</h1>
         <p className="mt-3 max-w-xl text-lg text-ink-soft">Elegí un producto y mirá su score. Si querés, cambiá los números.</p>
+        <div className="mt-1">
+          <ScoreInfo />
+        </div>
       </header>
 
       <div className="grid items-start gap-5 lg:grid-cols-[1.2fr_0.8fr]">
@@ -152,7 +160,7 @@ export function TantearForm() {
         <div className="solo-imprimir mb-4">
           <p className="text-lg font-bold">Reporte Validex: {nombreElegido}</p>
           <p className="text-xs">
-            {new Date().toLocaleDateString("es-AR")} · Referencias sin verificar, según los supuestos cargados. No es una cotización aduanera ni una predicción de ventas.
+            {fecha} · Referencias sin verificar, según los supuestos cargados. No es una cotización aduanera ni una predicción de ventas.
           </p>
         </div>
         {out ? (

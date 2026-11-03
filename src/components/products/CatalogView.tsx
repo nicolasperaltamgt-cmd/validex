@@ -8,11 +8,9 @@ import { StateMessage } from "@/components/ui/StateMessage";
 import { ProductCard } from "./ProductCard";
 import { t } from "@/i18n";
 import { Input } from "@/components/kit/input";
+import { NativeSelect } from "@/components/kit/native-select";
 
 type Sort = "name" | "margin" | "recent";
-
-const field =
-  "min-h-11 w-full rounded-lg border border-ink/20 bg-surface px-3 text-sm text-ink focus:border-radar";
 
 function normalize(s: string) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
@@ -150,14 +148,14 @@ function Select({
       <label htmlFor={id} className="mb-1 block text-sm font-medium">
         {label}
       </label>
-      <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className={field}>
+      <NativeSelect id={id} value={value} onChange={(e) => onChange(e.target.value)} className="text-sm">
         {allowEmpty ? <option value="">Todas</option> : null}
         {options.map(([v, l]) => (
           <option key={v} value={v}>
             {l}
           </option>
         ))}
-      </select>
+      </NativeSelect>
     </div>
   );
 }

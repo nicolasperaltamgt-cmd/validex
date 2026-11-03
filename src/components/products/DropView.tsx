@@ -17,6 +17,7 @@ import { BAND_LABEL } from "@/components/products/ScoreDial";
 import { cardClass } from "@/components/kit/card";
 import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/kit/button";
+import { ScoreInfo } from "@/components/products/ScoreInfo";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("es-AR", {
   weekday: "long",
@@ -58,6 +59,9 @@ export function DropView({ dolar }: { dolar: Dolar | null }) {
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">
             Una selección acotada para mirar con atención. Compará las señales, revisá los detalles y tanteá antes de avanzar.
           </p>
+          <div className="mt-2">
+            <ScoreInfo />
+          </div>
         </div>
         <div className="rounded-3xl bg-profundo p-6 text-white lg:w-64">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-lima">Menos, pero más claro</p>
@@ -95,7 +99,7 @@ export function DropView({ dolar }: { dolar: Dolar | null }) {
                       />
                     </>
                   ) : null}
-                  <div className="relative flex justify-end">
+                  <div className="relative z-10 flex justify-end">
                     <DataBadge status={p.dataStatus} />
                   </div>
                   <div className="relative flex w-fit items-end gap-2 rounded-2xl border-2 border-profundo bg-surface px-3 py-1.5" role="img" aria-label={`Score ${s.score} de 100. ${BAND_LABEL[s.band]}.`}>

@@ -237,3 +237,12 @@ body:has([data-app]) {
 }
 .tarjeta:focus-within,
 [class~="border-profundo"]:focus-within { border-color: var(--color-radar); box-shadow: 0 0 0 3px rgb(91 61 245 / 0.3); }
+
+/* Animaciones de los componentes de src/components/kit (Dialog, Tooltip, Dropdown). */
+@keyframes kit-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes kit-zoom-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.96); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes kit-pop-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes kit-slide-down { from { opacity: 0; transform: translateY(-1.5rem); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  [data-state] { animation: none !important; }
+}

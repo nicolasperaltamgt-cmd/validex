@@ -1,6 +1,7 @@
 import type { Competition, DataStatus, Trend } from "@/data/types";
 import type { Level } from "@/lib/assessment";
 import { t } from "@/i18n";
+import { InfoTip } from "@/components/ui/InfoTip";
 
 const base =
   "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium whitespace-nowrap";
@@ -17,11 +18,17 @@ export function DemoBadge({ long = false }: { long?: boolean }) {
 /** Etiqueta según el estado del dato: ficticio, real sin verificar o verificado. */
 export function DataBadge({ status, long = false }: { status: DataStatus; long?: boolean }) {
   if (status === "demo") return <DemoBadge long={long} />;
-  return (
+  const badge = (
     <span className={`${base} border border-radar/30 bg-radar-soft text-radar-dark`}>
       <span aria-hidden="true">◇</span>
       {status === "verified" ? "Verificado" : long ? "Referencia real, sin verificar" : "Sin verificar"}
     </span>
+  );
+  if (status === "verified") return badge;
+  return (
+    <InfoTip text="Es una referencia real, pero todavía no la confirmamos con proveedores. Las fuentes están en la ficha del producto.">
+      {badge}
+    </InfoTip>
   );
 }
 
