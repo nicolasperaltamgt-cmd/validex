@@ -44,6 +44,10 @@ const S = {
     label: "Tiendanube: productos en tendencia 2026 (lista editorial, sin datos)",
     url: "https://www.tiendanube.com/blog/productos-en-tendencia/",
   },
+  cyber: {
+    label: "ITSitio: CyberMonday 2026, del 2 al 4 de noviembre (nota del 2/11/2026)",
+    url: "https://www.itsitio.com/ar/dispositivos/cyber-monday-2026-las-mejores-ofertas-en-tecnologia-celulares-notebooks-y-electrodomesticos/",
+  },
   commission: {
     label: "Comisiones de Mercado Libre Argentina: 11,8 % a 17,1 % según categoría",
     url: "https://algoritmodigital.com.ar/cuanto-es-la-comision-de-mercado-libre-por-vender/",
@@ -81,6 +85,8 @@ interface Seed {
   assumptions: string[];
   risks: string[];
   opportunities: string[];
+  /** Fecha del relevamiento, si es distinta de la general. */
+  updatedAt?: string;
 }
 
 function build(s: Seed): Product {
@@ -100,7 +106,7 @@ function build(s: Seed): Product {
       commissionPct: COMMISSION_PCT,
     },
     image: `/images/productos/${s.id}.jpg`,
-    updatedAt: UPDATED,
+    updatedAt: s.updatedAt ?? UPDATED,
     dataStatus: "unverified",
     sourceNote: s.sourceNote,
     risks: [...s.risks, COMMON_RISK],
@@ -301,5 +307,97 @@ export const realProducts: Product[] = [
     assumptions: [TREND_STEADY_BASIS, COMPETITION_BASIS, "El precio de venta es el de una marca líder. Un genérico sin marca probablemente deba venderse más barato."],
     risks: ["La marca líder define el precio y las recargas de CO2.", "Equipo con gas a presión: requiere cumplir normas de seguridad."],
     opportunities: ["Vender cilindros y botellas compatibles, con recompra."],
+  }),
+
+  // Productos sumados el 3/11/2026, durante el CyberMonday (2 al 4 de noviembre). Los precios son referencias
+  // publicadas, no confirmadas como oferta del evento: en esa semana los precios cambian por hora.
+  build({
+    id: "robot-aspirador-wifi",
+    name: "Robot aspirador con WiFi y app",
+    category: "Hogar",
+    description: "Aspirador robot con sensor anticaídas y control desde el celular. Aparece en las promociones del CyberMonday 2026.",
+    retailArs: 149999,
+    purchase: 47,
+    shipping: 6,
+    trend: "steady",
+    competition: "high",
+    updatedAt: "2026-11-03",
+    sourceNote: "Precio: Gadnic en Frávega ($149.999; tachado $194.999). En el CyberMonday 2025 el modelo básico llegó a $127.149. Costo: listado de robot WiFi 118HW (US$ 43 a 50).",
+    priceSources: [
+      { label: "Frávega: Aspiradora robot Gadnic (lista $149.999)", url: "https://www.fravega.com/p/aspiradora-robot-gadnic-potente-succion-sensor-anti-caidas-filtro-hepa-lavable-deposito-extraible-990256555/" },
+      { label: "Río Negro: precios de robots aspiradores en el CyberMonday 2025 (5/11/2025)", url: "https://www.rionegro.com.ar/?p=4361368" },
+    ],
+    supplierSources: [{ label: "Robot aspirador WiFi 118HW (US$ 43 a 50)", url: "https://china.org.ru/product/1600865704196" }, S.cyber],
+    assumptions: [
+      TREND_STEADY_BASIS,
+      COMPETITION_BASIS,
+      "Costo de compra: US$ 47, a mitad del rango del listado. El precio real depende del pedido y del proveedor.",
+      "Flete: US$ 6 por unidad, estimación nuestra para un equipo de unos 3 kg.",
+      "El precio de venta es el publicado en Frávega: no confirmamos que sea una oferta del CyberMonday 2026.",
+    ],
+    risks: [
+      "Con el precio publicado el margen es muy ajustado: hay marcas locales (Gadnic, Ultracomb, Cecotec) que ya compiten por precio.",
+      "Tiene batería de litio: el envío aéreo tiene restricciones, consultá al transportista.",
+      "Requiere certificación eléctrica y de compatibilidad para venderse en Argentina.",
+    ],
+    opportunities: ["Vender repuestos (cepillos, filtros) con recompra."],
+  }),
+  build({
+    id: "camara-wifi-ptz",
+    name: "Cámara de seguridad WiFi interior con giro",
+    category: "Seguridad del hogar",
+    description: "Cámara interior con visión nocturna y giro remoto, usada para el hogar, bebés y mascotas.",
+    retailArs: 22999,
+    purchase: 12.74,
+    shipping: 1,
+    trend: "steady",
+    competition: "high",
+    updatedAt: "2026-11-03",
+    sourceNote: "Precio: Noax PTZ A7 en Mercado Libre ($22.999, dentro de su rango de 52 días). Costo: Alibaba, cámara WiFi 2MP (US$ 11,50 a 12,74); los modelos PTZ de 1080p llegan a US$ 20,69.",
+    priceSources: [{ label: "MejoresCompras: Noax PTZ A7 interior", url: "https://mejorescompras.com.ar/precio/MLA42978997" }],
+    supplierSources: [
+      { label: "Alibaba: cámara WiFi 2MP con visión nocturna (US$ 11,50 a 12,74)", url: "https://www.alibaba.com/product-introduction/2MP-Wireless-Mini-Camera-Night-Vision_1600905425254.html" },
+      { label: "Alibaba: cámara PTZ WiFi 1080p (US$ 15,13 a 20,69)", url: "https://www.alibaba.com/product-introduction/Good-export-quality-Security-monitoring-equipment_1600082097282.html" },
+      S.cyber,
+    ],
+    assumptions: [
+      TREND_STEADY_BASIS,
+      COMPETITION_BASIS,
+      "Costo de compra: US$ 12,74, el del modelo de 2 MP. Un modelo con giro (PTZ) de 1080p cuesta más y empeora la cuenta.",
+      "El precio de venta es el de un modelo de marca local de entrada; las marcas conocidas (Tapo, Ezviz, Imou) se venden bastante más caras.",
+    ],
+    risks: [
+      "Con este precio de venta el costo de importar no deja margen: solo cierra si se vende como marca propia a un precio mayor.",
+      "Los equipos con WiFi necesitan homologación para venderse legalmente: verificala antes de importar.",
+      "Es un producto sensible en privacidad: cuidado con la seguridad de la app y las claves de fábrica.",
+    ],
+    opportunities: ["Venderla en packs de 2 o con tarjeta de memoria incluida."],
+  }),
+  build({
+    id: "freidora-aire-4l",
+    name: "Freidora de aire digital de 4 litros",
+    category: "Cocina",
+    description: "Freidora de aire con panel táctil. Es uno de los electrodomésticos más buscados en las promociones del CyberMonday.",
+    retailArs: 52799,
+    purchase: 28.5,
+    shipping: 5,
+    trend: "steady",
+    competition: "high",
+    updatedAt: "2026-11-03",
+    sourceNote: "Precio: PowerXL de 3,8 L en Mercado Libre ($52.799, según MejoresCompras; hay 64 modelos en su rastreador). Costo: Alibaba, freidora de 4 L táctil (US$ 28,50, pedido mínimo de 1.000 unidades).",
+    priceSources: [{ label: "MejoresCompras: mejores freidoras de aire 2026", url: "https://mejorescompras.com.ar/pequenos-electrodomesticos/mejores-freidoras-aire-argentina-2026" }],
+    supplierSources: [{ label: "Alibaba: freidora de aire 4 L con panel táctil (US$ 28,50 por 1.000 o más)", url: "https://www.alibaba.com/product-introduction/Hot-Sale-Power-off-Memory-Function_1601058582491.html" }, S.cyber],
+    assumptions: [
+      TREND_STEADY_BASIS,
+      COMPETITION_BASIS,
+      "Costo de compra: US$ 28,50 por unidad, pero con un pedido mínimo de 1.000 unidades (unos US$ 28.500 solo en mercadería). Para pedidos chicos el precio es mayor.",
+      "Flete: US$ 5 por unidad, estimación nuestra para un equipo voluminoso.",
+    ],
+    risks: [
+      "Con este precio de venta el margen es negativo: importar una marca sin nombre no compite con las que ya se venden a este precio.",
+      "El pedido mínimo exige mucho capital de entrada.",
+      "Requiere certificación eléctrica para venderse en Argentina.",
+    ],
+    opportunities: ["Vender accesorios (papel para freidora, moldes) con recompra."],
   }),
 ];
