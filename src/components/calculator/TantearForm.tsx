@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { getRealProducts } from "@/data";
+import { importTaxes, netUsd } from "@/data/real-products";
+import { avisoDeLink, ES_ALIBABA, ES_MELI } from "@/lib/links";
 import type { Competition, Product, Trend } from "@/data/types";
 import { calculate, parseDecimal, precioParaMargen, validateField, type FieldKey } from "@/lib/calculator";
 import { formatMoney, formatPercent } from "@/lib/format";
@@ -47,6 +49,10 @@ const PLAN = [
 ];
 
 const aTexto = (n: number) => String(n).replace(".", ",");
+const redondear = (n: number) => Math.round(n * 100) / 100;
+
+/** El flete es una estimación nuestra (sin cotización): 20 % del costo de compra, como en las fichas del catálogo. */
+const FLETE_ESTIMADO = 0.2;
 
 function valoresDe(p: Product): Record<FieldKey, string> {
   return {
@@ -73,13 +79,39 @@ export function TantearForm() {
   const [competition, setCompetition] = useState<Competition>(inicial.competition);
   const [ajustar, setAjustar] = useState(false);
   const [cantidad, setCantidad] = useState("10");
+  const [linkAlibaba, setLinkAlibaba] = useState("");
+  const [linkMeli, setLinkMeli] = useState("");
+  const [ventaArs, setVentaArs] = useState("");
+  const [compraTexto, setCompraTexto] = useState("");
   // La fecha del reporte se pone en el navegador: la página se arma el día de la publicación y no coincidiría.
   const [fecha, setFecha] = useState("");
   useEffect(() => setFecha(new Date().toLocaleDateString("es-AR")), []);
 
+  /** Al escribir el precio de compra, estima flete e impuestos para que la cuenta salga sola. Se pueden cambiar en "Tus números". */
+  function cargarCompra(texto: string) {
+    setCompraTexto(texto);
+    const n = parseDecimal(texto);
+    setValues((v) => {
+      if (n === null) return { ...v, purchase: texto };
+      const flete = redondear(n * FLETE_ESTIMADO);
+      return { ...v, purchase: aTexto(n), shipping: aTexto(flete), taxes: aTexto(importTaxes(n, flete)) };
+    });
+  }
+
+  /** Pasa el precio publicado en pesos (con IVA) a dólares sin IVA, con el dólar de referencia del sitio. */
+  function cargarVenta(texto: string) {
+    setVentaArs(texto);
+    const n = parseDecimal(texto);
+    setValues((v) => ({ ...v, salePrice: n === null || n <= 0 ? "" : aTexto(netUsd(n)) }));
+  }
+
   function elegir(id: string) {
     setElegido(id);
     setTouched({});
+    setLinkAlibaba("");
+    setLinkMeli("");
+    setVentaArs("");
+    setCompraTexto("");
     if (id === PROPIO) {
       setValues(VACIO);
       setTrend("steady");
@@ -141,7 +173,7 @@ export function TantearForm() {
           {productos.map((p) => (
             <option key={p.id} value={p.id}>{p.name}</option>
           ))}
-          <option value={PROPIO}>Otro producto: cargo mis números</option>
+          <option value={PROPIO}>Mi producto: pego los links</option>
         </NativeSelect>
       </div>
 
@@ -154,6 +186,79 @@ export function TantearForm() {
         </div>
       </header>
 
+      {propio ? (
+        <section aria-labelledby="links" className="no-imprimir rounded-3xl border-2 border-profundo bg-surface p-5 sm:p-6">
+          <h2 id="links" className="font-display text-xl font-bold">Pegá los dos links</h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            Los precios los escribís vos: todavía no se leen solos del link. Flete e impuestos se estiman.
+          </p>
+          <div className="mt-4 grid gap-5 sm:grid-cols-2">
+            <div className="space-y-3">
+              <div>
+                <label htmlFor="link-alibaba" className="mb-1 block text-sm font-medium">1. Dónde lo comprás (Alibaba)</label>
+                <Input
+                  id="link-alibaba"
+                  type="url"
+                  inputMode="url"
+                  autoComplete="off"
+                  placeholder="https://www.alibaba.com/…"
+                  value={linkAlibaba}
+                  onChange={(e) => setLinkAlibaba(e.target.value)}
+                  aria-describedby="link-alibaba-aviso"
+                />
+                <p id="link-alibaba-aviso" role="status" className="mt-1 min-h-4 text-xs font-medium text-danger">
+                  {avisoDeLink(linkAlibaba, ES_ALIBABA, "Alibaba")}
+                </p>
+              </div>
+              <div>
+                <label htmlFor="compra-usd" className="mb-1 block text-sm font-medium">Precio de compra por unidad (USD)</label>
+                <Input
+                  id="compra-usd"
+                  type="text"
+                  inputMode="decimal"
+                  autoComplete="off"
+                  placeholder="5"
+                  value={compraTexto}
+                  onChange={(e) => cargarCompra(e.target.value)}
+                  className="tabular-nums"
+                />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <label htmlFor="link-meli" className="mb-1 block text-sm font-medium">2. A cuánto se vende (Mercado Libre)</label>
+                <Input
+                  id="link-meli"
+                  type="url"
+                  inputMode="url"
+                  autoComplete="off"
+                  placeholder="https://articulo.mercadolibre.com.ar/…"
+                  value={linkMeli}
+                  onChange={(e) => setLinkMeli(e.target.value)}
+                  aria-describedby="link-meli-aviso"
+                />
+                <p id="link-meli-aviso" role="status" className="mt-1 min-h-4 text-xs font-medium text-danger">
+                  {avisoDeLink(linkMeli, ES_MELI, "Mercado Libre")}
+                </p>
+              </div>
+              <div>
+                <label htmlFor="venta-ars" className="mb-1 block text-sm font-medium">Precio publicado (ARS, con IVA)</label>
+                <Input
+                  id="venta-ars"
+                  type="text"
+                  inputMode="decimal"
+                  autoComplete="off"
+                  placeholder="45000"
+                  value={ventaArs}
+                  onChange={(e) => cargarVenta(e.target.value)}
+                  className="tabular-nums"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <div className="grid items-start gap-5 lg:grid-cols-[1.2fr_0.8fr]">
       <section aria-labelledby="sc" aria-live="polite" className="rounded-3xl border-2 border-profundo bg-surface p-6 sm:p-7">
         <h2 id="sc" className="sr-only">Tu score</h2>
@@ -162,6 +267,8 @@ export function TantearForm() {
           <p className="text-xs">
             {fecha} · Referencias sin verificar, según los supuestos cargados. No es una cotización aduanera ni una predicción de ventas.
           </p>
+          {propio && linkAlibaba.trim() ? <p className="break-all text-xs">Compra: {linkAlibaba.trim()}</p> : null}
+          {propio && linkMeli.trim() ? <p className="break-all text-xs">Venta: {linkMeli.trim()}</p> : null}
         </div>
         {out ? (
           <>

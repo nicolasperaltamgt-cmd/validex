@@ -7,6 +7,8 @@ import { assess } from "@/lib/assessment";
 import { formatMoney, formatPercent } from "@/lib/format";
 import { SCORE_MAX, scoreProduct } from "@/lib/score";
 import { BAND_LABEL } from "@/components/products/ScoreDial";
+import { AvoidCard } from "@/components/products/AvoidCard";
+import { avoidList } from "@/lib/avoid";
 import { Faq } from "@/components/ui/Faq";
 import { Logo } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
@@ -15,35 +17,20 @@ import { buttonVariants } from "@/components/kit/button";
 import { cn } from "@/lib/cn";
 
 const faq = [
-  { q: "¿Los datos son reales?", a: "Son referencias reales sin verificar, con sus fuentes y fecha. Cada producto lo aclara." },
-  { q: "¿Puedo usarla en el celular?", a: "Sí. Abrila en Chrome y tocá “Instalar app”: queda como una app más, sin pasar por una tienda." },
-  { q: "¿Me dice cuando un producto no conviene?", a: "Sí. Un score bajo te avisa que no compres todavía, y te explica por qué." },
-  { q: "¿Estamos en versión final?", a: "No: es una versión de prueba. Puede haber detalles por mejorar y algunos datos todavía sin verificar." },
-  { q: "¿Puedo usarla si nunca importé?", a: "Sí. Está pensada para empezar: el Importador explica impuestos y pasos en simple, y Tantear te muestra los números antes de comprar." },
+  { q: "¿Los datos son reales?", a: "Son referencias con fuente y fecha, todavía sin verificar. Cada ficha muestra qué está confirmado y qué es estimado." },
+  { q: "¿Puedo usarla en el celular?", a: "Sí. Abrila en Chrome y tocá “Instalar app”." },
+  { q: "¿Me dice cuando no conviene?", a: "Sí. Un score bajo te avisa que no compres todavía." },
+  { q: "¿Puedo usarla si nunca importé?", a: "Sí. El Importador explica impuestos y pasos en simple." },
   { q: "¿Cuánto cuesta?", a: "Es gratis y sin registro mientras sea una versión de prueba." },
-];
-
-const pasos = [
-  { t: "Mirás el drop", d: "Cada día, tres productos con su score y el dólar de hoy. Nada más para mirar." },
-  { t: "Tanteás los números", d: "Elegís cuántas unidades querés y ves cuánto necesitás y cuánto ganarías, con todo incluido." },
-  { t: "Preguntás lo que no sabés", d: "Impuestos, aduana y comisiones explicados en simple, con las fuentes a la vista." },
-  { t: "Guardás tu reporte", d: "Lo bajás en PDF para decidir con calma o para mostrárselo a un socio." },
 ];
 
 const fuentes = ["Mercado Libre (vía MejoresCompras)", "Frávega", "Alibaba", "Made-in-China", "DolarAPI", "Aduana y ARCA (reglas)"];
 
-const reglas = [
-  "El score es una fórmula fija, no una opinión de una IA.",
-  "Lo que no podemos medir lo marcamos como “estimado”, nunca lo rellenamos con un número inventado.",
-  "Si perdés plata en cada unidad, el score no pasa de 29, sin importar lo demás.",
-  "Cada precio tiene su enlace y su fecha para que lo compruebes vos.",
-];
-
 const formula = [
-  { clave: "margin", nombre: "Margen", donde: "Precio de venta publicado menos costo de proveedor, flete, impuestos y comisión.", origen: "Referencia" },
-  { clave: "trend", nombre: "Tendencia", donde: "Si la demanda sube, está estable o baja. Hoy es una estimación nuestra.", origen: "Estimado" },
-  { clave: "competition", nombre: "Competencia", donde: "Cuántos modelos y vendedores vimos publicados. No es una medición.", origen: "Estimado" },
-  { clave: "capital", nombre: "Capital por unidad", donde: "Costo total por unidad, con impuestos y comisión: menos es más fácil de probar.", origen: "Referencia" },
+  { clave: "margin", nombre: "Margen", donde: "Venta menos todos los costos.", origen: "Referencia" },
+  { clave: "trend", nombre: "Tendencia", donde: "Demanda en alza, estable o en baja.", origen: "Estimado" },
+  { clave: "competition", nombre: "Competencia", donde: "Cuántos vendedores publican lo mismo.", origen: "Estimado" },
+  { clave: "capital", nombre: "Capital por unidad", donde: "Cuánta plata ponés para probar.", origen: "Referencia" },
 ] as const;
 
 const retraso = (ms: number) => ({ "--retraso": `${ms}ms` }) as CSSProperties;
@@ -70,7 +57,7 @@ export default function HomePage() {
   const productos = getRealProducts();
   const ranking = productos.map((p) => ({ p, s: scoreProduct(p), a: assess(p) })).sort((a, b) => b.s.score - a.s.score);
   const { p: top, s: topScore, a: topAssess } = ranking[0];
-  const { p: peor, s: peorScore } = ranking[ranking.length - 1];
+  const evitar = avoidList(productos, 3);
   const tres = ranking.slice(0, 3);
   const consulta = responder("¿Qué necesito para importar y revender?", { productos, dolar: null }).parrafos[0];
   const origenPorClave: Record<string, "Referencia" | "Estimado"> = {
@@ -96,7 +83,7 @@ export default function HomePage() {
             Antes de comprar, <span className="text-lima">mirá los números.</span>
           </h1>
           <p className="entrada mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/85" style={retraso(240)}>
-            Cada día, tres productos con un score de 0 a 100, el costo completo con impuestos y la fuente de cada dato.
+            Tres productos por día, con score de 0 a 100 y el costo completo.
           </p>
           <div className="entrada mt-8 flex flex-wrap items-center justify-center gap-3" style={retraso(360)}>
             <Link href="/hoy" className={PILDORA_BLANCA}>
@@ -158,8 +145,8 @@ export default function HomePage() {
               ))}
             </ul>
             <p className="mt-4 text-xs text-ink-soft">
-              <Origen tipo="Referencia" /> hay una fuente publicada. <Origen tipo="Estimado" /> es una estimación nuestra. Margen{" "}
-              {formatPercent(topAssess.calc.marginPct)}, ganás {formatMoney(topAssess.calc.profit, "USD")} por unidad.
+              <Origen tipo="Referencia" /> con fuente · <Origen tipo="Estimado" /> estimación nuestra · Margen {formatPercent(topAssess.calc.marginPct)}, ganás{" "}
+              {formatMoney(topAssess.calc.profit, "USD")} por unidad.
             </p>
           </div>
         </div>
@@ -172,9 +159,7 @@ export default function HomePage() {
           <h2 id="productos" className={`mt-3 max-w-3xl ${TITULO}`}>
             Costo, venta, ganancia y margen de cada producto.
           </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
-            El costo ya incluye flete, impuestos de importación y la comisión de la plataforma. Es lo que de verdad te queda.
-          </p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">Con flete, impuestos y comisión incluidos.</p>
         </Reveal>
         <div
           role="region"
@@ -216,7 +201,7 @@ export default function HomePage() {
       </section>
 
       {/* Banda oscura: de dónde salen los datos */}
-      <section aria-labelledby="fuentes" className="relative left-1/2 w-screen -translate-x-1/2 bg-ink py-16 text-white sm:py-20">
+      <section aria-labelledby="fuentes" className="relative left-1/2 w-screen -translate-x-1/2 bg-ink py-10 text-white sm:py-12">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal>
             <p id="fuentes" className="text-center text-xs font-bold uppercase tracking-[0.14em] text-lima">
@@ -229,19 +214,6 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {[
-                [String(productos.length), "productos con fuentes"],
-                ["3", "nuevos por día"],
-                ["4", "factores en el score"],
-                ["$0", "para usarla"],
-              ].map(([n, l]) => (
-                <div key={l} className="rounded-3xl bg-white/10 p-5 text-center">
-                  <dt className="font-display text-4xl font-black text-lima sm:text-5xl">{n}</dt>
-                  <dd className="mt-1 text-sm text-white/85">{l}</dd>
-                </div>
-              ))}
-            </dl>
           </Reveal>
         </div>
       </section>
@@ -254,7 +226,12 @@ export default function HomePage() {
             Todo para decidir con números, en un solo lugar.
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+        <div
+          role="region"
+          aria-label="Funciones de Validex"
+          tabIndex={0}
+          className="-mx-4 mt-10 flex snap-x gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0 [&>article]:w-72 [&>article]:shrink-0 [&>article]:snap-start lg:[&>article]:w-auto"
+        >
           <article className={cn(cardClass, "overflow-hidden")}>
             <Image src="/images/feature-drop.jpg" alt="Tres tarjetas de producto flotando junto a un calendario" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
             <div className="p-6">
@@ -303,7 +280,7 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">Preguntá impuestos, aduana y comisiones.</p>
               <div className="mt-4 space-y-2 text-xs">
                 <p className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-radar px-3 py-2 font-medium text-white">¿Qué necesito para importar y revender?</p>
-                <p className="line-clamp-4 max-w-[92%] rounded-2xl rounded-bl-sm bg-secondary px-3 py-2 leading-relaxed text-ink-soft">{consulta}</p>
+                <p className="line-clamp-2 max-w-[92%] rounded-2xl rounded-bl-sm bg-secondary px-3 py-2 leading-relaxed text-ink-soft">{consulta}</p>
               </div>
             </div>
           </article>
@@ -318,15 +295,7 @@ export default function HomePage() {
             <h2 id="sin-inventar" className={`mt-3 max-w-3xl ${TITULO}`}>
               Una fórmula abierta, con cada factor a la vista.
             </h2>
-            <div className="mt-10 grid gap-6 lg:grid-cols-2">
-              <ul className="space-y-3">
-                {reglas.map((r) => (
-                  <li key={r} className={cn(cardClass, "flex gap-3 rounded-2xl p-4 text-sm leading-relaxed")}>
-                    <span aria-hidden="true" className="font-black text-radar-dark">✓</span>
-                    {r}
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-8 max-w-3xl">
               <div className={cn(cardClass, "overflow-hidden")}>
                 <table className="w-full text-left text-sm">
                   <caption className="sr-only">Factores del score, su peso y de dónde sale cada uno</caption>
@@ -351,7 +320,7 @@ export default function HomePage() {
                   </tbody>
                 </table>
                 <p className="border-t border-line px-4 py-3 text-xs text-ink-soft">
-                  70 o más: alto. De 45 a 69: medio. Menos de 45: bajo. Es una regla simple, no una predicción de ventas.{" "}
+                  70 o más: alto · 45 a 69: medio · menos de 45: bajo.{" "}
                   <Link href="/metodologia" className="font-bold text-radar-dark underline underline-offset-4">Ver la metodología completa</Link>
                 </p>
               </div>
@@ -360,76 +329,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Cómo funciona: pasos apilados */}
-      <section aria-labelledby="como" className="py-20 sm:py-28">
-        <Reveal>
-          <p className={ETIQUETA}>Cómo funciona</p>
-          <h2 id="como" className={`mt-3 max-w-3xl ${TITULO}`}>
-            Cuatro pasos, de la duda a la decisión.
-          </h2>
-        </Reveal>
-        <ol className="mt-12 space-y-4">
-          {pasos.map((x, i) => (
-            <li key={x.t} className={cn(cardClass, "grid gap-2 p-6 sm:grid-cols-[10rem_1fr] sm:gap-8 sm:p-8")}>
-              <p className="font-display text-sm font-black uppercase tracking-[0.14em] text-radar-dark">Paso 0{i + 1} {"//"}</p>
-              <div>
-                <h3 className="font-display text-2xl font-bold">{x.t}</h3>
-                <p className="mt-2 max-w-2xl leading-relaxed text-ink-soft">{x.d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* Antes y después */}
-      <section aria-labelledby="antes" className="pb-20 sm:pb-28">
-        <Reveal>
-          <h2 id="antes" className={`max-w-3xl ${TITULO}`}>
-            Importar a ciegas o con los números adelante.
-          </h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            <div className={cn(cardClass, "p-7")}>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-ink-soft">Sin Validex</p>
-              <ul className="mt-4 space-y-3 leading-relaxed text-ink-soft">
-                <li>Comprás porque un video muestra ventas, sin mirar el costo real.</li>
-                <li>Calculás sin impuestos ni comisión y el margen se desvanece.</li>
-                <li>Te enterás de la aduana cuando el pedido ya está pago.</li>
-              </ul>
-            </div>
-            <div className="rounded-3xl border-2 border-profundo bg-profundo p-7 text-white">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-lima">Con Validex</p>
-              <ul className="mt-4 space-y-3 leading-relaxed text-white/90">
-                <li>Ves el costo completo por unidad antes de pagar.</li>
-                <li>Cada dato tiene su fuente y su fecha para comprobarlo.</li>
-                <li>El score también te dice cuándo no conviene.</li>
-              </ul>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Si no conviene, también lo decimos */}
+      {/* Los que no conviene comprar: los de menor score y por qué */}
       <section aria-labelledby="no" className="pb-20 sm:pb-28">
         <Reveal>
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div>
-              <h2 id="no" className={TITULO}>
-                Y si no conviene, <span className="text-radar">te lo decimos.</span>
-              </h2>
-              <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
-                Un score bajo es información útil: te ahorra comprar algo que no deja margen.
-              </p>
-            </div>
-            <div className={cn(cardClass, "mx-auto w-full max-w-sm p-6")}>
-              <p className="text-sm font-bold leading-snug">{peor.name}</p>
-              <div className="mt-3 flex items-center gap-4">
-                <p className="font-display text-5xl font-black leading-none text-danger">{peorScore.score}</p>
-                <div>
-                  <p className="font-display text-xl font-bold">{BAND_LABEL[peorScore.band]}</p>
-                  <p className="mt-1 text-sm text-ink-soft">No compres todavía.</p>
-                </div>
-              </div>
-            </div>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-danger">Antes de comprar</p>
+          <h2 id="no" className={`mt-3 max-w-3xl ${TITULO}`}>
+            Y si no conviene, <span className="text-radar">te lo decimos.</span>
+          </h2>
+          <div role="region" aria-label="Productos que no conviene comprar" tabIndex={0} className="relative -mx-4 mt-10 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 md:mx-0 md:overflow-visible md:px-0 md:pb-0">
+            <ul className="flex snap-x gap-4 md:grid md:grid-cols-3 md:gap-5">
+              {evitar.map((item) => (
+                <li key={item.product.id} className="w-72 shrink-0 snap-start md:w-auto">
+                  <AvoidCard item={item} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mt-8">
+            <Link href="/evitar" className="text-sm font-bold text-radar-dark underline underline-offset-4">
+              Ver todos los que no conviene →
+            </Link>
           </div>
         </Reveal>
       </section>

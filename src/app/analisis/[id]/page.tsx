@@ -59,9 +59,7 @@ export default async function AnalysisPage({ params }: Props) {
         <h1 className="font-display text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           Análisis de oportunidad: {product.name}
         </h1>
-        <p className="mt-3 max-w-2xl text-ink-soft">
-          Lectura orientativa. No es una recomendación de compra.
-        </p>
+        <p className="mt-3 max-w-2xl text-ink-soft">Orientativo. No es una recomendación de compra.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link href={`/calculadora?producto=${product.id}`} className={buttonClass("primary")}>
             {t.actions.openCalculator}
@@ -99,9 +97,6 @@ export default async function AnalysisPage({ params }: Props) {
       <div className="grid gap-8 lg:grid-cols-2">
         <section aria-labelledby="porque" className="rounded-2xl border-2 border-profundo bg-surface p-6">
           <h2 id="porque" className="font-display text-xl font-bold">Por qué esta lectura</h2>
-          <p className="mt-2 text-sm text-muted">
-            Lo mismo que ves en el score, en palabras.
-          </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <TrendBadge trend={product.trend} />
             <CompetitionBadge competition={product.competition} />
@@ -125,9 +120,7 @@ export default async function AnalysisPage({ params }: Props) {
             <div className="flex justify-between gap-4 border-t border-line pt-3"><dt className="text-ink-soft">Margen estimado</dt><dd className="text-lg font-bold tabular-nums">{formatPercent(a.calc.marginPct)}</dd></div>
           </dl>
           <p className="mt-4 text-xs text-muted">
-            {product.dataStatus === "demo"
-              ? "Costos ficticios. Probá los tuyos en la calculadora."
-              : "Costos estimados con fuentes sin verificar (ver más abajo). Probá los tuyos en la calculadora."}
+            {product.dataStatus === "demo" ? "Costos ficticios." : "Costos estimados, sin verificar."} Probá los tuyos en la calculadora.
           </p>
         </section>
 

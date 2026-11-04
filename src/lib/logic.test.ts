@@ -14,6 +14,8 @@ import { construirSistema, iaHabilitada, MAX_PREGUNTA, validarEntrada } from "./
 import { crearLimitador, crearTopeDiario } from "./rate-limit";
 import { coverageOf, EVIDENCE_KEYS } from "./coverage";
 import { sensitivityOf } from "./sensitivity";
+import { avoidList, AVOID_BELOW } from "./avoid";
+import { avisoDeLink, ES_ALIBABA, ES_MELI } from "./links";
 import { DEFAULT_MARKET, importTaxRate, MARKETS } from "./markets";
 import type { Product } from "../data/types";
 
@@ -244,6 +246,39 @@ test("sensibilidad: el caso base coincide con la ficha y el abanico está ordena
     assert.ok(peor.marginPct <= base.marginPct + 1e-9, `${p.id}: el peor caso no empeora`);
     assert.ok(flete.marginPct <= base.marginPct + 0.05, `${p.id}: más flete no puede subir el margen`);
   }
+});
+
+test("evitá estos: solo scores bajos, del peor al menos malo, siempre con motivo", () => {
+  const lista = avoidList(realProducts);
+  assert.ok(lista.length >= 3, "debería haber al menos 3 productos para evitar");
+  for (let i = 0; i < lista.length; i++) {
+    const x = lista[i];
+    assert.ok(x.score < AVOID_BELOW, x.product.id);
+    assert.equal(x.score, scoreProduct(x.product).score, x.product.id);
+    assert.ok(x.reasons.length >= 1 && x.reasons.length <= 3, `${x.product.id}: ${x.reasons.length} motivos`);
+    if (i > 0) assert.ok(lista[i - 1].score <= x.score, "orden ascendente");
+  }
+  // El smartwatch pierde plata y lo dice.
+  const sw = lista.find((x) => x.product.id === "smartwatch-generico");
+  assert.ok(sw?.reasons.includes("Pierde plata en cada unidad"));
+  // Un producto con buen score nunca aparece.
+  assert.ok(!lista.some((x) => x.product.id === "ventilador-mano-recargable"));
+  assert.equal(avoidList(realProducts, 2).length, 2);
+});
+
+test("links: acepta Alibaba y Mercado Libre, rechaza dominios parecidos y otros protocolos", () => {
+  assert.equal(avisoDeLink("", ES_ALIBABA, "Alibaba"), null);
+  assert.equal(avisoDeLink("https://www.alibaba.com/product-detail/x_123.html", ES_ALIBABA, "Alibaba"), null);
+  assert.equal(avisoDeLink("https://spanish.alibaba.com/product-detail/x", ES_ALIBABA, "Alibaba"), null);
+  assert.equal(avisoDeLink("https://articulo.mercadolibre.com.ar/MLA-123-termo", ES_MELI, "Mercado Libre"), null);
+  // Dominios que solo se parecen.
+  assert.match(avisoDeLink("https://alibaba.com.sitio-malo.com/x", ES_ALIBABA, "Alibaba") ?? "", /No parece un link de Alibaba/);
+  assert.match(avisoDeLink("https://notalibaba.com/x", ES_ALIBABA, "Alibaba") ?? "", /No parece/);
+  assert.match(avisoDeLink("https://mercadolibre.com.ar.evil.io/x", ES_MELI, "Mercado Libre") ?? "", /No parece/);
+  // Protocolo y formato.
+  assert.match(avisoDeLink("http://www.alibaba.com/x", ES_ALIBABA, "Alibaba") ?? "", /https/);
+  assert.match(avisoDeLink("javascript:alert(1)", ES_ALIBABA, "Alibaba") ?? "", /https/);
+  assert.match(avisoDeLink("alibaba punto com", ES_ALIBABA, "Alibaba") ?? "", /No parece un link/);
 });
 
 test("sensibilidad: precio de equilibrio y firmeza", () => {

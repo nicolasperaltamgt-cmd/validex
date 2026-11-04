@@ -132,6 +132,13 @@ export const FIRMNESS_LABEL: Record<Firmness, string> = {
   "no-cierra": "No cierra con estos números",
 };
 
+/** Versión corta para la ficha. */
+export const FIRMNESS_SHORT: Record<Firmness, string> = {
+  firme: "Sigue en 10 % o más aun con impuestos altos y flete al doble.",
+  sensible: "Hoy da ganancia, pero cae bajo 10 % si los costos salen peores.",
+  "no-cierra": "Con estos números no deja ganancia.",
+};
+
 export const FIRMNESS_TEXT: Record<Firmness, string> = {
   firme: "Aun en el peor caso y con el flete al doble, el margen se mantiene en 10 % o más.",
   sensible: "El margen es positivo en el caso base, pero cae por debajo de 10 % si los impuestos, la comisión o el flete salen peor de lo estimado.",
