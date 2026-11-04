@@ -54,8 +54,8 @@ export default function PrivacyPage() {
           body: <p>Podés pedir ver, corregir o borrar tus datos escribiendo a <a className="text-radar underline underline-offset-2" href="mailto:infovalidex@gmail.com">infovalidex@gmail.com</a>. Para borrar tu cuenta, indicá el email con el que ingresaste.</p>,
         },
         {
-          title: "Datos de demostración",
-          body: <p>Los productos, precios y señales que ves en esta versión de prueba son ficticios, salvo la sección “Oferta por categoría”, que muestra datos públicos reales de Mercado Libre con su fuente y fecha, y los productos marcados como “Referencia real, sin verificar”, cuyas fuentes se indican en cada ficha.</p>,
+          title: "Origen de los datos",
+          body: <p>Los productos, precios y señales que ves en esta versión de prueba son referencias reales de fuentes públicas (precios publicados, listados de proveedores y datos públicos de Mercado Libre), con su fuente y fecha, todavía sin verificar con cotizaciones. Cada ficha indica cuáles son estimaciones nuestras.</p>,
         },
         {
           title: "Cambios",

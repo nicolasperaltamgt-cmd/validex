@@ -26,7 +26,7 @@ export default function OpportunitiesPage() {
       <PageHeader
         eyebrow={t.nav.opportunities}
         title="Panel de oportunidades"
-        description="Productos agrupados por señales. Cada uno indica si su dato es real sin verificar o ficticio."
+        description="Productos agrupados por señales. Todos son referencias reales con fuente, todavía sin verificar."
       >
         <Link href="/categorias" className="text-sm font-semibold text-radar underline underline-offset-4">
           Ver datos reales: oferta por categoría →

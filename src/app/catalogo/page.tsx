@@ -12,7 +12,7 @@ export default function CatalogPage() {
       <PageHeader
         eyebrow={t.nav.catalog}
         title="Catálogo de productos"
-        description="Buscá y filtrá. Cada producto indica si su dato es una referencia real sin verificar o un ejemplo ficticio."
+        description="Buscá y filtrá. Todas son referencias reales con fuente, todavía sin verificar."
       />
       <CatalogView products={getProducts()} />
     </>

@@ -18,8 +18,8 @@ export default function TermsPage() {
           body: <p>La información es orientativa. No constituye asesoramiento financiero, fiscal, legal ni aduanero, ni una cotización logística real. Tus decisiones de compra o inversión son tu responsabilidad.</p>,
         },
         {
-          title: "Datos de demostración",
-          body: <p>Los productos, precios, costos y señales son ficticios, salvo la sección “Oferta por categoría”, que usa datos públicos de Mercado Libre, y los productos marcados como “Referencia real, sin verificar”, cuyas fuentes se indican en cada ficha. Validex no está afiliado ni respaldado por Mercado Libre. No garantizamos que reflejen ninguna situación real de mercado ni resultados económicos.</p>,
+          title: "Origen de los datos",
+          body: <p>Los productos, precios, costos y señales son referencias de fuentes públicas (precios publicados, listados de proveedores y datos públicos de Mercado Libre), con su fuente y fecha, todavía sin verificar con cotizaciones; cada ficha indica qué es estimación nuestra. Validex no está afiliado ni respaldado por Mercado Libre. No garantizamos que reflejen la situación real de mercado ni resultados económicos.</p>,
         },
         {
           title: "Tu cuenta",

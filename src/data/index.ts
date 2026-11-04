@@ -1,13 +1,12 @@
-import { products as demoProducts } from "./products";
 import { realProducts } from "./real-products";
 import type { Product } from "./types";
 
 /**
  * Capa de acceso a datos. Hoy lee datos locales: productos con referencias reales sin verificar
- * (con sus fuentes) y productos de demostración ficticios. En fases posteriores, estas funciones
+ * (con sus fuentes). No hay productos ficticios en el sitio. En fases posteriores, estas funciones
  * pueden consultar Supabase u otra fuente sin cambiar las páginas que las usan.
  */
-const all: Product[] = [...realProducts, ...demoProducts];
+const all: Product[] = [...realProducts];
 
 export function getProducts(): Product[] {
   return all;

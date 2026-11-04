@@ -9,6 +9,7 @@ import { dateKeyArg, pickDrop } from "./drop";
 import { primitivos, semanticos } from "../design/tokens";
 import { parseDolar } from "./dolar-parse";
 import { importTaxes, netUsd, realProducts } from "../data/real-products";
+import { getProducts } from "../data";
 import { estimarImportacion, extraerCantidad, extraerMontoUsd, responder, SUGERENCIAS } from "./importador";
 import { construirSistema, iaHabilitada, MAX_PREGUNTA, validarEntrada } from "./importador-ia";
 import { crearLimitador, crearTopeDiario } from "./rate-limit";
@@ -16,6 +17,7 @@ import { coverageOf, EVIDENCE_KEYS } from "./coverage";
 import { sensitivityOf } from "./sensitivity";
 import { avoidList, AVOID_BELOW } from "./avoid";
 import { avisoDeLink, ES_ALIBABA, ES_MELI } from "./links";
+import { matchTrends, normalizar, withMeliEvidence, type MeliSignals } from "./meli-signals";
 import { DEFAULT_MARKET, importTaxRate, MARKETS } from "./markets";
 import type { Product } from "../data/types";
 
@@ -266,6 +268,58 @@ test("evitá estos: solo scores bajos, del peor al menos malo, siempre con motiv
   assert.equal(avoidList(realProducts, 2).length, 2);
 });
 
+test("señales de Mercado Libre: el cruce es por palabra completa y no confunde productos parecidos", () => {
+  const trends = [
+    { position: 1, keyword: "termotanque electrico" },
+    { position: 2, keyword: "termo stanley" },
+    { position: 3, keyword: "Termos de Acero" },
+    { position: 4, keyword: "cortinas blackout" },
+    { position: 5, keyword: "auriculares inalámbricos" },
+  ];
+  const termo = matchTrends(["termo"], trends).map((t) => t.keyword);
+  assert.deepEqual(termo, ["termo stanley", "Termos de Acero"]);
+  assert.equal(matchTrends(["termo"], [{ position: 1, keyword: "termotanque electrico" }]).length, 0);
+  assert.equal(matchTrends(["cortina"], trends).length, 1);
+  assert.equal(matchTrends(["auricular", "tws"], trends).length, 1);
+  assert.equal(matchTrends(["freidora"], trends).length, 0);
+  assert.equal(matchTrends([], trends).length, 0);
+  assert.equal(normalizar("  Auriculares Inalámbricos! "), "auriculares inalambricos");
+  // Caracteres especiales de expresiones regulares en las palabras no rompen nada.
+  assert.equal(matchTrends(["a+b(c"], trends).length, 0);
+});
+
+test("señales de Mercado Libre: la tendencia solo pasa a publicada si hay coincidencia", () => {
+  const p = realProducts.find((x) => x.id === "termo-acero-1l")!;
+  assert.equal(withMeliEvidence(p, []), p);
+  const con = withMeliEvidence(p, [{ position: 2, keyword: "termo stanley" }]);
+  assert.equal(con.evidence?.trend, "publicado");
+  assert.equal(con.evidence?.shipping, "estimado");
+  // El score no cambia: esta señal no toca la metodología.
+  assert.equal(scoreProduct(con).score, scoreProduct(p).score);
+});
+
+test("señales de Mercado Libre: la foto guardada cubre los 15 productos y tiene fecha", () => {
+  const raw = JSON.parse(readFileSync(join(process.cwd(), "src/data/meli-signals.json"), "utf8")) as MeliSignals;
+  assert.match(raw.fetchedAt, /^\d{4}-\d{2}-\d{2}T/);
+  assert.equal(raw.site, "MLA");
+  assert.ok(raw.trends.length >= 20, "pocas tendencias");
+  for (const p of realProducts) {
+    const s = raw.products[p.id];
+    assert.ok(s, `${p.id}: falta en meli-signals.json`);
+    assert.ok(s.trendWords.length >= 1, p.id);
+    assert.ok(s.categoryId && s.categoryName, `${p.id}: sin categoría`);
+    assert.ok((s.totalItems ?? 0) > 0, `${p.id}: sin cantidad de publicaciones`);
+    assert.ok(s.categoryMatch === "exacta" || s.categoryMatch === "aproximada", `${p.id}: falta indicar si la categoría es exacta`);
+  }
+  // Errores que ya pasaron y no deben volver: la fuente de agua para gatos NO es una fuente decorativa del hogar.
+  const fuente = raw.products["fuente-agua-gatos"];
+  assert.match(fuente.categoryPath ?? "", /Mascotas > Gatos/);
+  assert.doesNotMatch(fuente.categoryPath ?? "", /Decoraci/);
+  // Las categorías aproximadas están declaradas, así la ficha las avisa.
+  assert.equal(raw.products["horno-pizza-portatil"].categoryMatch, "aproximada");
+  assert.equal(raw.products["power-bank-10000"].categoryMatch, "aproximada");
+});
+
 test("links: acepta Alibaba y Mercado Libre, rechaza dominios parecidos y otros protocolos", () => {
   assert.equal(avisoDeLink("", ES_ALIBABA, "Alibaba"), null);
   assert.equal(avisoDeLink("https://www.alibaba.com/product-detail/x_123.html", ES_ALIBABA, "Alibaba"), null);
@@ -279,6 +333,16 @@ test("links: acepta Alibaba y Mercado Libre, rechaza dominios parecidos y otros 
   assert.match(avisoDeLink("http://www.alibaba.com/x", ES_ALIBABA, "Alibaba") ?? "", /https/);
   assert.match(avisoDeLink("javascript:alert(1)", ES_ALIBABA, "Alibaba") ?? "", /https/);
   assert.match(avisoDeLink("alibaba punto com", ES_ALIBABA, "Alibaba") ?? "", /No parece un link/);
+});
+
+test("sitio: no hay productos ficticios y todos tienen fuentes y estado sin verificar o verificado", () => {
+  const todos = getProducts();
+  assert.equal(todos.length, 15);
+  for (const p of todos) {
+    assert.notEqual(p.dataStatus, "demo", p.id);
+    assert.ok(p.dataStatus === "unverified" || p.dataStatus === "verified", p.id);
+    assert.ok((p.sources?.length ?? 0) >= 3, `${p.id}: sin fuentes`);
+  }
 });
 
 test("sensibilidad: precio de equilibrio y firmeza", () => {

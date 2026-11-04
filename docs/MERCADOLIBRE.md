@@ -90,3 +90,13 @@ Resultado con el token de aplicación (Client Credentials), medido con `npm run 
 **Qué sigue sin poder obtenerse:** precios de venta y cantidad de vendedores por producto (la competencia). La búsqueda de publicaciones sigue cerrada
 con "forbidden", un mensaje distinto del de permisos: probablemente requiera un token de usuario (que el dueño autorice la app una vez) o la
 certificación de la app, hoy "no certificada". Es lo que se le preguntaría al soporte.
+
+## Cómo se usan hoy las señales (3/11/2026)
+- `npm run meli:signals` guarda una foto con fecha en `src/data/meli-signals.json`: las 50 tendencias, y por cada producto su categoría
+  (la sugiere Mercado Libre según el nombre; puede ser imprecisa), la cantidad de publicaciones y los más vendidos de esa categoría.
+  No muestra ni guarda el token ni la clave. Conviene correrlo cada pocos días y volver a publicar.
+- Cada ficha de análisis muestra el panel "Qué dice Mercado Libre". Si el producto aparece en las tendencias, su **tendencia** pasa a figurar
+  como "publicada" en la cobertura. **El score no cambia**: esta señal no modifica la metodología.
+- Las palabras con las que se busca cada producto dentro de las tendencias son nuestras (están en `scripts/meli-signals.mjs`). El cruce es por
+  palabra completa: "termo" coincide con "termo stanley" pero no con "termotanque".
+- Pendiente legal: Privacidad y Términos deben mencionar a Mercado Libre como fuente (hoy el panel ya la cita con fecha).

@@ -6,7 +6,7 @@ import { t } from "@/i18n";
 export const metadata: Metadata = { title: t.nav.help };
 
 const limits = [
-  ["Datos reales y ficticios", "Algunos productos tienen precios publicados en Argentina y costos de listados de proveedores, sin verificar; otros son inventados para probar la plataforma. Cada ficha lo indica."],
+  ["De dónde salen los datos", "Todos los productos tienen precios publicados en Argentina y costos de listados de proveedores, con su fuente y fecha, pero todavía sin verificar con una cotización. Cada ficha muestra qué dato tiene fuente y cuál es una estimación."],
   ["Datos reales", "Solo “Oferta por categoría” usa datos reales de la API oficial de Mercado Libre, con su fuente y fecha."],
   ["Sin más fuentes", "Búsqueda, ventas y tendencias de Mercado Libre todavía no están habilitadas para esta aplicación."],
   ["Reglas simples", "El score suma cuatro factores: margen, tendencia, competencia y capital por unidad. No es una predicción. Mirá la metodología para el detalle."],

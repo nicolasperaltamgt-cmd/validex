@@ -35,7 +35,7 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 |---|---|---|
 | Alta | Confirmar al menos 1 producto con cotización real de proveedor y marcarlo "Verificado" | Cuenta de Alibaba (hecha) y respuesta de proveedores |
 | Alta | Validar con 10 a 20 personas que quieran importar (`docs/VALIDACION.md`) | Fundador |
-| Alta | Tendencia y competencia con datos medidos (hoy son juicio nuestro) | Fuente de datos (Mercado Libre API, Google Trends) |
+| Alta | Competencia y precios medidos (la tendencia ya se cruza con Mercado Libre) | La búsqueda de publicaciones sigue en 403; probar token de usuario o certificación |
 | Media | Preparar el motor para varios países y monedas (tasas por país, sin inventarlas) | Datos impositivos verificados por país |
 | Media | Historial de análisis por usuario y cuentas | Supabase y Google configurados (hoy apagados) |
 | Media | Planes gratis y premium | Decisión de precios (no se activa ningún cobro sin autorización) |
@@ -59,6 +59,8 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 4. Revisión legal de Privacidad y Términos.
 
 ## Registro de cambios
+- **2026-11-03 (8)**: todo es referencia real: se sacaron los 8 productos de demostración (ficticios) del sitio y se corrigieron los textos que los mencionaban, incluidos Privacidad y Términos (siguen siendo borradores para un abogado). Categorías de Mercado Libre revisadas a mano: se corrigió la de la fuente de agua para gatos (estaba en fuentes decorativas) y se avisa "categoría aproximada" en horno de pizza y power bank. Las fichas se regeneran solas cada 6 horas con datos en vivo de Mercado Libre si existen MELI_CLIENT_ID y MELI_CLIENT_SECRET en Netlify; si no, o si falla, muestran la última foto con su fecha. 46 pruebas.
+- **2026-11-03 (7)**: Mercado Libre conectado en lectura: tendencias, más vendidos y categorías (`npm run meli:signals`, panel "Qué dice Mercado Libre" en cada ficha, tendencia "publicada" si coincide). Búsqueda de publicaciones y precios siguen en 403. 45 pruebas. Sin publicar.
 - **2026-11-03 (6)**: frente más corto y directo (portada de 12,7 a 7,2 pantallas en celular; fichas con desplazables), sección "Evitá estos" (`/evitar`,
   `src/lib/avoid.ts`), Tantear con dos links y dos precios (`src/lib/links.ts`; el precio todavía se escribe a mano). 42 pruebas. Sin publicar.
 - **2026-11-03 (5)**: plan de arranque de 4 semanas (`docs/ARRANQUE.md`): ticket a Mercado Libre, 3 cotizaciones, demo con importadores, planilla de seguimiento.

@@ -117,7 +117,7 @@ export function CatalogView({ products }: { products: Product[] }) {
             </button>
           }
         >
-          Ningún producto de demostración coincide con tu búsqueda. Probá con otros términos o quitá filtros.
+          Ningún producto coincide con tu búsqueda. Probá con otros términos o quitá filtros.
         </StateMessage>
       ) : (
         <>

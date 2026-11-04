@@ -8,6 +8,12 @@ import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/Sco
 import { SourcesPanel } from "@/components/products/SourcesPanel";
 import { CoveragePanel } from "@/components/products/CoveragePanel";
 import { SensitivityPanel } from "@/components/products/SensitivityPanel";
+import { MeliSignalsPanel } from "@/components/products/MeliSignalsPanel";
+import { loadMeliSignals } from "@/lib/meli-live";
+import { matchTrends, withMeliEvidence } from "@/lib/meli-signals";
+
+/** La ficha se regenera cada 6 horas para traer las señales de Mercado Libre al día (ver lib/meli-live.ts). */
+export const revalidate = 21600;
 import { ShareButton } from "@/components/products/ShareButton";
 import { ProductImage } from "@/components/products/ProductImage";
 import { formatMoney, formatPercent } from "@/lib/format";
@@ -41,6 +47,11 @@ export default async function AnalysisPage({ params }: Props) {
   if (!product) notFound();
   const a = assess(product);
   const s = scoreProduct(product);
+  const meliSignals = await loadMeliSignals();
+  const meli = meliSignals.products[product.id];
+  const tendencias = meli ? matchTrends(meli.trendWords, meliSignals.trends) : [];
+  // Si el producto aparece en las búsquedas en alza de Mercado Libre, su tendencia pasa a figurar como "publicada" en la cobertura.
+  const productoCobertura = withMeliEvidence(product, tendencias);
 
   return (
     <article>
@@ -91,7 +102,10 @@ export default async function AnalysisPage({ params }: Props) {
         </div>
       </section>
 
-      {product.dataStatus !== "demo" && <CoveragePanel product={product} />}
+      {product.dataStatus !== "demo" && <CoveragePanel product={productoCobertura} />}
+      {product.dataStatus !== "demo" && meli && (
+        <MeliSignalsPanel signal={meli} matches={tendencias} fetchedAt={meliSignals.fetchedAt} />
+      )}
       {product.dataStatus !== "demo" && <SensitivityPanel product={product} />}
 
       <div className="grid gap-8 lg:grid-cols-2">

@@ -19,7 +19,7 @@ export default async function ComparePage({
       <PageHeader
         eyebrow="Comparar"
         title="Compará productos lado a lado"
-        description="Elegí hasta 3. Cada producto indica si su dato es real sin verificar o ficticio."
+        description="Elegí hasta 3. Todas son referencias reales con fuente, todavía sin verificar."
       />
       <CompareView products={getProducts()} initialIds={initialIds} />
       <div className="mt-8">

@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   title: { default: `${t.brand} — ${t.brandTagline}`, template: `%s · ${t.brand}` },
   description:
-    "Descubrí oportunidades comerciales, evaluá productos y validá su potencial antes de invertir. Versión de prueba con datos de demostración.",
+    "Descubrí oportunidades comerciales, evaluá productos y validá su potencial antes de invertir. Versión de prueba con referencias reales sin verificar.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

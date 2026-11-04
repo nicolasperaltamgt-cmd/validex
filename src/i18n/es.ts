@@ -26,7 +26,7 @@ export const es = {
   },
   demo: {
     banner:
-      "Versión de prueba: hay productos con referencias reales sin verificar y otros ficticios, cada uno marcado. “Oferta por categoría” usa datos reales.",
+      "Versión de prueba: referencias reales con fuente y fecha, todavía sin verificar con cotizaciones.",
     badge: "Datos de demostración",
     badgeLong: "Dato ficticio de demostración",
   },
@@ -59,7 +59,7 @@ export const es = {
     errorTitle: "Algo salió mal",
     errorBody: "No pudimos mostrar esta página. Podés reintentar o volver al inicio.",
     notFoundTitle: "No encontramos lo que buscabas",
-    notFoundBody: "El producto o la página no existe en los datos de demostración.",
+    notFoundBody: "El producto o la página no existe.",
   },
   disclaimerShort:
     "Estimaciones ilustrativas, sin garantía de resultados. No es asesoramiento financiero, fiscal ni aduanero.",

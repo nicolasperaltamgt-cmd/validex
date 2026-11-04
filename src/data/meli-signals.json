@@ -1,0 +1,618 @@
+{
+  "source": "Mercado Libre Argentina (API oficial)",
+  "site": "MLA",
+  "fetchedAt": "2026-11-04T02:22:15.003Z",
+  "trends": [
+    {
+      "position": 1,
+      "keyword": "zapatillas hombre"
+    },
+    {
+      "position": 2,
+      "keyword": "anthelios"
+    },
+    {
+      "position": 3,
+      "keyword": "hidrolavadora"
+    },
+    {
+      "position": 4,
+      "keyword": "telefonos celulares"
+    },
+    {
+      "position": 5,
+      "keyword": "tablet"
+    },
+    {
+      "position": 6,
+      "keyword": "iphone"
+    },
+    {
+      "position": 7,
+      "keyword": "zapatillas deportivas mujer"
+    },
+    {
+      "position": 8,
+      "keyword": "ofertas"
+    },
+    {
+      "position": 9,
+      "keyword": "halloween"
+    },
+    {
+      "position": 10,
+      "keyword": "zapatillas nike"
+    },
+    {
+      "position": 11,
+      "keyword": "notebook"
+    },
+    {
+      "position": 12,
+      "keyword": "buscar"
+    },
+    {
+      "position": 13,
+      "keyword": "dell tienda oficial"
+    },
+    {
+      "position": 14,
+      "keyword": "aire acondicionado"
+    },
+    {
+      "position": 15,
+      "keyword": "celulares"
+    },
+    {
+      "position": 16,
+      "keyword": "album mundial 2026"
+    },
+    {
+      "position": 17,
+      "keyword": "mercedes benz a35"
+    },
+    {
+      "position": 18,
+      "keyword": "samsung s23 ultra"
+    },
+    {
+      "position": 19,
+      "keyword": "nokia 1100 2026"
+    },
+    {
+      "position": 20,
+      "keyword": "aire acondicionado inverter"
+    },
+    {
+      "position": 21,
+      "keyword": "blue label"
+    },
+    {
+      "position": 22,
+      "keyword": "playstation 5"
+    },
+    {
+      "position": 23,
+      "keyword": "lavarropas"
+    },
+    {
+      "position": 24,
+      "keyword": "lavarropas automatico"
+    },
+    {
+      "position": 25,
+      "keyword": "samsung a54"
+    },
+    {
+      "position": 26,
+      "keyword": "microondas"
+    },
+    {
+      "position": 27,
+      "keyword": "iphone 17"
+    },
+    {
+      "position": 28,
+      "keyword": "iphone 11"
+    },
+    {
+      "position": 29,
+      "keyword": "heladera"
+    },
+    {
+      "position": 30,
+      "keyword": "chromecast"
+    },
+    {
+      "position": 31,
+      "keyword": "termotanque electrico"
+    },
+    {
+      "position": 32,
+      "keyword": "vans knu skool"
+    },
+    {
+      "position": 33,
+      "keyword": "mecado libre chile"
+    },
+    {
+      "position": 34,
+      "keyword": "cortinas blackout"
+    },
+    {
+      "position": 35,
+      "keyword": "pava electrica"
+    },
+    {
+      "position": 36,
+      "keyword": "samsung argentina"
+    },
+    {
+      "position": 37,
+      "keyword": "auriculares inalambricos"
+    },
+    {
+      "position": 38,
+      "keyword": "moto g72"
+    },
+    {
+      "position": 39,
+      "keyword": "samsung"
+    },
+    {
+      "position": 40,
+      "keyword": "apple iphone"
+    },
+    {
+      "position": 41,
+      "keyword": "nike air max furyosa"
+    },
+    {
+      "position": 42,
+      "keyword": "aires acondicionados"
+    },
+    {
+      "position": 43,
+      "keyword": "aire acondicionado frio calor"
+    },
+    {
+      "position": 44,
+      "keyword": "samsung galaxy s25 ultra"
+    },
+    {
+      "position": 45,
+      "keyword": "zapatillas"
+    },
+    {
+      "position": 46,
+      "keyword": "aire acondicionado portatil"
+    },
+    {
+      "position": 47,
+      "keyword": "mayorista figuritas panini mundial"
+    },
+    {
+      "position": 48,
+      "keyword": "play 5"
+    },
+    {
+      "position": 49,
+      "keyword": "motorola"
+    },
+    {
+      "position": 50,
+      "keyword": "termo stanley"
+    }
+  ],
+  "products": {
+    "tws-basicos": {
+      "query": "auriculares bluetooth tws",
+      "trendWords": [
+        "auricular",
+        "tws"
+      ],
+      "categoryId": "MLA3697",
+      "categoryName": "Auriculares",
+      "categoryPath": "Electrónica, Audio y Video > Audio > Auriculares",
+      "categoryMatch": "exacta",
+      "totalItems": 186079,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Auriculares Xiaomi Redmi Buds 6 Play Inalámbricos Bluetooth 5.4 36 h Negro"
+        },
+        {
+          "position": 2,
+          "name": "Auriculares In-ear Xiaomi Redmi Buds 6 Play TWS Bluetooth 5.4 con Micrófono y Estuche de Carga Blanco"
+        },
+        {
+          "position": 3,
+          "name": "Auriculares inalámbricos Lenovo ThinkPlus XT80 negro con luz azul LED"
+        },
+        {
+          "position": 4,
+          "name": "Auriculares Inalámbricos Gamer Anker Soundcore P30i, Bluetooth 5.4 TWS, ANC Adaptativo 42dB, Graves Potentes, 45h Batería, Estuche 2 en 1 Soporte para Celular, IP54"
+        }
+      ]
+    },
+    "pava-electrica": {
+      "query": "pava electrica",
+      "trendWords": [
+        "pava"
+      ],
+      "categoryId": "MLA10064",
+      "categoryName": "Jarras Eléctricas",
+      "categoryPath": "Electrodomésticos y Aires Ac. > Pequeños Electrodomésticos > Para Cocina > Jarras Eléctricas",
+      "categoryMatch": "exacta",
+      "totalItems": 32091,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Pava Eléctrica Digital Novohome 2 Litros Pantalla Tactil Color Negro Acero Inoxidable Gran Capacidad XL"
+        },
+        {
+          "position": 2,
+          "name": "Daewoo Dek1310 Jarra Eléctrica Negra 1.7l"
+        },
+        {
+          "position": 3,
+          "name": "Pava Eléctrica Unnic Pantalla Digital Color Táctil Acero Inoxidable 1.7 L Temperatura Prestablecidas Ideal Para Mate Café Te Color Negro"
+        },
+        {
+          "position": 4,
+          "name": "Pava Eléctrica Tactil Yelmo PE-3912 Digital 4 Temp 1.7Lts Negro Keep Warm"
+        },
+        {
+          "position": 5,
+          "name": "Pava Eléctrica Hervidora Acero Inoxidable 1.8 Lts Codini - P18HAN"
+        }
+      ]
+    },
+    "fuente-agua-gatos": {
+      "query": "bebedero gato",
+      "trendWords": [
+        "fuente para gato",
+        "bebedero"
+      ],
+      "categoryId": "MLA81636",
+      "categoryName": "Comederos y Bebederos",
+      "categoryPath": "Mascotas > Gatos > Comederos y Bebederos",
+      "categoryMatch": "exacta",
+      "totalItems": 46583,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Bebedero Fuente Para Beber Automático Gadnic Recirculación de Agua"
+        },
+        {
+          "position": 2,
+          "name": "Bebedero Mascotas Gadnic PB4040 Automatico Recirculante Silenciosa Filtro Reemplazable"
+        },
+        {
+          "position": 4,
+          "name": "Comedero Alto Elevado Inclinado Para Gatos Perros Pequeños Color Negro"
+        },
+        {
+          "position": 5,
+          "name": "Bebedero Para Mascotas Gatos Dispensador Electrico de Agua Tipo Fuente de Agua Kidoo WAT100"
+        }
+      ]
+    },
+    "cama-gatos": {
+      "query": "cama para gatos",
+      "trendWords": [
+        "cama para gato",
+        "cama gato"
+      ],
+      "categoryId": "MLA413309",
+      "categoryName": "Cuchas y Casas",
+      "categoryPath": "Mascotas > Gatos > Camas y Cuchas > Cuchas y Casas",
+      "categoryMatch": "exacta",
+      "totalItems": 19453,
+      "bestSellers": [
+        {
+          "position": 3,
+          "name": "Cama Cueva Mascotas Cucha Gato Perro Iglu Juguete Colgante Interior Acolchado Flexible Portatil Gris Raitot"
+        }
+      ]
+    },
+    "cortina-roller-blackout": {
+      "query": "cortina roller blackout",
+      "trendWords": [
+        "cortina"
+      ],
+      "categoryId": "MLA4771",
+      "categoryName": "Manuales",
+      "categoryPath": "Hogar, Muebles y Jardín > Adornos y Decoración del Hogar > Cortinas y Accesorios > Cortinas y Persianas > Manuales",
+      "categoryMatch": "exacta",
+      "totalItems": 337203,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Cortina Roller Blackout 74x120 cm Blanco - Roller Pro Black Out 100% Bloqueante Solar, Facil Instalacion, Tela Pvc Resistente, Aislante Termico Y Acustico, Soportes Metalicos, 74 Ancho X 120 Alto"
+        },
+        {
+          "position": 2,
+          "name": "Cortina Roller Blackout Premium 140x140cm - Blanco / Bloqueante Solar / Fácil Instalación / Tela Pvc Resistente / Aislante Térmico Y Acústico"
+        }
+      ]
+    },
+    "horno-pizza-portatil": {
+      "query": "horno de pizza portatil",
+      "trendWords": [
+        "horno de pizza",
+        "horno pizza"
+      ],
+      "categoryId": "MLA373520",
+      "categoryName": "Hornos a Leña",
+      "categoryPath": "Hogar, Muebles y Jardín > Jardin y Aire Libre > Hornos, Parrillas y Accesorios > Hornos a Leña",
+      "categoryMatch": "aproximada",
+      "totalItems": 1798,
+      "bestSellers": []
+    },
+    "afeitadora-usb": {
+      "query": "afeitadora electrica recargable",
+      "trendWords": [
+        "afeitadora"
+      ],
+      "categoryId": "MLA431603",
+      "categoryName": "Afeitadoras Eléctricas",
+      "categoryPath": "Belleza y Cuidado Personal > Barbería > Afeitadoras > Afeitadoras Eléctricas",
+      "categoryMatch": "exacta",
+      "totalItems": 33298,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Afeitadora Eléctrica Hombre Shaver VGR V-325 Recargable Inalámbrica Negro y azul"
+        },
+        {
+          "position": 2,
+          "name": "Afeitadora Philips QP2724/10 Oneblade Recorta Modela y Afeita Carga USB"
+        },
+        {
+          "position": 3,
+          "name": "Afeitadora OneBlade Philips QP2824/10 Rostro & Cuerpo - Inalámbrica - 100% a prueba de agua - Recorta, perfila y afeita - No irrita, afeita casi al ras - Accesorio zonas sensibles"
+        },
+        {
+          "position": 4,
+          "name": "Wahl Travel Shaver negra"
+        },
+        {
+          "position": 5,
+          "name": "Afeitadora Philips OneBlade QP1424/10 Recorta Modela y Afeita Carga USB"
+        }
+      ]
+    },
+    "power-bank-10000": {
+      "query": "power bank 10000 mah",
+      "trendWords": [
+        "power bank",
+        "cargador portatil"
+      ],
+      "categoryId": "MLA429749",
+      "categoryName": "Cargadores",
+      "categoryPath": "Celulares y Teléfonos > Accesorios para Celulares > Cargadores y Accesorios > Cargadores",
+      "categoryMatch": "aproximada",
+      "totalItems": 69817,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Power Bank Gadnic BC-19 15000 mAh Alta Capacidad Doble Salida Carga Rápida Diseño Slim Indicador LED"
+        },
+        {
+          "position": 2,
+          "name": "Cargador Portatil Xiaomi Power Bank 20000 mAh 22.5 W Cable Integrado Light Gray"
+        },
+        {
+          "position": 5,
+          "name": "Cargador Portátil Xiaomi Power Bank 22.5w 10000 Mah Color Beige Blanco Cable Integrado"
+        }
+      ]
+    },
+    "smartwatch-generico": {
+      "query": "smartwatch llamadas bluetooth",
+      "trendWords": [
+        "smartwatch",
+        "reloj inteligente"
+      ],
+      "categoryId": "MLA352679",
+      "categoryName": "Smartwatches",
+      "categoryPath": "Celulares y Teléfonos > Smartwatches y Accesorios > Smartwatches",
+      "categoryMatch": "exacta",
+      "totalItems": 62481,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Smartwatch Reloj Inteligente Sumergible Jd Capri Rosa Llamadas Bluetooth Múltiples Modos Deportivos Presión Arterial SPO2 Control de Música"
+        },
+        {
+          "position": 2,
+          "name": "Reloj Inteligente Xiaomi Smart Band 11 Active Frecuencia cardiaca SP02 Negra"
+        },
+        {
+          "position": 3,
+          "name": "Brazalete plateado Galaxy Fit3"
+        },
+        {
+          "position": 4,
+          "name": "Reloj Inteligente Mujer Sumergible Smartbit Swim Rosa Smartwatch Sumergible 50 metros Natacion Brazadas Distancia Bateria 10 Dias Larga Duracion Deportivo Llamadas Mensajes Cuadrado Malla Extra"
+        },
+        {
+          "position": 5,
+          "name": "Smartwatch Xiaomi Redmi Watch 5 Active Midnight Black Bluetooth sumergible 50M"
+        }
+      ]
+    },
+    "maquina-soda": {
+      "query": "maquina de soda hogar",
+      "trendWords": [
+        "soda"
+      ],
+      "categoryId": "MLA429277",
+      "categoryName": "Máquinas para Soda y Sifones",
+      "categoryPath": "Electrodomésticos y Aires Ac. > Pequeños Electrodomésticos > Para Cocina > Preparación de Bebidas > Máquinas para Soda y Sifones",
+      "categoryMatch": "exacta",
+      "totalItems": 1939,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Máquina De Soda Color Blanco Sodastream Megapack Rendimiento Terra"
+        },
+        {
+          "position": 2,
+          "name": "Máquina Para Hacer Soda Sodastream Terra Black Agua Gasificada Fácil"
+        },
+        {
+          "position": 3,
+          "name": "Soda Mixer Pomelo Rosado"
+        },
+        {
+          "position": 4,
+          "name": "Máquina para hacer soda Sodastream Terra x 2 Cilindros 1L color negro"
+        },
+        {
+          "position": 5,
+          "name": "Botellas Sodastream Twinpack 1 Litro Pack X2 Color Blanco"
+        }
+      ]
+    },
+    "robot-aspirador-wifi": {
+      "query": "robot aspirador wifi",
+      "trendWords": [
+        "robot aspirador",
+        "aspiradora robot"
+      ],
+      "categoryId": "MLA401457",
+      "categoryName": "Aspiradoras Robot",
+      "categoryPath": "Electrodomésticos y Aires Ac. > Pequeños Electrodomésticos > Para Hogar > Aspiradoras Robot",
+      "categoryMatch": "exacta",
+      "totalItems": 27877,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Aspiradora Robot Trapeadora Gadnic Succion 5000Pa Navegacion LDS Laser Mapeo Inteligente 3D 4 Niveles Eco Standard Strong Turbo Bateria 3200 mAh Autonomia 200 Min"
+        },
+        {
+          "position": 2,
+          "name": "Aspiradora Robot Trapeadora Fika Limpieza SENSE Antichoque Con App Wifi Color Blanco"
+        },
+        {
+          "position": 3,
+          "name": "Xiaomi Robot Vacuum S40C Blanco – 5000 Pa, Navegación Láser LDS 360°, Aspira y Friega, Compatible con Alexa/Google"
+        },
+        {
+          "position": 4,
+          "name": "Aspiradora Robot Gadnic Potencia De Succión 2500Pa Modos Automático Bordes Espiral Sensores Anticaída Y Anticolisión Filtro HEPA Lavable Depósito Extraíble Recarga Automática En Base Ruido ≤65dB"
+        },
+        {
+          "position": 5,
+          "name": "Aspiradora Robot Trapeadora Gadnic AspiRob Recargable Inteligente Detecta Obstáculos Mapeo App"
+        }
+      ]
+    },
+    "camara-wifi-ptz": {
+      "query": "camara de seguridad wifi",
+      "trendWords": [
+        "camara de seguridad",
+        "camara wifi"
+      ],
+      "categoryId": "MLA5959",
+      "categoryName": "Cámaras de Seguridad",
+      "categoryPath": "Hogar, Muebles y Jardín > Seguridad para el Hogar > Sistemas de Monitoreo > Cámaras de Seguridad",
+      "categoryMatch": "exacta",
+      "totalItems": 96481,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Camara Seguridad Geotek 3mp Ip Wifi Exterior Full Hd Domo Vision Nocturna Inteligente Deteccion Movimiento"
+        },
+        {
+          "position": 2,
+          "name": "Camara Seguridad Geotek Ip Wifi Domo Doble Lente 6mp Exterior Vision Nocturna Deteccion Movimiento Color Blanco"
+        },
+        {
+          "position": 3,
+          "name": "Camara Seguridad Geotek 2mp Full Hd Wifi Vision Nocturna Deteccion de Movimiento Motorizada PTZ Color Blanco"
+        },
+        {
+          "position": 5,
+          "name": "Cámara De Seguridad Gadnic FHD Beast Doble Lente 3MP Cada Uno Conexion inalámbrica Visión Nocturna"
+        }
+      ]
+    },
+    "freidora-aire-4l": {
+      "query": "freidora de aire digital",
+      "trendWords": [
+        "freidora"
+      ],
+      "categoryId": "MLA456045",
+      "categoryName": "De Aire",
+      "categoryPath": "Electrodomésticos y Aires Ac. > Pequeños Electrodomésticos > Para Cocina > Preparación de Alimentos > Freidoras > De Aire",
+      "categoryMatch": "exacta",
+      "totalItems": 22006,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Freidora de Aire Novohome 4.5 Litros Airfryer Display Pantalla Digital Sin Aceite 1200w Color Negro"
+        },
+        {
+          "position": 2,
+          "name": "Freidora De Aire Novohome 8.5 Lts Air fryer Panel Digital Color Tactil 12 Funciones Con Ventana Visor Color Negro"
+        },
+        {
+          "position": 3,
+          "name": "Freidora De Aire Atma Fr246awp 1750w 6 Litros Y Control Táctil"
+        },
+        {
+          "position": 4,
+          "name": "Freidora De Aire Liliana Af957 6 Lt 1750w"
+        },
+        {
+          "position": 5,
+          "name": "Freidora de Aire Digital Ultracomb FR-8612 de 3 Litros Táctil en Color Celeste"
+        }
+      ]
+    },
+    "ventilador-mano-recargable": {
+      "query": "ventilador de mano recargable",
+      "trendWords": [
+        "ventilador"
+      ],
+      "categoryId": "MLA457530",
+      "categoryName": "Ventiladores Portátiles",
+      "categoryPath": "Electrodomésticos y Aires Ac. > Climatización > Ventiladores Portátiles",
+      "categoryMatch": "exacta",
+      "totalItems": 47389,
+      "bestSellers": []
+    },
+    "termo-acero-1l": {
+      "query": "termo acero inoxidable 1 litro",
+      "trendWords": [
+        "termo"
+      ],
+      "categoryId": "MLA47769",
+      "categoryName": "Termos",
+      "categoryPath": "Deportes y Fitness > Camping, Caza y Pesca > Accesorios de Camping > Recipientes Térmicos > Termos",
+      "categoryMatch": "exacta",
+      "totalItems": 58058,
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Termo Ozz 1l Doble Pared Con Pico Cebador Y 360° Negro"
+        },
+        {
+          "position": 3,
+          "name": "Termo Stanley Original Mate System Classic 1.2 L"
+        },
+        {
+          "position": 4,
+          "name": "Termo Waterdog Ombu 1 Litro Acero Inoxidable AISI 304 Doble Pared Con Manija Y Tapón Pico Cebador Frío 10 h Calor 8 h Aprobado INAL Negro"
+        },
+        {
+          "position": 5,
+          "name": "Termo Stanley Clásico 1.4lts Negro"
+        }
+      ]
+    }
+  }
+}
