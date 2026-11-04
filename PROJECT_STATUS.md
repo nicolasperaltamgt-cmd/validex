@@ -14,6 +14,9 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 - 15 productos con fuentes abiertas, fecha y supuestos por escrito. Todos en estado "sin verificar".
 - **Cobertura del análisis** (nuevo, 3/11/2026): cada ficha muestra cuántos de los 7 datos del score tienen fuente y cuáles son
   estimaciones, y qué falta para confirmar cada uno. Hoy todos los productos figuran como "análisis incompleto" (3 o 4 de 7 con fuente, 0 confirmados).
+- **Firmeza del margen** (nuevo, 3/11/2026): cada ficha muestra el margen y el score en caso base, mejor caso, peor caso (rangos publicados de
+  impuestos 0 a 35 % y comisión 11,8 a 17,1 %) y con el flete al doble, más el precio de equilibrio. Etiqueta: firme, sensible o no cierra
+  (`src/lib/sensitivity.ts`). Con los datos actuales: 7 firmes, 5 sensibles, 3 que no cierran (smartwatch, cámara Wi-Fi, freidora).
 - Interfaz violeta, kit de componentes (shadcn adaptado), accesibilidad revisada con axe (0 problemas en 34 revisiones), encabezados de seguridad.
 - 37 pruebas automáticas pasan; tipos y lint sin errores.
 
@@ -54,6 +57,7 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 4. Revisión legal de Privacidad y Términos.
 
 ## Registro de cambios
+- **2026-11-03 (2)**: firmeza del margen (`sensitivity.ts`, `SensitivityPanel`), 2 pruebas nuevas (39 en total). Sin publicar todavía.
 - **2026-11-03**: cobertura del análisis (`src/lib/coverage.ts`, `CoveragePanel`), 2 pruebas nuevas, este archivo, plan de validación.
 - **2026-11-02**: metodología pública, Sentry apagado, encabezados de seguridad, auditoría (`docs/AUDITORIA.md`).
 - **2026-11-01 y antes**: 15 productos con fuentes, portada nueva, shadcn en 5 fases, Drop, Tantear, Importador.

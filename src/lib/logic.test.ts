@@ -13,6 +13,7 @@ import { estimarImportacion, extraerCantidad, extraerMontoUsd, responder, SUGERE
 import { construirSistema, iaHabilitada, MAX_PREGUNTA, validarEntrada } from "./importador-ia";
 import { crearLimitador, crearTopeDiario } from "./rate-limit";
 import { coverageOf, EVIDENCE_KEYS } from "./coverage";
+import { sensitivityOf } from "./sensitivity";
 import type { Product } from "../data/types";
 
 const close = (a: number, b: number) => assert.ok(Math.abs(a - b) < 1e-9, `${a} != ${b}`);
@@ -208,6 +209,37 @@ test("cobertura: solo es completo con los siete datos confirmados y estado verif
   const vacio = coverageOf({ dataStatus: "demo" });
   assert.equal(vacio.backed, 0);
   assert.equal(vacio.status, "incompleto");
+});
+
+test("sensibilidad: el caso base coincide con la ficha y el abanico está ordenado", () => {
+  for (const p of realProducts) {
+    const s = sensitivityOf(p);
+    const base = s.scenarios.find((x) => x.key === "base")!;
+    const mejor = s.scenarios.find((x) => x.key === "mejor")!;
+    const peor = s.scenarios.find((x) => x.key === "peor")!;
+    const flete = s.scenarios.find((x) => x.key === "flete")!;
+    const calc = assess(p).calc;
+    close(base.marginPct, calc.marginPct);
+    close(base.profit, calc.profit);
+    assert.equal(base.score, scoreProduct(p).score, p.id);
+    assert.ok(mejor.marginPct >= base.marginPct - 1e-9, `${p.id}: el mejor caso no mejora`);
+    assert.ok(peor.marginPct <= base.marginPct + 1e-9, `${p.id}: el peor caso no empeora`);
+    assert.ok(flete.marginPct <= base.marginPct + 0.05, `${p.id}: más flete no puede subir el margen`);
+  }
+});
+
+test("sensibilidad: precio de equilibrio y firmeza", () => {
+  const watch = realProducts.find((p) => p.id === "smartwatch-generico")!;
+  const sw = sensitivityOf(watch);
+  assert.equal(sw.firmness, "no-cierra");
+  assert.ok(sw.priceCushionPct < 0);
+  for (const p of realProducts) {
+    const s = sensitivityOf(p);
+    if (s.breakEvenPrice === null) continue;
+    // Vendiendo al precio de equilibrio, la ganancia es cero.
+    const c = calculate({ ...p.costs, salePrice: s.breakEvenPrice });
+    assert.ok(Math.abs(c.profit) < 1e-6, `${p.id}: ${c.profit}`);
+  }
 });
 
 test("real-products: conversión a dólares netos de IVA e impuestos de importación", () => {

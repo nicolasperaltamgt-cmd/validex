@@ -7,6 +7,7 @@ import { scoreProduct } from "@/lib/score";
 import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/ScoreDial";
 import { SourcesPanel } from "@/components/products/SourcesPanel";
 import { CoveragePanel } from "@/components/products/CoveragePanel";
+import { SensitivityPanel } from "@/components/products/SensitivityPanel";
 import { ShareButton } from "@/components/products/ShareButton";
 import { ProductImage } from "@/components/products/ProductImage";
 import { formatMoney, formatPercent } from "@/lib/format";
@@ -93,6 +94,7 @@ export default async function AnalysisPage({ params }: Props) {
       </section>
 
       {product.dataStatus !== "demo" && <CoveragePanel product={product} />}
+      {product.dataStatus !== "demo" && <SensitivityPanel product={product} />}
 
       <div className="grid gap-8 lg:grid-cols-2">
         <section aria-labelledby="porque" className="rounded-2xl border-2 border-profundo bg-surface p-6">
