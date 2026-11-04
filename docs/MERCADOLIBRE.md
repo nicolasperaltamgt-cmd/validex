@@ -68,3 +68,25 @@ no puede leer búsqueda, publicaciones ni tendencias solo con el token de aplica
 2. **Probar con token de usuario** (Authorization Code con tu cuenta): puede abrir más consultas. Requiere activar ese flujo en la aplicación.
 3. **Pedir el desbloqueo a Mercado Libre:** soporte de Desarrolladores, sección "Accesos > Desbloqueo / Forbidden", y/o certificar la aplicación.
 4. Otras fuentes de datos con permiso explícito.
+
+## Segunda prueba (3/11/2026): después de activar los permisos funcionales
+
+Se activaron en el DevCenter, en "Solo lectura", los permisos **Métricas del negocio** y **Publicación y sincronización**.
+Resultado con el token de aplicación (Client Credentials), medido con `npm run meli:check` y un sondeo de lectura:
+
+| Consulta | Antes | Ahora |
+|---|---|---|
+| Tendencias de búsqueda (`/trends/MLA`) | 403 | **OK: 50 palabras** (sin volumen, solo el ranking) |
+| Tendencias por categoría (`/trends/MLA/{categoría}`) | sin probar | **OK: 50** |
+| Más vendidos por categoría (`/highlights/MLA/category/{id}`) | 403 | **OK: top 20 con posición** (ids de producto de catálogo) |
+| Categorías del sitio y detalle (con total de publicaciones) | 403 | **OK** |
+| Información del sitio (`/sites/MLA`) | 403 | **OK** |
+| Búsqueda en catálogo (`/products/search`) | 403 | **OK** (nombre, atributos, fotos; **sin precio**) |
+| Búsqueda de publicaciones (`/sites/MLA/search`) | 403 | **403 "forbidden"** |
+| Publicaciones por id (`/items?ids=`) | 403 | 200, pero **404** con los ids de producto de catálogo |
+| Precio del producto (`buy_box_winner`) | — | **null** con el token de aplicación |
+
+**Qué se puede usar ya:** una señal de demanda real (tendencias y más vendidos) y el tamaño de la oferta por categoría.
+**Qué sigue sin poder obtenerse:** precios de venta y cantidad de vendedores por producto (la competencia). La búsqueda de publicaciones sigue cerrada
+con "forbidden", un mensaje distinto del de permisos: probablemente requiera un token de usuario (que el dueño autorice la app una vez) o la
+certificación de la app, hoy "no certificada". Es lo que se le preguntaría al soporte.
