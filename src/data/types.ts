@@ -7,6 +7,19 @@ export type Competition = "low" | "medium" | "high";
 /** Estado del dato. Hoy todo es "demo"; las demás opciones están previstas para el futuro. */
 export type DataStatus = "demo" | "unverified" | "verified";
 
+/** Datos que entran al score y de los que se lleva el respaldo (ver `lib/coverage.ts`). */
+export type EvidenceKey =
+  | "salePrice"
+  | "purchase"
+  | "shipping"
+  | "taxes"
+  | "commission"
+  | "trend"
+  | "competition";
+/** confirmado = cotización o verificación propia; publicado = cifra de una fuente abierta; estimado = supuesto nuestro. */
+export type EvidenceLevel = "confirmado" | "publicado" | "estimado";
+export type EvidenceMap = Partial<Record<EvidenceKey, EvidenceLevel>>;
+
 export interface IllustrativeCosts {
   /** Costo de compra por unidad (ilustrativo). */
   purchase: number;
@@ -48,4 +61,6 @@ export interface Product {
   sources?: ProductSource[];
   /** Qué es dato publicado y qué es estimación nuestra, en lenguaje claro. */
   assumptions?: string[];
+  /** Respaldo de cada dato del score. Lo que no figura se considera "estimado". */
+  evidence?: EvidenceMap;
 }

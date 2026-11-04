@@ -12,6 +12,7 @@ import { importTaxes, netUsd, realProducts } from "../data/real-products";
 import { estimarImportacion, extraerCantidad, extraerMontoUsd, responder, SUGERENCIAS } from "./importador";
 import { construirSistema, iaHabilitada, MAX_PREGUNTA, validarEntrada } from "./importador-ia";
 import { crearLimitador, crearTopeDiario } from "./rate-limit";
+import { coverageOf, EVIDENCE_KEYS } from "./coverage";
 import type { Product } from "../data/types";
 
 const close = (a: number, b: number) => assert.ok(Math.abs(a - b) < 1e-9, `${a} != ${b}`);
@@ -186,6 +187,27 @@ test("real-products: 15 productos con fuentes, fecha y estado sin verificar", ()
     assert.ok(p.referencePriceUsd > 0 && p.costs.purchase > 0 && p.costs.shipping > 0 && p.costs.taxes > 0, p.id);
     assert.ok(p.sourceNote.length > 20, p.id);
   }
+});
+
+test("cobertura: ningún producto real figura como completo sin cotizaciones confirmadas", () => {
+  for (const p of realProducts) {
+    const c = coverageOf(p);
+    assert.equal(c.total, EVIDENCE_KEYS.length, p.id);
+    assert.equal(c.confirmed, 0, `${p.id}: nada está confirmado con un proveedor`);
+    assert.equal(c.status, "incompleto", p.id);
+    assert.ok(c.backed >= 3 && c.backed <= 4, `${p.id}: ${c.backed}`);
+  }
+});
+
+test("cobertura: solo es completo con los siete datos confirmados y estado verificado", () => {
+  const confirmado = Object.fromEntries(EVIDENCE_KEYS.map((k) => [k, "confirmado"])) as never;
+  assert.equal(coverageOf({ evidence: confirmado, dataStatus: "verified" }).status, "completo");
+  // Todo confirmado pero el estado del producto sigue sin verificar: no alcanza.
+  assert.notEqual(coverageOf({ evidence: confirmado, dataStatus: "unverified" }).status, "completo");
+  // Sin evidencia declarada, todo cuenta como estimado.
+  const vacio = coverageOf({ dataStatus: "demo" });
+  assert.equal(vacio.backed, 0);
+  assert.equal(vacio.status, "incompleto");
 });
 
 test("real-products: conversión a dólares netos de IVA e impuestos de importación", () => {

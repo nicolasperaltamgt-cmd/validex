@@ -113,6 +113,16 @@ function build(s: Seed): Product {
     opportunities: s.opportunities,
     sources: [...s.priceSources, ...s.supplierSources, S.commission, S.importer],
     assumptions: [...s.assumptions, ...SHARED_ASSUMPTIONS],
+    // Precio de venta, listado del proveedor y comisión salen de fuentes abiertas; nada está confirmado con una cotización.
+    evidence: {
+      salePrice: "publicado",
+      purchase: "publicado",
+      commission: "publicado",
+      trend: s.assumptions.includes(TREND_UP_BASIS) ? "publicado" : "estimado",
+      shipping: "estimado",
+      taxes: "estimado",
+      competition: "estimado",
+    },
   };
 }
 

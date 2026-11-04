@@ -6,6 +6,7 @@ import { assess } from "@/lib/assessment";
 import { scoreProduct } from "@/lib/score";
 import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/ScoreDial";
 import { SourcesPanel } from "@/components/products/SourcesPanel";
+import { CoveragePanel } from "@/components/products/CoveragePanel";
 import { ShareButton } from "@/components/products/ShareButton";
 import { ProductImage } from "@/components/products/ProductImage";
 import { formatMoney, formatPercent } from "@/lib/format";
@@ -90,6 +91,8 @@ export default async function AnalysisPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {product.dataStatus !== "demo" && <CoveragePanel product={product} />}
 
       <div className="grid gap-8 lg:grid-cols-2">
         <section aria-labelledby="porque" className="rounded-2xl border-2 border-profundo bg-surface p-6">
