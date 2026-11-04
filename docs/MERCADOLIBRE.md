@@ -100,3 +100,11 @@ certificación de la app, hoy "no certificada". Es lo que se le preguntaría al 
 - Las palabras con las que se busca cada producto dentro de las tendencias son nuestras (están en `scripts/meli-signals.mjs`). El cruce es por
   palabra completa: "termo" coincide con "termo stanley" pero no con "termotanque".
 - Pendiente legal: Privacidad y Términos deben mencionar a Mercado Libre como fuente (hoy el panel ya la cita con fecha).
+
+## Actualizar a mano (decisión del 3/11/2026)
+No se cargaron las claves en Netlify: las actualizaciones las hace la persona dueña desde su computadora, con un solo comando.
+- `npm run actualizar` actualiza los datos de Mercado Libre, corre las pruebas, compila, sube una versión, la publica y verifica seis páginas.
+  Se detiene sin publicar si algo falla.
+- `npm run actualizar -- --solo-datos` solo actualiza `src/data/meli-signals.json`, sin publicar.
+- Las claves de Mercado Libre quedan solo en `.env.local` de esa computadora. Ningún visitante puede disparar una actualización.
+- Sin las variables en Netlify, el código que consulta en vivo no se usa: el sitio muestra la última foto guardada, con su fecha.

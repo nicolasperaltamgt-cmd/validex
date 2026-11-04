@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "tsc -p tsconfig.test.json && node --test .test-build/",
     "meli:check": "node scripts/meli-check.mjs",
-    "meli:signals": "node scripts/meli-signals.mjs"
+    "meli:signals": "node scripts/meli-signals.mjs",
+    "actualizar": "node scripts/actualizar.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",
