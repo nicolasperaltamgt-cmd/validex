@@ -14,6 +14,7 @@ import { construirSistema, iaHabilitada, MAX_PREGUNTA, validarEntrada } from "./
 import { crearLimitador, crearTopeDiario } from "./rate-limit";
 import { coverageOf, EVIDENCE_KEYS } from "./coverage";
 import { sensitivityOf } from "./sensitivity";
+import { DEFAULT_MARKET, importTaxRate, MARKETS } from "./markets";
 import type { Product } from "../data/types";
 
 const close = (a: number, b: number) => assert.ok(Math.abs(a - b) < 1e-9, `${a} != ${b}`);
@@ -209,6 +210,23 @@ test("cobertura: solo es completo con los siete datos confirmados y estado verif
   const vacio = coverageOf({ dataStatus: "demo" });
   assert.equal(vacio.backed, 0);
   assert.equal(vacio.status, "incompleto");
+});
+
+test("mercados: Argentina conserva los valores que usaba el sitio y todo sale de una sola fuente", () => {
+  assert.equal(DEFAULT_MARKET.id, "AR");
+  assert.equal(MARKETS.AR, DEFAULT_MARKET);
+  assert.equal(DEFAULT_MARKET.referenceRate.value, 1560);
+  assert.equal(DEFAULT_MARKET.vat, 0.21);
+  assert.equal(importTaxRate(DEFAULT_MARKET), 0.205);
+  assert.equal(DEFAULT_MARKET.commission.defaultPct, 14);
+  // Los derivados del catálogo usan esos mismos valores.
+  assert.equal(netUsd(12999), 6.89);
+  assert.equal(importTaxes(4, 0.8), 0.98);
+  // El importador estima con los mismos derechos y tasa: CIF 100 => 20 + 0,5 + IVA sobre 120,5.
+  const e = estimarImportacion(100);
+  assert.equal(e.derechos, 20);
+  assert.equal(e.tasaEstadistica, 0.5);
+  assert.equal(e.iva, 25.31);
 });
 
 test("sensibilidad: el caso base coincide con la ficha y el abanico está ordenado", () => {

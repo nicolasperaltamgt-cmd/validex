@@ -1,6 +1,7 @@
 import type { Product } from "@/data/types";
 import { calculate, precioParaMargen } from "./calculator";
 import { scoreInput } from "./score";
+import { DEFAULT_MARKET } from "./markets";
 
 /**
  * Qué tan firme es el margen de un producto cuando los datos estimados cambian dentro de rangos publicados.
@@ -9,9 +10,9 @@ import { scoreInput } from "./score";
  *   - comisión de Mercado Libre: 11,8 % a 17,1 % según categoría (algoritmodigital.com.ar).
  * La prueba de "flete al doble" es una prueba de estrés nuestra, no un dato publicado.
  */
-export const DUTY_RANGE = { min: 0, max: 0.35 } as const;
-export const STATISTICS_FEE = 0.005;
-export const COMMISSION_RANGE = { min: 11.8, max: 17.1 } as const;
+export const DUTY_RANGE = DEFAULT_MARKET.dutyRange;
+export const STATISTICS_FEE = DEFAULT_MARKET.statisticsFee;
+export const COMMISSION_RANGE = { min: DEFAULT_MARKET.commission.minPct, max: DEFAULT_MARKET.commission.maxPct };
 
 export type Firmness = "firme" | "sensible" | "no-cierra";
 

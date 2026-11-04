@@ -1,3 +1,4 @@
+import { DEFAULT_MARKET, importTaxRate } from "../lib/markets";
 import type { Product, ProductSource } from "./types";
 
 /**
@@ -12,14 +13,15 @@ import type { Product, ProductSource } from "./types";
  * Los precios salen de resultados de búsqueda; no se abrió cada página, y cambian todos los días.
  */
 
+const MARKET = DEFAULT_MARKET;
 /** Dólar oficial (venta) del 1/11/2026 según DolarAPI, para pasar los precios en pesos a dólares. */
-export const REFERENCE_RATE_ARS = 1560;
+export const REFERENCE_RATE_ARS = MARKET.referenceRate.value;
 /** IVA general. Los precios publicados lo incluyen; acá se usan sin IVA (neto). */
-export const IVA = 1.21;
+export const IVA = 1 + MARKET.vat;
 /** Derechos de importación + tasa de estadística estimados: 20 % + 0,5 % sobre costo + flete. */
-export const DUTY_RATE = 0.205;
+export const DUTY_RATE = importTaxRate(MARKET);
 /** Comisión de Mercado Libre usada: 14 % (las fuentes dan 11,8 % a 17,1 % según categoría). */
-export const COMMISSION_PCT = 14;
+export const COMMISSION_PCT = MARKET.commission.defaultPct;
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 

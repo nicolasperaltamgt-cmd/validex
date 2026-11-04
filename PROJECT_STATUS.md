@@ -17,6 +17,8 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 - **Firmeza del margen** (nuevo, 3/11/2026): cada ficha muestra el margen y el score en caso base, mejor caso, peor caso (rangos publicados de
   impuestos 0 a 35 % y comisión 11,8 a 17,1 %) y con el flete al doble, más el precio de equilibrio. Etiqueta: firme, sensible o no cierra
   (`src/lib/sensitivity.ts`). Con los datos actuales: 7 firmes, 5 sensibles, 3 que no cierran (smartwatch, cámara Wi-Fi, freidora).
+- **Configuración por mercado** (nuevo, 3/11/2026): `src/lib/markets.ts` concentra IVA, derechos, comisión y tipo de cambio de Argentina, que antes
+  estaban repetidos en 3 archivos. Es la base para sumar países (`docs/MERCADOS.md`), pero hoy el producto sigue siendo solo para Argentina.
 - Interfaz violeta, kit de componentes (shadcn adaptado), accesibilidad revisada con axe (0 problemas en 34 revisiones), encabezados de seguridad.
 - 37 pruebas automáticas pasan; tipos y lint sin errores.
 
@@ -57,6 +59,7 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 4. Revisión legal de Privacidad y Términos.
 
 ## Registro de cambios
+- **2026-11-03 (3)**: configuración por mercado (`markets.ts`), `docs/MERCADOS.md`, 1 prueba nueva (40 en total). Sin cambios visibles. Sin publicar.
 - **2026-11-03 (2)**: firmeza del margen (`sensitivity.ts`, `SensitivityPanel`), 2 pruebas nuevas (39 en total). Sin publicar todavía.
 - **2026-11-03**: cobertura del análisis (`src/lib/coverage.ts`, `CoveragePanel`), 2 pruebas nuevas, este archivo, plan de validación.
 - **2026-11-02**: metodología pública, Sentry apagado, encabezados de seguridad, auditoría (`docs/AUDITORIA.md`).

@@ -2,6 +2,7 @@ import type { Product } from "@/data/types";
 import { calculate } from "./calculator";
 import { formatMoney, formatPercent } from "./format";
 import { scoreProduct } from "./score";
+import { DEFAULT_MARKET } from "./markets";
 
 /**
  * "El Importador": responde con reglas fijas, los productos de Validex y fuentes citadas.
@@ -132,9 +133,9 @@ export interface EstimacionImportacion {
   totalEnAduana: number;
 }
 
-const DERECHOS = 0.2;
-const TASA = 0.005;
-const IVA_GENERAL = 0.21;
+const DERECHOS = DEFAULT_MARKET.dutyEstimate;
+const TASA = DEFAULT_MARKET.statisticsFee;
+const IVA_GENERAL = DEFAULT_MARKET.vat;
 const redondear = (n: number) => Math.round(n * 100) / 100;
 
 /** Estimación orientativa para un valor CIF (mercadería + flete + seguro) en dólares. */
