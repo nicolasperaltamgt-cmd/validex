@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getRealProducts } from "@/data";
 import { importTaxes, netUsd } from "@/data/real-products";
 import { avisoDeLink, ES_ALIBABA, ES_MELI } from "@/lib/links";
 import type { Competition, Product, Trend } from "@/data/types";
 import { calculate, parseDecimal, precioParaMargen, validateField, type FieldKey } from "@/lib/calculator";
 import { formatMoney, formatPercent } from "@/lib/format";
-import { scoreInput, scoreProduct } from "@/lib/score";
+import { scoreInput } from "@/lib/score";
 import { ScoreBreakdown, ScoreDial, BAND_LABEL } from "@/components/products/ScoreDial";
 import { Input } from "@/components/kit/input";
 import { NativeSelect } from "@/components/kit/native-select";
@@ -66,17 +66,14 @@ function valoresDe(p: Product): Record<FieldKey, string> {
 
 export function TantearForm() {
   const productos = useMemo(() => getRealProducts(), []);
-  // Arranca con el producto de mayor score, así la pantalla ya muestra un resultado.
-  const inicial = useMemo(
-    () => [...productos].sort((a, b) => scoreProduct(b).score - scoreProduct(a).score)[0],
-    [productos],
-  );
 
-  const [elegido, setElegido] = useState(inicial.id);
-  const [values, setValues] = useState<Record<FieldKey, string>>(valoresDe(inicial));
+  // Arranca en "mis links": es lo primero que se ve y lo más rápido. Los productos ya analizados quedan debajo.
+  const [elegido, setElegido] = useState(PROPIO);
+  const enPropio = useRef(true);
+  const [values, setValues] = useState<Record<FieldKey, string>>(VACIO);
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
-  const [trend, setTrend] = useState<Trend>(inicial.trend);
-  const [competition, setCompetition] = useState<Competition>(inicial.competition);
+  const [trend, setTrend] = useState<Trend>("steady");
+  const [competition, setCompetition] = useState<Competition>("medium");
   const [ajustar, setAjustar] = useState(false);
   const [cantidad, setCantidad] = useState("10");
   const [linkAlibaba, setLinkAlibaba] = useState("");
@@ -87,8 +84,27 @@ export function TantearForm() {
   const [fecha, setFecha] = useState("");
   useEffect(() => setFecha(new Date().toLocaleDateString("es-AR")), []);
 
+  /** Si estaba mirando un producto del catálogo y empieza a cargar sus propios datos, pasa a "mis links" sin perder lo que escribe. */
+  function entrarPropio() {
+    // La marca se actualiza al instante (el estado no), para no reiniciar los valores varias veces en un mismo evento.
+    if (enPropio.current) return;
+    enPropio.current = true;
+    setElegido(PROPIO);
+    setTouched({});
+    setValues(VACIO);
+    setTrend("steady");
+    setCompetition("medium");
+  }
+
+  function probarEjemplo() {
+    entrarPropio();
+    cargarCompra("5");
+    cargarVenta("56628");
+  }
+
   /** Al escribir el precio de compra, estima flete e impuestos para que la cuenta salga sola. Se pueden cambiar en "Tus números". */
   function cargarCompra(texto: string) {
+    entrarPropio();
     setCompraTexto(texto);
     const n = parseDecimal(texto);
     setValues((v) => {
@@ -100,12 +116,14 @@ export function TantearForm() {
 
   /** Pasa el precio publicado en pesos (con IVA) a dólares sin IVA, con el dólar de referencia del sitio. */
   function cargarVenta(texto: string) {
+    entrarPropio();
     setVentaArs(texto);
     const n = parseDecimal(texto);
     setValues((v) => ({ ...v, salePrice: n === null || n <= 0 ? "" : aTexto(netUsd(n)) }));
   }
 
   function elegir(id: string) {
+    enPropio.current = id === PROPIO;
     setElegido(id);
     setTouched({});
     setLinkAlibaba("");
@@ -162,102 +180,127 @@ export function TantearForm() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-5">
-      <div>
-        <label htmlFor="partir" className="mb-1 block text-sm font-medium">¿Qué producto querés tantear?</label>
+      <header>
+        <p className="text-xs font-bold uppercase tracking-[0.14em] text-radar-dark">Herramienta de tanteo</p>
+        <h1 className="mt-2 font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">Antes de avanzar, tanteá.</h1>
+        <div className="mt-1">
+          <ScoreInfo />
+        </div>
+      </header>
+
+      {/* Lo principal: los dos links y los dos precios. Es lo primero que se ve. */}
+      <section
+        aria-labelledby="links"
+        className="no-imprimir rounded-3xl bg-profundo p-5 text-white shadow-xl shadow-profundo/25 sm:p-8"
+      >
+        <p className="inline-block rounded-full bg-lima px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-profundo">
+          Lo más rápido
+        </p>
+        <h2 id="links" className="mt-3 font-display text-3xl font-black leading-tight text-balance sm:text-4xl">
+          Pegá dos links y sabé si te conviene.
+        </h2>
+        <p className="mt-2 max-w-2xl text-white/85">
+          Uno de dónde lo comprás y otro de cómo se vende. Escribí los dos precios y la cuenta sale sola.
+        </p>
+
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="space-y-3">
+            <div>
+              <label htmlFor="link-alibaba" className="mb-1 block text-sm font-bold">1. Dónde lo comprás (Alibaba)</label>
+              <Input
+                id="link-alibaba"
+                type="url"
+                inputMode="url"
+                autoComplete="off"
+                placeholder="https://www.alibaba.com/…"
+                value={linkAlibaba}
+                onChange={(e) => {
+                  entrarPropio();
+                  setLinkAlibaba(e.target.value);
+                }}
+                aria-describedby="link-alibaba-aviso"
+              />
+              <p id="link-alibaba-aviso" role="status" className="mt-1 min-h-4 text-xs font-semibold text-red-200">
+                {avisoDeLink(linkAlibaba, ES_ALIBABA, "Alibaba")}
+              </p>
+            </div>
+            <div>
+              <label htmlFor="compra-usd" className="mb-1 block text-sm font-bold">Precio de compra por unidad (USD)</label>
+              <Input
+                id="compra-usd"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                placeholder="5"
+                value={compraTexto}
+                onChange={(e) => cargarCompra(e.target.value)}
+                className="tabular-nums"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div>
+              <label htmlFor="link-meli" className="mb-1 block text-sm font-bold">2. A cuánto se vende (Mercado Libre)</label>
+              <Input
+                id="link-meli"
+                type="url"
+                inputMode="url"
+                autoComplete="off"
+                placeholder="https://articulo.mercadolibre.com.ar/…"
+                value={linkMeli}
+                onChange={(e) => {
+                  entrarPropio();
+                  setLinkMeli(e.target.value);
+                }}
+                aria-describedby="link-meli-aviso"
+              />
+              <p id="link-meli-aviso" role="status" className="mt-1 min-h-4 text-xs font-semibold text-red-200">
+                {avisoDeLink(linkMeli, ES_MELI, "Mercado Libre")}
+              </p>
+            </div>
+            <div>
+              <label htmlFor="venta-ars" className="mb-1 block text-sm font-bold">Precio publicado (ARS, con IVA)</label>
+              <Input
+                id="venta-ars"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                placeholder="45000"
+                value={ventaArs}
+                onChange={(e) => cargarVenta(e.target.value)}
+                className="tabular-nums"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <button
+            type="button"
+            onClick={probarEjemplo}
+            className="inline-flex min-h-11 items-center rounded-full bg-white px-5 text-sm font-bold text-profundo hover:bg-lima focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            Probar con un ejemplo
+          </button>
+          <p className="text-xs text-white/80">Los precios los escribís vos. Flete, impuestos y comisión se estiman solos.</p>
+        </div>
+      </section>
+
+      <div className="no-imprimir">
+        <label htmlFor="partir" className="mb-1 block text-sm font-medium text-ink-soft">O mirá un producto ya analizado</label>
         <NativeSelect
           id="partir"
           value={elegido}
           onChange={(e) => elegir(e.target.value)}
           className="min-h-12 rounded-full px-5"
         >
+          <option value={PROPIO}>Mis links y mis números</option>
           {productos.map((p) => (
             <option key={p.id} value={p.id}>{p.name}</option>
           ))}
-          <option value={PROPIO}>Mi producto: pego los links</option>
         </NativeSelect>
       </div>
-
-      <header>
-        <p className="text-xs font-bold uppercase tracking-[0.14em] text-radar-dark">Herramienta de tanteo</p>
-        <h1 className="mt-2 font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">Antes de avanzar, tanteá.</h1>
-        <p className="mt-3 max-w-xl text-lg text-ink-soft">Elegí un producto y mirá su score. Si querés, cambiá los números.</p>
-        <div className="mt-1">
-          <ScoreInfo />
-        </div>
-      </header>
-
-      {propio ? (
-        <section aria-labelledby="links" className="no-imprimir rounded-3xl border-2 border-profundo bg-surface p-5 sm:p-6">
-          <h2 id="links" className="font-display text-xl font-bold">Pegá los dos links</h2>
-          <p className="mt-1 text-sm text-ink-soft">
-            Los precios los escribís vos: todavía no se leen solos del link. Flete e impuestos se estiman.
-          </p>
-          <div className="mt-4 grid gap-5 sm:grid-cols-2">
-            <div className="space-y-3">
-              <div>
-                <label htmlFor="link-alibaba" className="mb-1 block text-sm font-medium">1. Dónde lo comprás (Alibaba)</label>
-                <Input
-                  id="link-alibaba"
-                  type="url"
-                  inputMode="url"
-                  autoComplete="off"
-                  placeholder="https://www.alibaba.com/…"
-                  value={linkAlibaba}
-                  onChange={(e) => setLinkAlibaba(e.target.value)}
-                  aria-describedby="link-alibaba-aviso"
-                />
-                <p id="link-alibaba-aviso" role="status" className="mt-1 min-h-4 text-xs font-medium text-danger">
-                  {avisoDeLink(linkAlibaba, ES_ALIBABA, "Alibaba")}
-                </p>
-              </div>
-              <div>
-                <label htmlFor="compra-usd" className="mb-1 block text-sm font-medium">Precio de compra por unidad (USD)</label>
-                <Input
-                  id="compra-usd"
-                  type="text"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  placeholder="5"
-                  value={compraTexto}
-                  onChange={(e) => cargarCompra(e.target.value)}
-                  className="tabular-nums"
-                />
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div>
-                <label htmlFor="link-meli" className="mb-1 block text-sm font-medium">2. A cuánto se vende (Mercado Libre)</label>
-                <Input
-                  id="link-meli"
-                  type="url"
-                  inputMode="url"
-                  autoComplete="off"
-                  placeholder="https://articulo.mercadolibre.com.ar/…"
-                  value={linkMeli}
-                  onChange={(e) => setLinkMeli(e.target.value)}
-                  aria-describedby="link-meli-aviso"
-                />
-                <p id="link-meli-aviso" role="status" className="mt-1 min-h-4 text-xs font-medium text-danger">
-                  {avisoDeLink(linkMeli, ES_MELI, "Mercado Libre")}
-                </p>
-              </div>
-              <div>
-                <label htmlFor="venta-ars" className="mb-1 block text-sm font-medium">Precio publicado (ARS, con IVA)</label>
-                <Input
-                  id="venta-ars"
-                  type="text"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  placeholder="45000"
-                  value={ventaArs}
-                  onChange={(e) => cargarVenta(e.target.value)}
-                  className="tabular-nums"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
 
       <div className="grid items-start gap-5 lg:grid-cols-[1.2fr_0.8fr]">
       <section aria-labelledby="sc" aria-live="polite" className="rounded-3xl border-2 border-profundo bg-surface p-6 sm:p-7">
@@ -333,7 +376,7 @@ export function TantearForm() {
             </details>
           </>
         ) : (
-          <p className="text-sm text-ink-soft">Completá los números para ver el score.</p>
+          <p className="text-sm text-ink-soft">Escribí los dos precios y acá aparece tu score.</p>
         )}
       </section>
 

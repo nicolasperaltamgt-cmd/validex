@@ -59,6 +59,7 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 4. Revisión legal de Privacidad y Términos.
 
 ## Registro de cambios
+- **2026-11-03 (9)**: Tantear arranca con el cuadro de los dos links arriba de todo ("Pegá dos links y sabé si te conviene"), con botón "Probar con un ejemplo"; el selector de productos ya analizados quedó debajo. Revisado con axe en 4 estados.
 - **2026-11-03 (8)**: todo es referencia real: se sacaron los 8 productos de demostración (ficticios) del sitio y se corrigieron los textos que los mencionaban, incluidos Privacidad y Términos (siguen siendo borradores para un abogado). Categorías de Mercado Libre revisadas a mano: se corrigió la de la fuente de agua para gatos (estaba en fuentes decorativas) y se avisa "categoría aproximada" en horno de pizza y power bank. Las fichas se regeneran solas cada 6 horas con datos en vivo de Mercado Libre si existen MELI_CLIENT_ID y MELI_CLIENT_SECRET en Netlify; si no, o si falla, muestran la última foto con su fecha. 46 pruebas.
 - **2026-11-03 (7)**: Mercado Libre conectado en lectura: tendencias, más vendidos y categorías (`npm run meli:signals`, panel "Qué dice Mercado Libre" en cada ficha, tendencia "publicada" si coincide). Búsqueda de publicaciones y precios siguen en 403. 45 pruebas. Sin publicar.
 - **2026-11-03 (6)**: frente más corto y directo (portada de 12,7 a 7,2 pantallas en celular; fichas con desplazables), sección "Evitá estos" (`/evitar`,
