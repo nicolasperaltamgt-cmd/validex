@@ -59,6 +59,7 @@ con cantidad, precio mínimo y reporte PDF), Importador (guía y chat con reglas
 4. Revisión legal de Privacidad y Términos.
 
 ## Registro de cambios
+- **2026-11-03 (5)**: plan de arranque de 4 semanas (`docs/ARRANQUE.md`): ticket a Mercado Libre, 3 cotizaciones, demo con importadores, planilla de seguimiento.
 - **2026-11-03 (4)**: revisión de accesibilidad de los paneles nuevos (axe, 390 px, 15 fichas): se corrigió una tabla con desplazamiento que no era accesible por teclado; resultado final 0 problemas y sin desborde. Pendiente de publicar.
 - **2026-11-03 (3)**: configuración por mercado (`markets.ts`), `docs/MERCADOS.md`, 1 prueba nueva (40 en total). Sin cambios visibles. Sin publicar.
 - **2026-11-03 (2)**: firmeza del margen (`sensitivity.ts`, `SensitivityPanel`), 2 pruebas nuevas (39 en total). Sin publicar todavía.
