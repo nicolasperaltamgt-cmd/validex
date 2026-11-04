@@ -13,7 +13,12 @@ export function SensitivityPanel({ product }: { product: Product }) {
       </div>
       <p className="mt-2 max-w-2xl text-sm text-ink-soft">{FIRMNESS_TEXT[s.firmness]}</p>
 
-      <div className="mt-4 overflow-x-auto">
+      <div
+        className="mt-4 overflow-x-auto rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-radar"
+        tabIndex={0}
+        role="region"
+        aria-label="Escenarios de margen: la tabla se desplaza hacia los costados"
+      >
         <table className="w-full min-w-[30rem] text-sm">
           <caption className="sr-only">Margen y score en distintos escenarios</caption>
           <thead>
