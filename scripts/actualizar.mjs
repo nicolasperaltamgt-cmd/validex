@@ -1,18 +1,18 @@
-// Actualiza los datos de Mercado Libre y publica el sitio, todo en un solo paso.
+// Actualiza los datos de Mercado Libre y publica el sitio en GitHub Pages, todo en un solo paso.
 // Uso:
-//   npm run actualizar                 -> actualiza datos, prueba, compila, publica y verifica
-//   npm run actualizar -- --solo-datos -> solo actualiza src/data/meli-signals.json (no publica nada)
-// Necesita tener iniciada la sesión de Netlify (netlify login) y el archivo .env.local con las claves de Mercado Libre.
+//   npm run actualizar                 -> actualiza datos, prueba, guarda, sube a GitHub y verifica el sitio publicado
+//   npm run actualizar -- --solo-datos -> solo actualiza src/data/meli-signals.json (no guarda ni publica nada)
+// Necesita: el archivo .env.local con las claves de Mercado Libre, y la herramienta `gh` con la sesión de GitHub iniciada.
 // No muestra ni guarda claves. Cada paso se detiene si falla: nunca publica algo que no pasó las pruebas.
 import { execSync } from "node:child_process";
 
-const SITIO = "validex-prueba.netlify.app";
+const SITIO = "https://nicolasperaltamgt-cmd.github.io/validex";
 const SOLO_DATOS = process.argv.includes("--solo-datos");
 
-function paso(titulo, comando, opciones = {}) {
+function paso(titulo, comando, { capturar = false } = {}) {
   console.log(`\n▶ ${titulo}`);
   try {
-    return execSync(comando, { stdio: opciones.capturar ? ["ignore", "pipe", "inherit"] : "inherit", encoding: "utf8", env: { ...process.env, ...opciones.env } });
+    return execSync(comando, { stdio: capturar ? ["ignore", "pipe", "inherit"] : "inherit", encoding: "utf8" });
   } catch {
     console.log(`\n✖ Falló: ${titulo}. No se publicó nada.`);
     process.exit(1);
@@ -22,40 +22,33 @@ function paso(titulo, comando, opciones = {}) {
 paso("1/6 Actualizando los datos de Mercado Libre", "node scripts/meli-signals.mjs");
 
 if (SOLO_DATOS) {
-  console.log("\n✔ Datos actualizados en src/data/meli-signals.json. No se publicó (opción --solo-datos).");
+  console.log("\n✔ Datos actualizados en src/data/meli-signals.json. No se guardó ni se publicó (opción --solo-datos).");
   process.exit(0);
 }
 
 paso("2/6 Corriendo las pruebas", "npm test");
 
-const entorno = {
-  NEXT_PUBLIC_SITE_URL: `https://${SITIO}`,
-  NEXT_PUBLIC_SUPABASE_URL: "",
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: "",
-};
-const salida = paso("3/6 Compilando y subiendo una versión de prueba", "npx netlify deploy --build --json", { capturar: true, env: entorno });
-const id = /"deploy_id"\s*:\s*"([a-f0-9]+)"/.exec(salida ?? "")?.[1];
-if (!id) {
-  console.log("\n✖ No pude leer el número de la versión subida. No se publicó nada.");
-  process.exit(1);
+const hayCambios = execSync("git status --porcelain src/data/meli-signals.json", { encoding: "utf8" }).trim() !== "";
+if (hayCambios) {
+  paso("3/6 Guardando los datos nuevos", 'git add src/data/meli-signals.json && git commit -m "Datos de Mercado Libre actualizados"');
+  paso("4/6 Subiendo a GitHub (esto lanza la publicación)", "git push");
+} else {
+  console.log("\n▶ 3/6 y 4/6: los datos no cambiaron desde la última vez. Se vuelve a publicar igual.");
+  paso("   Lanzando la publicación a mano", "gh workflow run pages.yml");
 }
 
-paso(
-  "4/6 Publicando en producción",
-  `npx netlify api restoreSiteDeploy --data "${JSON.stringify({ site_id: SITIO, deploy_id: id }).replace(/"/g, '\\"')}"`,
-  { capturar: true },
-);
-
-console.log("\n▶ 5/6 Esperando unos segundos…");
-await new Promise((r) => setTimeout(r, 6000));
+console.log("\n▶ 5/6 Esperando que GitHub publique (1 a 3 minutos)…");
+await new Promise((r) => setTimeout(r, 8000));
+const id = execSync("gh run list --workflow pages.yml --limit 1 --json databaseId -q .[0].databaseId", { encoding: "utf8" }).trim();
+paso(`   Siguiendo la publicación n.º ${id}`, `gh run watch ${id} --exit-status`);
 
 console.log("\n▶ 6/6 Verificando el sitio publicado");
 let falla = false;
-for (const ruta of ["/", "/hoy", "/tantear", "/evitar", "/catalogo", "/analisis/termo-acero-1l"]) {
-  const r = await fetch(`https://${SITIO}${ruta}`).catch(() => null);
+for (const ruta of ["/", "/hoy/", "/tantear/", "/evitar/", "/catalogo/", "/analisis/termo-acero-1l/"]) {
+  const r = await fetch(`${SITIO}${ruta}`).catch(() => null);
   const ok = r?.ok === true;
   if (!ok) falla = true;
   console.log(`${ok ? "✔" : "✖"} ${ruta} (HTTP ${r?.status ?? "sin respuesta"})`);
 }
-console.log(falla ? "\n⚠ Alguna página no respondió bien. Revisá el sitio." : `\n✔ Listo: https://${SITIO} está actualizado.`);
+console.log(falla ? "\n⚠ Alguna página no respondió bien. Revisá el sitio." : `\n✔ Listo: ${SITIO}/ está actualizado.`);
 process.exit(falla ? 1 : 0);

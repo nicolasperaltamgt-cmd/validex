@@ -43,12 +43,23 @@ Comprobaciones: `npx tsc --noEmit`, `npm run lint`, `npm test` (pruebas de la l�
 - **Mercado Libre:** tendencias, categorías y más vendidos por la API oficial, con atribución y fecha. Los precios y la cantidad de vendedores todavía no se pueden leer.
 - **Flete, impuestos, tendencia y competencia:** estimaciones propias, marcadas como tales en cada ficha.
 
+## Publicación
+
+El sitio se publica en **GitHub Pages** (https://nicolasperaltamgt-cmd.github.io/validex/) con el flujo `.github/workflows/pages.yml`:
+corre las pruebas, exporta la app como archivos estáticos bajo `/validex` y la sube. Se lanza solo con cada cambio en `main` y todos los días
+a las 3:00 de Argentina, para que el "drop del día" y el dólar de referencia estén al día.
+
+Como GitHub Pages no tiene servidor, el chat con IA del Importador no está disponible en esa publicación (el Importador sigue respondiendo con sus
+reglas locales) y las cuentas con email requieren configurar Supabase. El resto funciona igual.
+
 ## Actualizar los datos de Mercado Libre
 
-Necesita un archivo `.env.local` con `MELI_CLIENT_ID` y `MELI_CLIENT_SECRET` (ver `.env.example`; **nunca** se guardan en el repositorio).
+Necesita un archivo `.env.local` con `MELI_CLIENT_ID` y `MELI_CLIENT_SECRET` (ver `.env.example`; **nunca** se guardan en el repositorio) y `gh`
+con la sesión de GitHub iniciada.
 
 ```bash
-npm run actualizar -- --solo-datos   # solo actualiza src/data/meli-signals.json
+npm run actualizar                   # actualiza los datos, prueba, sube a GitHub y verifica el sitio publicado
+npm run actualizar -- --solo-datos   # solo actualiza src/data/meli-signals.json, sin guardar ni publicar
 ```
 
 ## Aviso
