@@ -11,7 +11,7 @@ Objetivo: en 3 semanas saber si hay gente que usa Validex, vuelve y pagaría. Si
 Dónde: grupos de Facebook/WhatsApp/Discord de emprendedores, importadores, dropshipping Argentina. Leé primero las reglas del grupo; no hagas spam.
 
 ### Mensaje para publicar (borrador)
-> Armé una herramienta gratis para calcular si un producto importado da plata en Argentina (aranceles, IVA, comisión de MercadoLibre, dólar blue). Cada número dice si es dato real o estimado. Todavía es una prueba y busco 10 personas que importen o quieran importar para que la rompan y me digan qué falta. Link: https://validex-prueba.netlify.app
+> Armé una herramienta gratis para calcular si un producto importado da plata en Argentina (aranceles, IVA, comisión de MercadoLibre, dólar blue). Cada número dice si es dato real o estimado. Todavía es una prueba y busco 10 personas que importen o quieran importar para que la rompan y me digan qué falta. Link: https://nicolasperaltamgt-cmd.github.io/validex/
 
 ### Mensaje directo (para conocidos)
 > Hola, ¿tenés 5 minutos? Hice una página para saber si conviene importar un producto. Probala con uno que te interese y contame qué no entendiste o qué te faltó.

@@ -1,6 +1,6 @@
 # Validex: estado del proyecto
 
-Última actualización: 19 de noviembre de 2026. Sitio de prueba: https://validex-prueba.netlify.app
+Última actualización: 19 de noviembre de 2026. Sitio de prueba: https://nicolasperaltamgt-cmd.github.io/validex/
 
 > Regla del proyecto: nada se presenta como confirmado si no lo está. Hoy **ningún dato de producto está confirmado con una cotización**.
 

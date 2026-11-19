@@ -15,6 +15,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { cardClass } from "@/components/kit/card";
 import { buttonVariants } from "@/components/kit/button";
 import { cn } from "@/lib/cn";
+import { conBase } from "@/lib/base-path";
 
 const faq = [
   { q: "¿Los datos son reales?", a: "Son referencias con fuente y fecha, todavía sin verificar. Cada ficha muestra qué está confirmado y qué es estimado." },
@@ -233,7 +234,7 @@ export default function HomePage() {
           className="-mx-4 mt-10 flex snap-x gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0 [&>article]:w-72 [&>article]:shrink-0 [&>article]:snap-start lg:[&>article]:w-auto"
         >
           <article className={cn(cardClass, "overflow-hidden")}>
-            <Image src="/images/feature-drop.jpg" alt="Tres tarjetas de producto flotando junto a un calendario" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
+            <Image src={conBase("/images/feature-drop.jpg")} alt="Tres tarjetas de producto flotando junto a un calendario" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
             <div className="p-6">
               <h3 className="font-display text-xl font-bold">Un drop por día</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">Tres productos para mirar hoy. Mañana, otros tres.</p>
@@ -249,7 +250,7 @@ export default function HomePage() {
           </article>
 
           <article className={cn(cardClass, "overflow-hidden")}>
-            <Image src="/images/feature-tantear.jpg" alt="Una calculadora con monedas, una caja y una lupa" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
+            <Image src={conBase("/images/feature-tantear.jpg")} alt="Una calculadora con monedas, una caja y una lupa" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
             <div className="p-6">
               <h3 className="font-display text-xl font-bold">Tantear, con todo incluido</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">Mirá cómo se arma el costo antes de comprar.</p>
@@ -274,7 +275,7 @@ export default function HomePage() {
           </article>
 
           <article className={cn(cardClass, "overflow-hidden")}>
-            <Image src="/images/feature-importador.jpg" alt="Dos globos de chat junto a un avión de carga y un documento" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
+            <Image src={conBase("/images/feature-importador.jpg")} alt="Dos globos de chat junto a un avión de carga y un documento" width={800} height={600} sizes="(min-width: 1024px) 380px, 100vw" className="w-full" />
             <div className="p-6">
               <h3 className="font-display text-xl font-bold">El Importador</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">Preguntá impuestos, aduana y comisiones.</p>
@@ -362,7 +363,7 @@ export default function HomePage() {
 
       {/* Cierre con ilustración */}
       <section className="relative left-1/2 -mb-10 w-screen -translate-x-1/2 overflow-hidden bg-profundo text-white">
-        <Image src="/images/cierre-carga.jpg" alt="" fill sizes="100vw" className="object-cover opacity-60" />
+        <Image src={conBase("/images/cierre-carga.jpg")} alt="" fill sizes="100vw" className="object-cover opacity-60" />
         <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
           <div className="mb-8">
             <Logo showTagline={false} tono="claro" />

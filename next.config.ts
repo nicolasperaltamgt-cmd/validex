@@ -12,12 +12,24 @@ const encabezadosSeguridad = [
   { key: "Strict-Transport-Security", value: "max-age=31536000" },
 ];
 
+/**
+ * GitHub Pages (GITHUB_PAGES=true): el sitio se exporta como archivos estáticos y vive en una subcarpeta (/validex).
+ * Sin servidor no hay encabezados propios ni la ruta /api/importador (el chat sigue funcionando con sus reglas locales).
+ * En Netlify y en local no cambia nada.
+ */
+const paraGithubPages = process.env.GITHUB_PAGES === "true";
+const carpetaBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const nextConfig: NextConfig = {
   // Las fotos ya vienen chicas (800 px): se sirven directo, sin el optimizador, que fallaba al cargar varias juntas.
   images: { unoptimized: true },
-  async headers() {
-    return [{ source: "/:path*", headers: encabezadosSeguridad }];
-  },
+  ...(paraGithubPages
+    ? { output: "export", trailingSlash: true, basePath: carpetaBase, assetPrefix: carpetaBase }
+    : {
+        async headers() {
+          return [{ source: "/:path*", headers: encabezadosSeguridad }];
+        },
+      }),
 };
 
 export default nextConfig;

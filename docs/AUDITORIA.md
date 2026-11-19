@@ -1,6 +1,6 @@
 # Auditoría final: Validex (versión de prueba)
 
-Fecha: 3 de noviembre de 2026. Sitio publicado: https://validex-prueba.netlify.app
+Fecha: 3 de noviembre de 2026. Sitio publicado: https://nicolasperaltamgt-cmd.github.io/validex/
 
 ## Resultado de lo que sí se pudo comprobar
 

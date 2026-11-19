@@ -25,6 +25,6 @@ Botones en píldora (radio total). Tarjetas con radio 32 px y contorno de 2 px e
 
 ## Cómo pasar la página a Figma
 1. Abrí Figma y usá el plugin "html.to.design" (de divRIOTS).
-2. Pegá la dirección https://validex-prueba.netlify.app y elegí ancho 1440 (escritorio) y 390 (celular).
+2. Pegá la dirección https://nicolasperaltamgt-cmd.github.io/validex/ y elegí ancho 1440 (escritorio) y 390 (celular).
 3. Repetí con /hoy, /tantear, /importador y /guardados.
 4. Las fotos están en la carpeta imagenes y el logo en logo-validex.svg.

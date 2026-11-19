@@ -10,6 +10,7 @@ import { MobileTabBar } from "@/components/layout/MobileTabBar";
 import { t } from "@/i18n";
 import { Toaster } from "@/components/kit/sonner";
 import { TooltipProvider } from "@/components/kit/tooltip";
+import { conBase } from "@/lib/base-path";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
@@ -26,11 +27,11 @@ export const metadata: Metadata = {
   // Versión de prueba: no se ofrece a los buscadores salvo que se publique con NEXT_PUBLIC_INDEXAR=si.
   robots: process.env.NEXT_PUBLIC_INDEXAR === "si" ? undefined : { index: false, follow: false },
   appleWebApp: { capable: true, title: "Validex", statusBarStyle: "black-translucent" },
-  icons: { apple: "/icons/apple-touch-icon.png" },
+  icons: { apple: conBase("/icons/apple-touch-icon.png") },
   openGraph: {
     title: `${t.brand} — ${t.brandTagline}`,
     description: "Evaluá productos y calculá tu margen en segundos. Versión de prueba con datos reales sin verificar y de ejemplo.",
-    images: [{ url: "/images/og.png", width: 1200, height: 630, alt: "Validex: validá antes de invertir" }],
+    images: [{ url: conBase("/images/og.png"), width: 1200, height: 630, alt: "Validex: validá antes de invertir" }],
     locale: "es_AR",
     type: "website",
   },

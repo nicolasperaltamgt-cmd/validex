@@ -3,7 +3,8 @@
 //  2. Si no hay internet al abrir una página, muestra /offline.html en vez del error del navegador.
 // No guarda páginas ni datos: todo se pide siempre a la red, así nunca se muestra información vieja.
 const CACHE = "validex-offline-v1";
-const OFFLINE_URL = "/offline.html";
+// Relativa al alcance del service worker: funciona igual en Netlify (raíz) y en GitHub Pages (/validex/).
+const OFFLINE_URL = new URL("offline.html", self.registration.scope).pathname;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.add(OFFLINE_URL)));

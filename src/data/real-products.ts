@@ -1,4 +1,5 @@
 import { DEFAULT_MARKET, importTaxRate } from "../lib/markets";
+import { conBase } from "../lib/base-path";
 import type { Product, ProductSource } from "./types";
 
 /**
@@ -109,7 +110,7 @@ function build(s: Seed): Product {
       taxes: importTaxes(s.purchase, s.shipping),
       commissionPct: COMMISSION_PCT,
     },
-    image: `/images/productos/${s.id}.jpg`,
+    image: conBase(`/images/productos/${s.id}.jpg`),
     updatedAt: s.updatedAt ?? UPDATED,
     dataStatus: "unverified",
     sourceNote: s.sourceNote,

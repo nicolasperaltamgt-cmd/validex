@@ -3,7 +3,7 @@
 **Antes de comprar, mirá los números.** Validex es una herramienta para evaluar un producto antes de importarlo y revenderlo en Argentina:
 costo completo (compra, flete, impuestos y comisión), margen, un **score de 0 a 100 con metodología pública** y qué tan firme es ese margen.
 
-Sitio de prueba: https://validex-prueba.netlify.app
+Sitio de prueba: https://nicolasperaltamgt-cmd.github.io/validex/
 
 > **Estado:** versión de prueba. Los productos son **referencias reales con fuente y fecha, todavía sin verificar** con cotizaciones de proveedores.
 > Cada ficha muestra qué dato tiene fuente y cuál es una estimación. Nada se presenta como "verificado" si no lo está.

@@ -1,0 +1,67 @@
+name: Publicar en GitHub Pages
+
+# Cada vez que se sube un cambio a main, y todos los días a las 3:00 de Argentina (6:00 UTC) para que el
+# "drop del día" y el dólar de referencia estén al día. También se puede lanzar a mano desde la pestaña Actions.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Si las pruebas fallan, no se publica nada.
+      - name: Pruebas
+        run: npm test
+
+      # Sin servidor no hay chat con IA (y está apagado). El Importador sigue respondiendo con sus reglas locales.
+      - name: Quitar la ruta que necesita servidor
+        run: rm -rf src/app/api
+
+      - name: Compilar como sitio estático
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: /validex
+          NEXT_PUBLIC_SITE_URL: https://nicolasperaltamgt-cmd.github.io/validex
+          # Las cuentas con email necesitan Supabase, que no está configurado: la app funciona igual, con guardados en el navegador.
+          NEXT_PUBLIC_SUPABASE_URL: ""
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ""
+        run: npx next build
+
+      # Evita que GitHub ignore las carpetas que empiezan con guion bajo (como _next).
+      - run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
