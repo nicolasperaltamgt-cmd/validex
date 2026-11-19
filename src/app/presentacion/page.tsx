@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ContactoForm } from "@/components/ui/ContactoForm";
 import { buttonClass } from "@/components/ui/button";
 import { getProducts, getRealProducts } from "@/data";
 
@@ -74,6 +75,9 @@ export default function PresentacionPage() {
           </ul>
           <p className="mt-3 text-sm font-semibold">Próximos pasos: verificar cinco productos con cotizaciones reales y probarla con usuarios.</p>
         </section>
+        <div className="lg:col-span-2">
+          <ContactoForm />
+        </div>
       </div>
     </>
   );
