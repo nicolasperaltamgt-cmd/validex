@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { TantearForm } from "@/components/calculator/TantearForm";
 
 export const metadata: Metadata = { title: "Tantear un producto" };
@@ -9,7 +10,9 @@ export default function TantearPage() {
   return (
     <>
       <FondoApp />
-      <TantearForm />
+      <Suspense fallback={null}>
+        <TantearForm />
+      </Suspense>
     </>
   );
 }

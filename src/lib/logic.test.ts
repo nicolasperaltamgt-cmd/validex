@@ -556,3 +556,26 @@ test("tokens de diseño: los semánticos apuntan a primitivos que existen", () =
     for (const hex of Object.values(grupo)) assert.ok(valores.has(hex), `${hex} no es un primitivo`);
   }
 });
+
+import { buscar, puntuar } from "./busqueda";
+
+test("buscar: acentos, plurales, sinónimos y todas las palabras", () => {
+  const fuentes = {
+    productos: [
+      { id: "termo", nombre: "Termo de acero 1 L", categoria: "Hogar", descripcion: "Para mate", score: 70 },
+      { id: "aud", nombre: "Auriculares TWS básicos", categoria: "Electrónica", descripcion: "Bluetooth", score: 50 },
+    ],
+    tendencias: [
+      { position: 1, keyword: "termo stanley" },
+      { position: 2, keyword: "termotanque electrico" },
+    ],
+    categorias: [{ categoryId: "x", categoryName: "Celulares", bestSellers: [{ position: 1, name: "Auriculares Xiaomi Redmi Buds" }] }],
+  };
+  assert.equal(buscar("TERMOS", fuentes).analizados[0]?.id, "termo");
+  assert.equal(buscar("termo", fuentes).tendencias.length, 1); // no coincide con termotanque
+  assert.equal(buscar("audífonos", fuentes).analizados[0]?.id, "aud"); // sinónimo con acento
+  assert.equal(buscar("auricular xiaomi", fuentes).vendidos.length, 1);
+  assert.equal(buscar("auricular heladera", fuentes).total, 0); // todas las palabras tienen que aparecer
+  assert.equal(buscar("   ", fuentes).total, 0);
+  assert.ok(puntuar("termo", { campos: [{ texto: "termo", peso: 3 }] }) > puntuar("term", { campos: [{ texto: "termo", peso: 3 }] }));
+});

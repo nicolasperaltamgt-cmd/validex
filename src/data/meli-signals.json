@@ -1,7 +1,7 @@
 {
   "source": "Mercado Libre Argentina (API oficial)",
   "site": "MLA",
-  "fetchedAt": "2026-11-19T16:40:07.246Z",
+  "fetchedAt": "2026-11-19T16:46:39.696Z",
   "trends": [
     {
       "position": 1,
@@ -622,5 +622,1255 @@
         }
       ]
     }
-  }
+  },
+  "descubrir": [
+    {
+      "categoryId": "MLA5725",
+      "categoryName": "Accesorios para Vehículos",
+      "bestSellers": [
+        {
+          "position": 2,
+          "name": "Compresor De Aire Portátil Gadnic Inflador Neumáticos 50W Presión 150 PSI Caudal 17 L/min Pantalla Dual LCD Corte Automático Linterna LED Accesorios Para Auto Moto Bicicleta Pelotas"
+        },
+        {
+          "position": 3,
+          "name": "Neumático Onyx Ny-806 175 65 R14 82h Tecnología De Punta Con Respaldo Internacional"
+        },
+        {
+          "position": 5,
+          "name": "Yelmo As-3240 Aspiradora Para Auto Recargable Usb Color Gris"
+        },
+        {
+          "position": 6,
+          "name": "Inflador De Neumáticos Inalámbrico Gadnic Compresor Portátil 150 PSI 10.3 BAR Batería 2x2000mAh Flujo 19L min 5 Modos Pantalla Digital 4 Boquillas Cable De Carga"
+        },
+        {
+          "position": 7,
+          "name": "Neumático Onyx Ny-806 175 70 R13 82h Tecnología De Punta Con Respaldo Internacional"
+        },
+        {
+          "position": 10,
+          "name": "Cargador De Bateria Inteligente 12v 6a Mantenedor/reparador"
+        },
+        {
+          "position": 11,
+          "name": "Cortina Mosquitero Co Cierre Magnetico 80x210 Cm Color Negro"
+        },
+        {
+          "position": 12,
+          "name": "Adaptador Inalámbrico Carplay Android Auto 2 En 1 Usb Tipo C Gris Oscuro"
+        },
+        {
+          "position": 13,
+          "name": "Neumático 185/65R15 RHP-780P Rovelo Seguridad y Rendimiento"
+        },
+        {
+          "position": 14,
+          "name": "Compresor De Aire Portatil Powerbank Linterna Alpina C5 Pro Color Negro Fase eléctrica Monofásica Frecuencia 50"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1512",
+      "categoryName": "Agro",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Taladro Percutor Inalambrico C/ Maletin Goodyear 21v 10mm + 1 Bateria Li-ion 1.5ah + Accesorios"
+        },
+        {
+          "position": 2,
+          "name": "Amoladora Angular 115mm 820w Black & Decker G720"
+        },
+        {
+          "position": 3,
+          "name": "Bomba Periferica Elevadora Agua Vasser 1/2 Hp 20mts caudal 30 l/m"
+        },
+        {
+          "position": 4,
+          "name": "Taladro Atornillador Percutor Gp Garden Plus De Lusqtoff + 2 Baterias Inalambrico Mandril 10mm Con Regulador De Torque"
+        },
+        {
+          "position": 5,
+          "name": "Crique Hidraulico Carrito Gato Para Autos 2 Tn Mejor Calidad"
+        },
+        {
+          "position": 6,
+          "name": "Taladro Percutor Inalámbrico Brushless 20v 66Nm Con Baterias, Cargador y Maletín Total"
+        },
+        {
+          "position": 7,
+          "name": "Aceite Total Energies Quartz 7000 10w-40 Api Sn X 4 Lts"
+        },
+        {
+          "position": 8,
+          "name": "Aceite Shell Rimula R4 X 15w-40 1l"
+        },
+        {
+          "position": 9,
+          "name": "Amoladora Angular Bosch Gws 770 De 4.1/2 (115 Mm) De 770 W Turquesa 60"
+        },
+        {
+          "position": 10,
+          "name": "Insecticida Jabón Potásico Con Canela Y Neem Ecomambo® 500cc"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1403",
+      "categoryName": "Alimentos y Bebidas",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Cerveza Heineken Rubia Lata 710ml Pack X6"
+        },
+        {
+          "position": 3,
+          "name": "Aceite De Oliva Virgen Extra Oliovita Botella Pet 500 Ml"
+        },
+        {
+          "position": 4,
+          "name": "Yerba Mate Playadito 1000grs."
+        },
+        {
+          "position": 5,
+          "name": "Café instantáneo Nescafé Gold doypack 100g"
+        },
+        {
+          "position": 6,
+          "name": "Cacao Amargo Puro En Polvo 200g Dicomere Sin Azucar Sin Tacc"
+        },
+        {
+          "position": 7,
+          "name": "Café Dolce Gusto Lungo En Cápsula 70g Nescafé"
+        },
+        {
+          "position": 8,
+          "name": "Caramelos Flynn Paff tutti frutti sin tacc caja 70 unidades"
+        },
+        {
+          "position": 9,
+          "name": "Mayonesa Natura sin gluten doypack 950g"
+        },
+        {
+          "position": 10,
+          "name": "Mix De Frutos Secos Especial Sin Pasas X 1kg"
+        },
+        {
+          "position": 11,
+          "name": "Caramelos Sugus Masticable Frutal x700g."
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1071",
+      "categoryName": "Animales y Mascotas",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Excellent Gato Adulto Sabor Pollo Y Arroz x 1 kg"
+        },
+        {
+          "position": 2,
+          "name": "Old Prince Cordero Adulto Raza Mediana Y Grande 15kg"
+        },
+        {
+          "position": 3,
+          "name": "ARENA Rubicat Classic Aglutinante Pack Ahorro 2 Bolsas 15k Total 30k"
+        },
+        {
+          "position": 4,
+          "name": "Purina Excellent Urinary Gato Adulto x 1 kg"
+        },
+        {
+          "position": 6,
+          "name": "Cortadora De Pelo Para Perros Gadnic S300 Recargable 5W Bateria 1200mAh Cuchilla Regulable 0.8 A 2mm 4 Peines 3 A 12mm"
+        },
+        {
+          "position": 7,
+          "name": "Piedras Sanitarias Absorsol Premium Pack 6 Unidades X 3.6 Kg"
+        },
+        {
+          "position": 8,
+          "name": "Vitalcan Balanced Natural Recipe Carne Argentina Seleccionada Para Perro Adulto En Bolsa De 3 Kg"
+        },
+        {
+          "position": 9,
+          "name": "Alimento Royal Canin Feline Health Nutrition Fit para gato adulto x 400 gs"
+        },
+        {
+          "position": 10,
+          "name": "Agroindustrias Baires Maintenance Criadores Adultos Perro Adulto los tamaños Carne/Pollo 22 kg Bolsa Seca"
+        },
+        {
+          "position": 11,
+          "name": "Máquina De Cortar Pelo Para Perros Gadnic CP170 Silenciosa 2000 mAh 4 Peines Acero Inoxidable Autonomía 3,5Hr Carga Rápida"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1367",
+      "categoryName": "Antigüedades y Colecciones",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Ventilador De Techo Kanji Retráctil Blanco 4 Aspas 6 Velocidades Reversa Timer Control Remoto 65 Watts."
+        },
+        {
+          "position": 2,
+          "name": "Ventilador De Techo Color Blanco 4 Aspas Retractil Home World"
+        },
+        {
+          "position": 3,
+          "name": "Ventilador de Pie Delhi de 18\" Oscilante con 3 Velocidades y 95W"
+        },
+        {
+          "position": 4,
+          "name": "Ventilador de pie Liliana VP18P 50 Hz x 60 Hz 18 Pulgadas"
+        },
+        {
+          "position": 5,
+          "name": "Foco Ventilador Techo Lampara Led E27 Con Control Remoto 12w 50 Cm 50/60hz Blanco Plástico 6 aspas"
+        },
+        {
+          "position": 7,
+          "name": "Ventilador de pared y de piso Liliana VTF16P turbo con 5 palas color negro estructura color negro, 40.64cm de diámetro"
+        },
+        {
+          "position": 8,
+          "name": "Ventilador de Pie Peabody PE-VP1860N Oscilante de 3 Velocidades con Aspas Plásticas"
+        },
+        {
+          "position": 10,
+          "name": "Ventilador Semi Industrial Magiclick Turbo 20\" Silencioso de 90W con 3 Velocidades"
+        },
+        {
+          "position": 11,
+          "name": "Ventilador de pie Delhi DL-10 70W 3 velocidades 5 aspas de plástico 16'' color blanco 50hz"
+        },
+        {
+          "position": 12,
+          "name": "Ventilador de Pared Liliana con Control Remoto, 32\" y Aspas de Metal"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1368",
+      "categoryName": "Arte, Librería y Mercería",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Resma Punax A4 75 Gr Blanco Obra Para Impresora O Fotocopiadora"
+        },
+        {
+          "position": 3,
+          "name": "Papel Fotográfico Autoadhesivo A4 Brillante 20 Hojas Art Jet Blanco 115gr"
+        },
+        {
+          "position": 4,
+          "name": "Art-Jet Papel Fotográfico A4 200 Gr 100 Hojas De Alto Brillo Color Blanco"
+        },
+        {
+          "position": 5,
+          "name": "Pizarra Blanca 80x120cm Premium + 2 Marcadores + Borrador Negro Doggo By Apxer"
+        },
+        {
+          "position": 6,
+          "name": "Cinta Raso Fina N°1 Cordon De Oro Deco 6mm Rollo X 50 Metros Color Blanco"
+        },
+        {
+          "position": 7,
+          "name": "Pack de Resmas de Papel Pampa A4 de 70 g - 10 Unidades"
+        },
+        {
+          "position": 8,
+          "name": "Cinta Doble Faz 3M 4910 Transparente de 19 Mm x 5 M"
+        },
+        {
+          "position": 10,
+          "name": "Cinta Raso N°2 Cordon De Oro Deco 10mm Rollo X 10 Metros Color Violeta"
+        },
+        {
+          "position": 11,
+          "name": "Cinta Raso Doble Faz N°12 Ancho 50mm Deco Rollo X 10 Metros Color Fucsia"
+        },
+        {
+          "position": 12,
+          "name": "Pouch Para Plastificar A4 125 Micrones X 100 Unidades"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1384",
+      "categoryName": "Bebés",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Babysec Premium Soft xxg x 44 unidades (violeta)"
+        },
+        {
+          "position": 2,
+          "name": "Pañales Pampers Premium Care Xxg X 54 Extra Extra Grande (xxg)"
+        },
+        {
+          "position": 3,
+          "name": "Paños De Algodon Estrella Baby X 40 u"
+        },
+        {
+          "position": 4,
+          "name": "Toallitas Húmedas Toddler Sin Perfume X48"
+        },
+        {
+          "position": 5,
+          "name": "Oleo estrella sin fragancia 950 ml"
+        },
+        {
+          "position": 6,
+          "name": "Nestlé Nidina 2 Leche en Polvo 6-12 meses 800 g"
+        },
+        {
+          "position": 7,
+          "name": "Pañales Pampers deluxe protection G x 72"
+        },
+        {
+          "position": 8,
+          "name": "Silla de Comer Mega Baby Doha 3 en 1 Convertible con Booster y Bandeja Extraíble Verde"
+        },
+        {
+          "position": 10,
+          "name": "NUTRILON PROFUTURA 2 - POUCH 1,2 KG"
+        },
+        {
+          "position": 11,
+          "name": "Pañales Pampers Pants Talla XXG, 24 Un"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1246",
+      "categoryName": "Belleza y Cuidado Personal",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Sérum Rostro Revitalift Ácido Hialurónico L'Oréal Paris 30ml"
+        },
+        {
+          "position": 2,
+          "name": "Óleo Extraordinario Reparación de Puntas L'Oréal Elvive 100Ml"
+        },
+        {
+          "position": 3,
+          "name": "Kit Schwarzkopf Professional Igora Royal tom 7-77"
+        },
+        {
+          "position": 4,
+          "name": "Protector Solar facial L'Oréal Paris UV Defender Aquafusion FPS50+, sin color x50ml"
+        },
+        {
+          "position": 5,
+          "name": "Sérum Celimax Antiarrugas Y Retinal ORIGINAL Para Rostro Y Cuello 15ml"
+        },
+        {
+          "position": 6,
+          "name": "Crema Líquida Glass Skin Revitalift Ácido Hialurónico 50 g L'oreal Paris"
+        },
+        {
+          "position": 7,
+          "name": "Pestañina Maybelline Bubble Cur Negro"
+        },
+        {
+          "position": 8,
+          "name": "Sérum Anti-imperfecciones con Ácido Salicílico de Garnier 30ml"
+        },
+        {
+          "position": 9,
+          "name": "Crema Día Revitalift Laser Anti Edad 50ml L´oreal Paris"
+        },
+        {
+          "position": 10,
+          "name": "Afeitadora Eléctrica Hombre Shaver VGR V-325 Recargable Inalámbrica Negro y azul"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1039",
+      "categoryName": "Cámaras y Accesorios",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Micrófono Inalámbrico Corbatero Para Celular Ringo x2 Cubreviento Receptor USB-C y Adaptador Lightning Ideal Streaming Para Creadores de Contenido Influencers Color Rosa"
+        },
+        {
+          "position": 4,
+          "name": "Impresora HP Smart Tank 210 Sistema Continuo Wi-Fi Color HP App"
+        },
+        {
+          "position": 6,
+          "name": "Trípode para Celular Pirotech con Brazo Articulado y Base Pesada de Escritorio"
+        },
+        {
+          "position": 7,
+          "name": "Cámara Digital Kodak Charmera RK0601 Retro Compacta para Llavero y Video"
+        },
+        {
+          "position": 8,
+          "name": "Impresora Multifuncional HP Ink Advantage 2975 a Color Wi-Fi Imprime Escanea Copia"
+        },
+        {
+          "position": 10,
+          "name": "Microscopio Mini Gadnic Portátil Zoom Óptico 60-120x Con Luz LED Lente HD tamaño 10.5 x 5.3 cm"
+        },
+        {
+          "position": 11,
+          "name": "Cámara Digital Kodak Pixpro FZ55 16MP Zoom Óptico 5x Full HD Black"
+        },
+        {
+          "position": 12,
+          "name": "Ditron LINEA Compact Light SK-T21 lámpara portátil ligera eficiente para iluminación Color Azul"
+        },
+        {
+          "position": 14,
+          "name": "Aro De Luz 26 Cm Con Tripode + Panel Fotografia Led Profesional Combo Veoquiero"
+        },
+        {
+          "position": 15,
+          "name": "Cámara Deportiva Gadnic Conexion Inalambrica 4K 16 MP Estuche Sumergible 30 Metros Magnetica Gran Angular"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1051",
+      "categoryName": "Celulares y Teléfonos",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Auriculares Xiaomi Redmi Buds 6 Play Inalámbricos Bluetooth 5.4 36 h Negro"
+        },
+        {
+          "position": 2,
+          "name": "Moto G06 256 Dual SIM 256 GB leche 4 GB RAM"
+        },
+        {
+          "position": 4,
+          "name": "Cargador Portatil Xiaomi Power Bank 20000 mAh 22.5 W Cable Integrado Light Gray"
+        },
+        {
+          "position": 5,
+          "name": "Zte Blade A56 Pro 12gb Ram 128gb Camara 50mpx Huella Dorado Dimm"
+        },
+        {
+          "position": 6,
+          "name": "Teléfono móvil Samsung Galaxy A17 con IA, 256 GB, 8 GB de RAM, cámara de 50 MP, pantalla 6.7, NFC, IP54, azul"
+        },
+        {
+          "position": 7,
+          "name": "Auriculares In-ear Xiaomi Redmi Buds 6 Play TWS Bluetooth 5.4 con Micrófono y Estuche de Carga Blanco"
+        },
+        {
+          "position": 8,
+          "name": "Smartwatch Reloj Inteligente Sumergible Jd Capri Rosa Llamadas Bluetooth Múltiples Modos Deportivos Presión Arterial SPO2 Control de Música"
+        },
+        {
+          "position": 9,
+          "name": "Repetidor extensor Wifi 4 TP-Link WA850RE V6 Blanco"
+        },
+        {
+          "position": 10,
+          "name": "Auriculares Sony Bluetooth Inalámbricos Wh-ch520 Azul"
+        },
+        {
+          "position": 11,
+          "name": "Reloj Inteligente Xiaomi Smart Band 11 Active Frecuencia cardiaca SP02 Negra"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1648",
+      "categoryName": "Computación",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Kit De Internet vía Satélite Starlink Mini X"
+        },
+        {
+          "position": 2,
+          "name": "Auriculares Xiaomi Redmi Buds 6 Play Inalámbricos Bluetooth 5.4 36 h Negro"
+        },
+        {
+          "position": 3,
+          "name": "Kit De Internet Vía Satélite Starlink Mini Car Pack"
+        },
+        {
+          "position": 4,
+          "name": "Filamento Hellbot Ecofila Recarga Pla 1,75mm 1kg V2 Color Azul"
+        },
+        {
+          "position": 5,
+          "name": "Filamento PLA Hellbot Ecofila Lock 1kg Blanco 1.75mm 335m para Impresión 3D"
+        },
+        {
+          "position": 6,
+          "name": "Resma Punax A4 75 Gr Blanco Obra Para Impresora O Fotocopiadora"
+        },
+        {
+          "position": 7,
+          "name": "Kit Starlink De Internet Vía Satélite Estándar V4"
+        },
+        {
+          "position": 8,
+          "name": "Papel Fotográfico Autoadhesivo A4 Brillante 20 Hojas Art Jet Blanco 115gr"
+        },
+        {
+          "position": 9,
+          "name": "Sony PlayStation DualSense Joystick inalámbrico black PS5"
+        },
+        {
+          "position": 10,
+          "name": "Filamento Bambu Lab Pla Lite 1.75mm 1kg Rojo"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1144",
+      "categoryName": "Consolas y Videojuegos",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Auriculares Xiaomi Redmi Buds 6 Play Inalámbricos Bluetooth 5.4 36 h Negro"
+        },
+        {
+          "position": 2,
+          "name": "Sony PlayStation DualSense Joystick inalámbrico black PS5"
+        },
+        {
+          "position": 3,
+          "name": "Joystick Inalámbrico Sony DualSense para PlayStation 5 Color Blanco CFI-ZCT1W"
+        },
+        {
+          "position": 4,
+          "name": "Auriculares In-ear Xiaomi Redmi Buds 6 Play TWS Bluetooth 5.4 con Micrófono y Estuche de Carga Blanco"
+        },
+        {
+          "position": 5,
+          "name": "Auriculares inalámbricos Lenovo ThinkPlus XT80 negro con luz azul LED"
+        },
+        {
+          "position": 6,
+          "name": "Roku Streaming Stick 3840br 2025 para TV HD y modo de auriculares con control de voz completo"
+        },
+        {
+          "position": 7,
+          "name": "Grand Theft Auto Vi Gta 6 Caja Física Con Código De Descarga Para Ps5"
+        },
+        {
+          "position": 8,
+          "name": "Auricular deportivo Lenovo Thinkplus XT80 bluetooth in ear"
+        },
+        {
+          "position": 9,
+          "name": "Sony Playstation 5 consola Slim Standard + Juego Astro Bot Y Gt7"
+        },
+        {
+          "position": 10,
+          "name": "Joystick Control Compatible Ps4 Inalámbrico Blanco"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1500",
+      "categoryName": "Construcción",
+      "bestSellers": [
+        {
+          "position": 2,
+          "name": "Pintura De 20 Litros Latex Interior Mate Blanco"
+        },
+        {
+          "position": 4,
+          "name": "Membrana Fibrada Poliuretanica 3.1,máxima Duración 560 X20 Blanco Mate"
+        },
+        {
+          "position": 5,
+          "name": "Membrana Liquitech Caucho Goma Impermeabilizante 20kg Gris"
+        },
+        {
+          "position": 6,
+          "name": "Pintura Látex Casablanca Pro Interior 4L color blanco mate"
+        },
+        {
+          "position": 8,
+          "name": "Pintura Latex Ingenia X 20 L Interior Exterior Cubritiva - Blanco"
+        },
+        {
+          "position": 10,
+          "name": "Flor Ducha Cuadrada Acero Inoxidable + Brazo Caño Cromado Color Gris antisarro altapresion"
+        },
+        {
+          "position": 11,
+          "name": "Pintura Latex Limon Tecza, Lavable X 20 Litros, Linea Colores Intensos Preparados Apto Interior Y Exterior, Acabado Mate."
+        },
+        {
+          "position": 12,
+          "name": "Recublock Cimientos Bloqueador De Humedad 12 Kg Acabado Mate Color Blanco"
+        },
+        {
+          "position": 14,
+          "name": "Látex Interior/Exterior Blanco Mate 20 Litros"
+        },
+        {
+          "position": 16,
+          "name": "Membrana Liquida Transitable 1ra Calidad 10 Kilogramos Color Verde Cemento"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1276",
+      "categoryName": "Deportes y Fitness",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Creatina Monohidrato Ultramicronizada Star Nutrition 300g Pote"
+        },
+        {
+          "position": 2,
+          "name": "Creatina ENA Sport en polvo Sin sabor x 300g"
+        },
+        {
+          "position": 4,
+          "name": "Creatina Monohidrato Ultramicronizada Star Nutrition Polvo Sin Sabor 300g. Doy Pack"
+        },
+        {
+          "position": 5,
+          "name": "Proteína SPX 100% Whey en polvo sabor Chocolate x 1.08kg"
+        },
+        {
+          "position": 6,
+          "name": "Termo para Mate OZZ 1 Litro de Acero Inoxidable 304 con 2 Tapones Intercambiables, Pico Cebador y Tapón 360°, Doble Pared, Mantiene el Agua Caliente hasta 12 Horas Negro"
+        },
+        {
+          "position": 7,
+          "name": "Creatina Natural Whey en polvo Sin sabor x 500g"
+        },
+        {
+          "position": 10,
+          "name": "Bicicleta Alpina 2.0 Pro Acero Mtb R29 21v Shimano C/susp Color Negro Rojo Blanco 2.0 Std2 Tamaño Del Cuadro M"
+        },
+        {
+          "position": 11,
+          "name": "Mesa Exterior Plegable 180 Cm Polipropileno Hierro - Alpina Color Blanco"
+        },
+        {
+          "position": 12,
+          "name": "Par De Mancuernas 2kg C/u. Pesas Recubiertas Entrenamiento Color Negro"
+        },
+        {
+          "position": 13,
+          "name": "Bicicleta Mtb Overtech R29 Q3 Con Suspensión Tamaño Del Cuadro L Negro/rojo/blanco"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA5726",
+      "categoryName": "Electrodomésticos y Aires Ac.",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Yogurtera Yelmo YG-1717 Yogur Griego Natural 20W 1.5 Litros 2 contenedores"
+        },
+        {
+          "position": 2,
+          "name": "Aire Acondicionado Split Inverter Frio Calor Philco 3225 Fg / 3750 w"
+        },
+        {
+          "position": 3,
+          "name": "Ventilador De Techo Kanji Retráctil Negro 4 Aspas 6 Velocidades Luz Calida Natural Fria"
+        },
+        {
+          "position": 4,
+          "name": "Pava Eléctrica Digital Novohome 2 Litros Pantalla Tactil Color Negro Acero Inoxidable Gran Capacidad XL"
+        },
+        {
+          "position": 5,
+          "name": "Ventilador Exahome 3 En 1 Pie Pared Turbo Ind. Argentina Estructura Gris Aspas Gris"
+        },
+        {
+          "position": 6,
+          "name": "Aspiradora 2 En 1 Gadnic Vertical + De Mano 600W 15KPa Deposito 1L Filtro HEPA Lavable Cable 5m Tubo Metalico Extensible 220V"
+        },
+        {
+          "position": 7,
+          "name": "Aire Acondicionado Split BGH Inverter Frío/Calor 3100F"
+        },
+        {
+          "position": 8,
+          "name": "Yogurtera Ultracomb YG-2712 12 Jarros 2,1lts Digital"
+        },
+        {
+          "position": 9,
+          "name": "Ventilador Kanjihome 18 Kjh-fh1311 De Pie 90w 1.50m 3 Aspas de metal Diámetro 45.72 Cm"
+        },
+        {
+          "position": 10,
+          "name": "Cafetera Espresso Gadnic 20 Bar Panel Táctil Vaporizador De Leche Depósito Removible 1.5 Litros"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1000",
+      "categoryName": "Electrónica, Audio y Video",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Auriculares Xiaomi Redmi Buds 6 Play Inalámbricos Bluetooth 5.4 36 h Negro"
+        },
+        {
+          "position": 2,
+          "name": "Tv Box Smart 4k Pro 5g Android 11.1 Almacenamiento 512GB Resolución 4K WiFi"
+        },
+        {
+          "position": 3,
+          "name": "Auriculares Inalámbricos Gamer Anker Soundcore P30i, Bluetooth 5.4 TWS, ANC Adaptativo 42dB, Graves Potentes, 45h Batería, Estuche 2 en 1 Soporte para Celular, IP54"
+        },
+        {
+          "position": 4,
+          "name": "Smart TV Samsung 55\" QLED 4K con Tizen y Asistente de Voz"
+        },
+        {
+          "position": 5,
+          "name": "Soporte Articulado TV JD SO720 32-80 Pulgadas VESA 600x400 Brazo Doble"
+        },
+        {
+          "position": 6,
+          "name": "Soporte Tele 32 43 50 55 Extensor Reforzado Doble Brazo 30kg Color Negro"
+        },
+        {
+          "position": 7,
+          "name": "Bluetooth Auriculares Inalambricos Ruido Auricular Game Tws Color Negro"
+        },
+        {
+          "position": 8,
+          "name": "Auriculares In-ear Xiaomi Redmi Buds 6 Play TWS Bluetooth 5.4 con Micrófono y Estuche de Carga Blanco"
+        },
+        {
+          "position": 9,
+          "name": "Micrófono Inalámbrico Corbatero X2 Para Celular Corp Skyla - Cubreviento Receptor Usb-c Y Adaptador Lightning Color Negro"
+        },
+        {
+          "position": 10,
+          "name": "Pila AAA Modaxpress Energizer E92MAX Cilíndrica - pack de 20 unidades"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA407134",
+      "categoryName": "Herramientas",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Hidrolavadora Electrica Alta presion Trent HLT307 1400W 1600 Psi 110 Bar con Accesorios"
+        },
+        {
+          "position": 2,
+          "name": "Desmalezadora Motoguadaña A Explosion Naftera 52cc 2,2hp Pideweb Brd-52 Bordeadora Carretel Con Tanza Cuchilla Y Accesorios Uso Profesional"
+        },
+        {
+          "position": 4,
+          "name": "Hidrolavadora Electrica Alta Presion Trent Hlt203 1600 Psi 110 Bar Con Accesorios"
+        },
+        {
+          "position": 5,
+          "name": "Desmalezadora Motoguadaña Pektra 52cc 2 Tiempos 2,1 Hp + Accesorios"
+        },
+        {
+          "position": 6,
+          "name": "Mascara Fotosensible kommberg Kb-mf25e Careta Soldar 1/25000 Seg Soldadora Tig Mig"
+        },
+        {
+          "position": 7,
+          "name": "Taladro Percutor Inalambrico C/ Maletin Goodyear 21v 13mm + 2 Baterias Li-ion 1.5Ah + Accesorios"
+        },
+        {
+          "position": 8,
+          "name": "Hidrolavadora Electrica Alta Presion Profesional Trent 2000w 2175 Psi Amarillo y Negro"
+        },
+        {
+          "position": 10,
+          "name": "Bordeadora de césped eléctrica Tramontina AP1500t 1500w+rastrillo"
+        },
+        {
+          "position": 11,
+          "name": "Taladro Percutor Inalambrico C/ Maletin Goodyear 21v 10mm + 1 Bateria Li-ion 1.5ah + Accesorios"
+        },
+        {
+          "position": 12,
+          "name": "Taladro Percutor de mano Philco Tp712p 700 W - Mandril 13 Mm"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1574",
+      "categoryName": "Hogar, Muebles y Jardín",
+      "bestSellers": [
+        {
+          "position": 3,
+          "name": "Detergente Magistral Ultra Limon 500 Ml"
+        },
+        {
+          "position": 4,
+          "name": "Mesa Plegable 180x74 Rectangular Blanca Picnic Jardin Camping Gardenlife"
+        },
+        {
+          "position": 5,
+          "name": "Rollo Cocina Clásico 3x50 Un Sussex Rollos De Cocina"
+        },
+        {
+          "position": 6,
+          "name": "Cortina Roller Blackout 214x220 cm Blanco - Roller Pro Black Out 100% Bloqueante Solar, Facil Instalacion, Tela Pvc Resistente, Aislante Termico Y Acustico, Soportes Metalicos, 214 Ancho X 220 Alto"
+        },
+        {
+          "position": 7,
+          "name": "Jabón Líquido Concentrado Para Diluir Ariel Platinum 500ml"
+        },
+        {
+          "position": 8,
+          "name": "Cubre Colchon Protector Impermeable 2 Plazas 140x190 Funda Blanco Liso 2 1/2 Plazas Altisima Calidad Liso Sabana Ajustable En Los Costados Impermebale Real"
+        },
+        {
+          "position": 9,
+          "name": "Cortina Roller Blackout Premium 140x140cm - Blanco / Bloqueante Solar / Fácil Instalación / Tela Pvc Resistente / Aislante Térmico Y Acústico"
+        },
+        {
+          "position": 12,
+          "name": "Suavizante Downy Concentrado Brisa intensa en frasco 1 L"
+        },
+        {
+          "position": 13,
+          "name": "Jabón Líquido Para Diluir Skip Bio-enzimas Tecnologia Superior En Limpieza Y Cuidado 500 Ml"
+        },
+        {
+          "position": 15,
+          "name": "Combo X4 Almohadas Viscoelástica Inteligentes 60x35 Azul Color Blanco"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1499",
+      "categoryName": "Industrias y Oficinas",
+      "bestSellers": [
+        {
+          "position": 2,
+          "name": "Yelmo As-3240 Aspiradora Para Auto Recargable Usb Color Gris"
+        },
+        {
+          "position": 4,
+          "name": "Tapones De Oídos para dormir o para ir a recitales - Negro"
+        },
+        {
+          "position": 5,
+          "name": "Escritorio Moderno Chico Para Oficina Con Patas Rectangulares Madera Color Cedro Y Tapa Melamina Blanca"
+        },
+        {
+          "position": 6,
+          "name": "Caja Carton Embalaje 15x15x15 Mudanza Reforzada X100 Color Marrón claro"
+        },
+        {
+          "position": 7,
+          "name": "Aspiradora Gadnic para Limpieza de Tapizados y Alfombras con Rociador, Tanques Dobles y 2 Cepillos"
+        },
+        {
+          "position": 8,
+          "name": "Tapones Para El Oído Earplugs Zen Reducen 28 Db Focus Verde"
+        },
+        {
+          "position": 9,
+          "name": "Cinta Doble Faz 3M 4910 Transparente de 19 Mm x 5 M"
+        },
+        {
+          "position": 10,
+          "name": "Aromatizante Difusor Con Varillas Saphirus Fragancia Flores Blancas x 125ml"
+        },
+        {
+          "position": 12,
+          "name": "Molinillo de café semillas y especias Yelmo Mo-7100 150w Aluminio Gris Oscuro"
+        },
+        {
+          "position": 13,
+          "name": "Caja Carton Embalaje 40x40x40 Mudanza Reforzada 10 Unidades Marrón"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1182",
+      "categoryName": "Instrumentos Musicales",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Guitarra Eléctrica EG001 con Amplificador 5W y Accesorios Naranja"
+        },
+        {
+          "position": 2,
+          "name": "Guitarra Electroacústica EAG003 Naranja Brillante Para Diestros"
+        },
+        {
+          "position": 3,
+          "name": "Parlante Portable Jbl Go 5 Bluetooth 4.8w Pro Sound Auracast Azul Marino"
+        },
+        {
+          "position": 4,
+          "name": "Flauta Melodica Gadnic Piano 32 Teclas Con Estuche Boquilla Manguera Y Accesorios Ideal Para Estudio Y Aprendizaje Musical"
+        },
+        {
+          "position": 5,
+          "name": "Guitarra Criolla Clásica De Estudio 38 Pulgadas Cg001 Con Funda Y Púas Femmto"
+        },
+        {
+          "position": 6,
+          "name": "Guitarra Acústica AG002 Negro Arce Brillante Con Accesorios Para Diestros"
+        },
+        {
+          "position": 7,
+          "name": "Soporte Pie Guitarra Bajo Parquer Custom con Base y Cuello Color Negro"
+        },
+        {
+          "position": 8,
+          "name": "Melodica A Piano Parquer 32 Notas Rosa Con Funda Manguera"
+        },
+        {
+          "position": 9,
+          "name": "Encordado Clasica Daddario Ej27n Tension Normal"
+        },
+        {
+          "position": 10,
+          "name": "Encordado Campana CAM20 Nylon Tensión Media Guitarra Criolla 6 Cuerdas"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA3937",
+      "categoryName": "Joyas y Relojes",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Reloj Casio Unisex Retro Vintage A158wa-1df Prism Crush Silver Plateado Gris"
+        },
+        {
+          "position": 2,
+          "name": "Xiaomi Smart Band 10 Midnight Black"
+        },
+        {
+          "position": 3,
+          "name": "Reloj Digital ETJ VINTAGE Steel Plateado con Alarma y Malla de Acero"
+        },
+        {
+          "position": 4,
+          "name": "Malla Miaband de Silicona para Smart Band Xiaomi 8, 9, 10 y 11 con Enganche de Acero Color Negro"
+        },
+        {
+          "position": 5,
+          "name": "Malla Para Reloj Xiaomi Smart Band 9 Active 1.47 Silicona Generica Marca Miaband Color Blanco"
+        },
+        {
+          "position": 6,
+          "name": "Reloj Despertador Digital Negro Alarma Temperatura Veoquiero"
+        },
+        {
+          "position": 7,
+          "name": "Reloj Pulsera Digital Casio Collection F-91 Negro Vintage con Alarma Hombre Mujer Unisex"
+        },
+        {
+          "position": 8,
+          "name": "Kit Set Juego 6 Destornilladores Total"
+        },
+        {
+          "position": 10,
+          "name": "Kit Gadnic 240 Piezas Extracción Molduras Clips Auto Paneles Herramientas"
+        },
+        {
+          "position": 11,
+          "name": "Reloj pulsera Casio MTP-V001D-1BUDF Analogico Vintage con correa de acero inoxidable color plateado fondo negro"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1132",
+      "categoryName": "Juegos y Juguetes",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Bicicleta Mtb Overtech R29 Q3 Con Suspensión Tamaño Del Cuadro L Negro/rojo/blanco"
+        },
+        {
+          "position": 2,
+          "name": "Squishy Butter Manteca 14cm Antiestrés Viral Tik Tok,regalo Amarillo"
+        },
+        {
+          "position": 3,
+          "name": "Bloques Magnéticos Para Armar 100 Piezas Construcción Tiles 100"
+        },
+        {
+          "position": 4,
+          "name": "Pizarra Blanca 80x120cm Premium + 2 Marcadores + Borrador Negro Doggo By Apxer"
+        },
+        {
+          "position": 7,
+          "name": "Juego De Mesa apreta Ya! Piensa Rapido Y Contesta Giantoys Español"
+        },
+        {
+          "position": 8,
+          "name": "Pelotitas Pelotero X100 Eco Infantiles Juego Niños No Tóxico Color Multicolor"
+        },
+        {
+          "position": 9,
+          "name": "Pileta Infantil Inflable Redonda Animales Safari Pals Bestway 51008 color verde claro"
+        },
+        {
+          "position": 10,
+          "name": "Bicicleta Gts Rodado 12 Infantil 2025 Freno Tambor Color Black Tamaño del cuadro XS"
+        },
+        {
+          "position": 14,
+          "name": "Juego Catan Devir Español Juego De Estrategia"
+        },
+        {
+          "position": 16,
+          "name": "Monopatín Gadnic City Plegable de Alumino Niños y Adultos Hasta 90kg Ruedas 200mm"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA3025",
+      "categoryName": "Libros, Revistas y Comics",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "El Hombre En Busca De Sentido Viktor Frankl tapa blanda editorial Herder"
+        },
+        {
+          "position": 2,
+          "name": "Libro La biblioteca de la medianoche Matt Haig Vol 1 Editorial Adn Editorial Grupo Anaya Tapa Blanda en español 2024"
+        },
+        {
+          "position": 3,
+          "name": "Mi Psicologa Me Dijo 110 Sesiones"
+        },
+        {
+          "position": 4,
+          "name": "UNA BUENA VIDA - Daniel López Rosetti - Planeta - Blanda"
+        },
+        {
+          "position": 5,
+          "name": "Las gratitudes, de Delphine Devigan. Editorial Anagrama, tapa blanda en español, 2022"
+        },
+        {
+          "position": 7,
+          "name": "Si Lo Crees Lo Creas: Si Lo Crees Lo Creas, De Brian Tracy., Vol. 1. Editorial Debolsillo, Tapa Blanda, Edición 1era En Español"
+        },
+        {
+          "position": 8,
+          "name": "Libro: Primero Yo, Después El Resto: 120 Sesiones De Verdad"
+        },
+        {
+          "position": 9,
+          "name": "Mi Psicóloga Me Dijo de Katherine Hoyer Tapa Blanda"
+        },
+        {
+          "position": 10,
+          "name": "Amanecer En La Cosecha, De Suzanne Collins. Juegos Del Hambre Editorial Molina, Tapa Blanda, Edición 1 En Español, 2025"
+        },
+        {
+          "position": 11,
+          "name": "Libro El Poder De Las Palabras - Mariano Sigman Debate Nuevo"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1168",
+      "categoryName": "Música, Películas y Series",
+      "bestSellers": [
+        {
+          "position": 2,
+          "name": "Cd Pescado Rabioso Artaud Nuevo Sellado"
+        },
+        {
+          "position": 3,
+          "name": "Bts Arirang Cd [living Legend Version] Estándar"
+        },
+        {
+          "position": 11,
+          "name": "Michael Jackson - Thriller - vinilo versión estándar 1982 producido por Epic"
+        },
+        {
+          "position": 15,
+          "name": "Stray Kids Skz - This & That - Álbum Original Importado"
+        },
+        {
+          "position": 16,
+          "name": "Patricio Rey y Sus Redonditos de Ricota - Oktubre - Lp Vinilo remasterizado"
+        },
+        {
+          "position": 17,
+          "name": "Bts - Arirang Album Rooted In Korea Original Importado"
+        },
+        {
+          "position": 18,
+          "name": "SODA STEREO - CANCION ANIMAL - CD"
+        },
+        {
+          "position": 19,
+          "name": "Babasonicos INFAME - Físico - CD"
+        },
+        {
+          "position": 20,
+          "name": "Vinilo Soda Stereo Mtv Unplugged Comfort Y Musica Para Volar"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1430",
+      "categoryName": "Ropa y Accesorios",
+      "bestSellers": [
+        {
+          "position": 2,
+          "name": "Zapatillas adidas Casual 76/26 Hombre Hq2338"
+        },
+        {
+          "position": 16,
+          "name": "Jaguar 320 Adultos"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA409431",
+      "categoryName": "Salud y Equipamiento Médico",
+      "bestSellers": [
+        {
+          "position": 1,
+          "name": "Creatina Monohidrato Ultramicronizada Star Nutrition 300g Pote"
+        },
+        {
+          "position": 2,
+          "name": "Tensiómetro Digital de Brazo Femmto KF-DT65S con Bluetooth y Batería Recargable"
+        },
+        {
+          "position": 3,
+          "name": "Omega 3 Max IFOS InnovaNaturals en cápsula Sin sabor de 60 un"
+        },
+        {
+          "position": 4,
+          "name": "Balanza Digital Inteligente Bluetooth App Femmto BCS13 para Baño Medidor de Grasa Corporal y Masa Muscular"
+        },
+        {
+          "position": 5,
+          "name": "Creatina ENA Sport en polvo Sin sabor x 300g"
+        },
+        {
+          "position": 6,
+          "name": "Masajeador Cervical Eléctrico Portatil Inalambrico Batería Recargable Usb Femmto Relajación Cuello Espalda Lumbar"
+        },
+        {
+          "position": 7,
+          "name": "Creatina Monohidrato Ultramicronizada Star Nutrition Polvo Sin Sabor 300g. Doy Pack"
+        },
+        {
+          "position": 8,
+          "name": "Bisglicinato De Magnesio Quelado | 1000 Mg | 60 Comprimidos | Dr Skin | ¡Dormí Mejor, Bajá El Estrés Y La Ansiedad Y Frená Contracturas Y Calambres! Alta Absorción, Energía Y Relajación | Glicinato"
+        },
+        {
+          "position": 9,
+          "name": "Proteína SPX 100% Whey en polvo sabor Chocolate x 1.08kg"
+        },
+        {
+          "position": 11,
+          "name": "Creatina Natural Whey en polvo Sin sabor x 500g"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA9304",
+      "categoryName": "Souvenirs, Cotillón y Fiestas",
+      "bestSellers": [
+        {
+          "position": 2,
+          "name": "Galletitas Mana Sabor Vainilla Pack X 3 Pack Chico"
+        },
+        {
+          "position": 3,
+          "name": "Cortinas Metalizadas Decoración 1 Metro X 2 Metros Color Lila"
+        },
+        {
+          "position": 4,
+          "name": "Copa Copón Degustación Brunello Vidrio Vino Nadir 490ml X6 Color Transparente"
+        },
+        {
+          "position": 5,
+          "name": "Galletitas Traviata Rex Tripack Sabor Salado 288g Saladas Snack"
+        },
+        {
+          "position": 6,
+          "name": "Galletitas De Agua Sandwich La Providencia Pack Familiar X5"
+        },
+        {
+          "position": 7,
+          "name": "Vaso Vidrio Copón Vino Gourmet 450ml Rigolleau X6 UNIDADES"
+        },
+        {
+          "position": 8,
+          "name": "Espuma Nieve Carnaval Fiestas Cotillon X12 -cienfuegos"
+        },
+        {
+          "position": 9,
+          "name": "Galletitas Dulces Surtido Diversion 400g - Arcor"
+        },
+        {
+          "position": 10,
+          "name": "Aromatizante Difusor Con Varillas Saphirus Fragancia Flores Blancas x 125ml"
+        },
+        {
+          "position": 12,
+          "name": "Galletitas Pepitos Con Chispas De Chocolate 357g Pack 3x119g"
+        }
+      ]
+    },
+    {
+      "categoryId": "MLA1953",
+      "categoryName": "Otras categorías",
+      "bestSellers": [
+        {
+          "position": 3,
+          "name": "Sahumerios Utopía Impor India Simple Empaste 3 Pack X 100uni Fragancia Lavanda Alpina"
+        },
+        {
+          "position": 4,
+          "name": "Sahumerios Sagrada Madre Artesano X20 Var. Fragancias Fragancia Reina De La Noche - Lavanda"
+        },
+        {
+          "position": 6,
+          "name": "Lubricante Sextual 200 ml Gel Intimo"
+        },
+        {
+          "position": 7,
+          "name": "Crema Blessed Para Tatuajes x30 gr"
+        },
+        {
+          "position": 8,
+          "name": "Pack 100 Limpia Pipas Colores Lisos Manualidades Artesanías Celeste"
+        },
+        {
+          "position": 12,
+          "name": "Gel Intimo Lubricante Anal Ultra Deslizante Fisting 1/2 Kg Sabor No"
+        },
+        {
+          "position": 15,
+          "name": "Lubricante Ultra Deslizante Anal Vaginal Fisting Dante Al Infierno"
+        },
+        {
+          "position": 16,
+          "name": "Cartas de Tarot RDR Gold Iluminarte + folleto explicativo"
+        },
+        {
+          "position": 19,
+          "name": "Cartas Tarot RDR Iluminarte Mazo Rider Waite 78 cartas"
+        }
+      ]
+    }
+  ]
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getRealProducts } from "@/data";
 import { importTaxes, netUsd } from "@/data/real-products";
 import { avisoDeLink, ES_ALIBABA, ES_MELI } from "@/lib/links";
@@ -66,6 +67,8 @@ function valoresDe(p: Product): Record<FieldKey, string> {
 
 export function TantearForm() {
   const productos = useMemo(() => getRealProducts(), []);
+  // Viene del buscador: el nombre de la idea que se quiere tantear.
+  const nombreIdea = (useSearchParams().get("nombre") ?? "").slice(0, 120);
 
   // Arranca en "mis links": es lo primero que se ve y lo más rápido. Los productos ya analizados quedan debajo.
   const [elegido, setElegido] = useState(PROPIO);
@@ -183,6 +186,11 @@ export function TantearForm() {
       <header>
         <p className="text-xs font-bold uppercase tracking-[0.14em] text-radar-dark">Herramienta de tanteo</p>
         <h1 className="mt-2 font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">Antes de avanzar, tanteá.</h1>
+        {nombreIdea && (
+          <p className="mt-3 rounded-2xl border border-line bg-paper px-4 py-2 text-sm">
+            Tanteando: <strong>{nombreIdea}</strong>. Cargá tus links o tus números para saber si conviene.
+          </p>
+        )}
         <div className="mt-1">
           <ScoreInfo />
         </div>

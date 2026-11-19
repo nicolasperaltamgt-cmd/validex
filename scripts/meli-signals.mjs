@@ -105,6 +105,26 @@ for (const [id, cfg] of Object.entries(PRODUCTOS)) {
   console.log(`${entry.categoryId ? "OK   " : "SIN CATEGORÍA"} ${id}: ${entry.categoryName ?? "-"} (${entry.totalItems ?? "?"} publicaciones, ${entry.bestSellers.length} más vendidos)`);
 }
 
-const out = { source: "Mercado Libre Argentina (API oficial)", site: SITE, fetchedAt: new Date().toISOString(), trends, products };
+// Radar de mercado para el buscador: los más vendidos de cada categoría de primer nivel (hasta 10 por categoría).
+// Alimenta la búsqueda de ideas que Validex todavía no analizó. Si algo falla, se conserva lo anterior de ese bloque.
+const descubrir = [];
+const categoriasTop = await get(`/sites/${SITE}/categories`);
+if (Array.isArray(categoriasTop)) {
+  for (const c of categoriasTop) {
+    const hl = await get(`/highlights/${SITE}/category/${c.id}`);
+    const top = (Array.isArray(hl?.content) ? hl.content : []).filter((x) => x.type === "PRODUCT").slice(0, 10);
+    const nombres = await Promise.all(
+      top.map(async (x) => {
+        const p = await get(`/products/${x.id}`);
+        return p?.name ? { position: x.position, name: String(p.name) } : null;
+      }),
+    );
+    const bestSellers = nombres.filter(Boolean);
+    if (bestSellers.length > 0) descubrir.push({ categoryId: c.id, categoryName: String(c.name), bestSellers });
+  }
+  console.log(`\nRadar de mercado: ${descubrir.length} categorías, ${descubrir.reduce((n, d) => n + d.bestSellers.length, 0)} productos más vendidos`);
+}
+
+const out = { source: "Mercado Libre Argentina (API oficial)", site: SITE, fetchedAt: new Date().toISOString(), trends, products, descubrir };
 writeFileSync("src/data/meli-signals.json", JSON.stringify(out, null, 2) + "\n", "utf8");
-console.log(`\nListo: ${trends.length} tendencias y ${Object.keys(products).length} productos guardados en src/data/meli-signals.json`);
+console.log(`\nListo: ${trends.length} tendencias, ${Object.keys(products).length} productos y ${descubrir.length} categorías guardados en src/data/meli-signals.json`);

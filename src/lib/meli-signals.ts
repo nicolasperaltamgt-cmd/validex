@@ -28,12 +28,21 @@ export interface MeliProductSignal {
   bestSellers: MeliBestSeller[];
 }
 
+/** Más vendidos de una categoría de primer nivel de Mercado Libre: alimenta el buscador de ideas. */
+export interface MeliDiscoveryCategory {
+  categoryId: string;
+  categoryName: string;
+  bestSellers: MeliBestSeller[];
+}
+
 export interface MeliSignals {
   source: string;
   site: string;
   fetchedAt: string;
   trends: MeliTrend[];
   products: Record<string, MeliProductSignal>;
+  /** Radar de mercado por categoría. Puede faltar en fotos viejas. */
+  descubrir?: MeliDiscoveryCategory[];
 }
 
 export function normalizar(texto: string): string {

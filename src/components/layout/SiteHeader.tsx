@@ -22,6 +22,7 @@ const principales = [
 
 /** Lo demás vive en "Más" (celular) y en el pie de página (PC). */
 export const secundarios = [
+  { href: "/buscar", label: "Buscar ideas" },
   { href: "/evitar", label: "Evitá estos" },
   { href: "/oportunidades", label: t.nav.opportunities },
   { href: "/catalogo", label: t.nav.catalog },
