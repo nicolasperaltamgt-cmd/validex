@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { RecargarSiHayVersionNueva } from "@/components/layout/RecargarSiHayVersionNueva";
 import { RegisterServiceWorker } from "@/components/layout/RegisterServiceWorker";
 import { SessionProvider } from "@/state/session-store";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <MobileTabBar />
           <Toaster />
           <RegisterServiceWorker />
+          <RecargarSiHayVersionNueva />
         </TooltipProvider>
         </SessionProvider>
       </body>
