@@ -378,8 +378,7 @@ export const realProducts: Product[] = [
     sourceNote: "Precio ganador (el más bajo verificado el 19/11/2026): Noax PTZ A7 en Mercado Libre ($32.999, según MejoresCompras; en la semana del CyberMonday estaba en $22.999). Costo: Alibaba, cámara WiFi 2MP (US$ 11,50 a 12,74); los modelos PTZ de 1080p llegan a US$ 20,69.",
     priceSources: [{ label: "MejoresCompras: Noax PTZ A7 interior", url: "https://mejorescompras.com.ar/precio/MLA42978997" }],
     supplierSources: [
-      { label: "Alibaba: cámara WiFi 2MP con visión nocturna (US$ 11,50 a 12,74)", url: "https://www.alibaba.com/product-introduction/2MP-Wireless-Mini-Camera-Night-Vision_1600905425254.html" },
-      { label: "Alibaba: cámara PTZ WiFi 1080p (US$ 15,13 a 20,69)", url: "https://www.alibaba.com/product-introduction/Good-export-quality-Security-monitoring-equipment_1600082097282.html" },
+      { label: "Alibaba: búsqueda de cámaras WiFi con giro. Los dos listados que usamos el 1/11 (US$ 11,50 a 20,69) ya no están online: pedí cotización nueva", url: "https://www.alibaba.com/trade/search?SearchText=wifi+ptz+camera" },
       S.cyber,
     ],
     assumptions: [

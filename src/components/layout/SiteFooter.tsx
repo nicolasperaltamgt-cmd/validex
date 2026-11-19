@@ -22,6 +22,7 @@ const herramientas = [
 ];
 
 const legales = [
+  { href: "/presentacion", label: "Presentación" },
   { href: "/metodologia", label: "Metodología" },
   { href: "/ayuda", label: t.nav.help },
   { href: "/privacidad", label: "Privacidad" },

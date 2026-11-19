@@ -7,12 +7,13 @@ const ESTILO: Record<Verdict, { caja: string; marca: string; etiqueta: string }>
 };
 
 /** Veredicto en una frase, con las razones y lo que falta comprobar. Es orientativo: no promete ganancias. */
-export function VerdictCard({ decision }: { decision: Decision }) {
+export function VerdictCard({ decision, id = "veredicto", nivel = 2 }: { decision: Decision; id?: string; nivel?: 2 | 3 }) {
+  const Titulo = nivel === 2 ? "h2" : "h3";
   const e = ESTILO[decision.verdict];
   return (
-    <section aria-labelledby="veredicto" className={`mb-8 rounded-2xl border-2 p-6 ${e.caja}`}>
+    <section aria-labelledby={id} className={`mb-8 rounded-2xl border-2 p-6 ${e.caja}`}>
       <span className={`inline-block rounded-full px-3 py-1 text-xs font-black uppercase tracking-[0.12em] ${e.marca}`}>{e.etiqueta}</span>
-      <h2 id="veredicto" className="mt-3 font-display text-2xl font-bold">{decision.title}</h2>
+      <Titulo id={id} className="mt-3 font-display text-2xl font-bold">{decision.title}</Titulo>
       <ul className="mt-3 space-y-1 text-sm text-ink-soft">
         {decision.why.map((w) => (
           <li key={w}>• {w}</li>

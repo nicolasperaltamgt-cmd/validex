@@ -87,8 +87,11 @@ export default function HomePage() {
             Tres productos por día, con score de 0 a 100 y el costo completo.
           </p>
           <div className="entrada mt-8 flex flex-wrap items-center justify-center gap-3" style={retraso(360)}>
-            <Link href="/hoy" className={PILDORA_BLANCA}>
-              Ver el drop de hoy <span aria-hidden="true" className="ml-2">→</span>
+            <Link href="/demo" className={PILDORA_BLANCA}>
+              Probá con tu presupuesto <span aria-hidden="true" className="ml-2">→</span>
+            </Link>
+            <Link href="/hoy" className="inline-flex min-h-12 items-center rounded-full border border-white/40 px-6 text-sm font-bold text-white hover:bg-white/10">
+              Ver el drop de hoy
             </Link>
             <a href="#formula" className="inline-flex min-h-12 items-center rounded-full px-6 text-sm font-bold text-white underline underline-offset-4 hover:text-lima">
               Cómo se calcula el score
