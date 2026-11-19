@@ -8,6 +8,7 @@ import { formatMoney, formatPercent } from "@/lib/format";
 import { CompetitionBadge, LevelBadge, TrendBadge } from "@/components/ui/Badges";
 import { StateMessage } from "@/components/ui/StateMessage";
 import { buttonClass } from "@/components/ui/button";
+import { PrioridadPanel } from "@/components/products/PrioridadPanel";
 import { NativeSelect } from "@/components/kit/native-select";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/kit/table";
 
@@ -118,6 +119,8 @@ export function CompareView({ products, initialIds }: { products: Product[]; ini
             </TableBody>
         </Table>
       )}
+
+      {chosen.length >= 2 ? <PrioridadPanel products={chosen.map((c) => c.p)} /> : null}
 
       {chosen.length >= 2 ? (
         <div className="mt-6 flex flex-wrap gap-3">

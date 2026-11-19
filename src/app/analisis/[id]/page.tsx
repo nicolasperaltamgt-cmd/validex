@@ -8,6 +8,7 @@ import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/Sco
 import { SourcesPanel } from "@/components/products/SourcesPanel";
 import { CoveragePanel } from "@/components/products/CoveragePanel";
 import { VerdictCard } from "@/components/products/VerdictCard";
+import { EVIDENCIA_ETIQUETA, nivelEvidencia } from "@/lib/priorizar";
 import { decide } from "@/lib/decision";
 import { coverageOf } from "@/lib/coverage";
 import { sensitivityOf } from "@/lib/sensitivity";
@@ -56,12 +57,14 @@ export default async function AnalysisPage({ params }: Props) {
   const tendencias = meli ? matchTrends(meli.trendWords, meliSignals.trends) : [];
   // Si el producto aparece en las búsquedas en alza de Mercado Libre, su tendencia pasa a figurar como "publicada" en la cobertura.
   const productoCobertura = withMeliEvidence(product, tendencias);
+  const cobertura = coverageOf(productoCobertura);
+  const nivelEv = nivelEvidencia(cobertura);
   const decision = decide({
     score: s.score,
     marginPct: a.calc.marginPct,
     profit: a.calc.profit,
     firmness: sensitivityOf(product).firmness,
-    coverage: coverageOf(productoCobertura),
+    coverage: cobertura,
   });
 
   return (
@@ -109,6 +112,10 @@ export default async function AnalysisPage({ params }: Props) {
           </div>
           <div className="min-w-0 flex-1">
             <ScoreBreakdown parts={s.parts} capped={s.capped} />
+            <p className="mt-4 rounded-xl border border-line px-4 py-3 text-sm">
+              <strong>{EVIDENCIA_ETIQUETA[nivelEv]}:</strong> {cobertura.backed} de {cobertura.total} datos tienen respaldo y {cobertura.confirmed} están confirmados.{" "}
+              <span className="text-ink-soft">El score dice qué tan buena parece la oportunidad; la evidencia dice cuánto de eso está comprobado. Son cosas distintas.</span>
+            </p>
           </div>
         </div>
       </section>

@@ -610,3 +610,24 @@ test("prueba de interés: pocas visitas, venta cara y datos inválidos", () => {
   assert.equal(evaluateInterest({ ...base, profitPerUnit: 0 })!.verdict, "descartar");
   assert.equal(evaluateInterest({ ...base, leads: 900 }), null);
 });
+
+import { nivelEvidencia, priorizar, scoreAjustado } from "./priorizar";
+
+test("priorizar: la evidencia pesa, lo que pierde va al final", () => {
+  const cob = (backed: number, confirmed: number) => ({ status: "parcial" as const, backed, confirmed, total: 7, items: [] });
+  assert.equal(nivelEvidencia(cob(7, 7)), "fuerte");
+  assert.equal(nivelEvidencia(cob(5, 0)), "media");
+  assert.equal(nivelEvidencia(cob(2, 0)), "debil");
+  assert.ok(scoreAjustado(80, cob(0, 0)) < scoreAjustado(80, cob(7, 7)));
+  const orden = priorizar(
+    [
+      { id: "a", nombre: "A", score: 80, profit: 5, totalCost: 10, coverage: cob(0, 0) }, // 80 * 0.6 = 48
+      { id: "b", nombre: "B", score: 60, profit: 5, totalCost: 10, coverage: cob(7, 7) }, // 60
+      { id: "c", nombre: "C", score: 95, profit: -1, totalCost: 10, coverage: cob(7, 7) },
+    ],
+    100,
+  );
+  assert.deepEqual(orden.map((o) => o.id), ["b", "a", "c"]);
+  assert.equal(orden[2].pierde, true);
+  assert.equal(orden[0].plan?.unidades, 10);
+});
