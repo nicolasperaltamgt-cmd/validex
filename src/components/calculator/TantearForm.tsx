@@ -12,6 +12,7 @@ import { scoreInput } from "@/lib/score";
 import { ScoreBreakdown, ScoreDial, BAND_LABEL } from "@/components/products/ScoreDial";
 import { Input } from "@/components/kit/input";
 import { NativeSelect } from "@/components/kit/native-select";
+import { CapitalYInteres } from "@/components/calculator/CapitalYInteres";
 import { VerdictCard } from "@/components/products/VerdictCard";
 import { decide } from "@/lib/decision";
 import { ScoreInfo } from "@/components/products/ScoreInfo";
@@ -361,6 +362,7 @@ export function TantearForm() {
               <div className="mt-4">
                 <VerdictCard decision={decide({ score: out.score.score, marginPct: out.calc.marginPct, profit: out.calc.profit })} />
               </div>
+              <CapitalYInteres costoUnidad={out.calc.totalCost} gananciaUnidad={out.calc.profit} />
               <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-ink-soft">
                 {PLAN.map((paso) => (
                   <li key={paso}>{paso}</li>

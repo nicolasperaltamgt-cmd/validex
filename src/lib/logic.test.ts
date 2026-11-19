@@ -587,3 +587,26 @@ test("decide: nunca dice comprar sin datos confirmados", () => {
   assert.equal(decide({ score: 90, marginPct: -5, profit: -1 }).verdict, "descartar");
   assert.equal(decide({ score: 30, marginPct: 5, profit: 1 }).verdict, "descartar");
 });
+
+import { planCapital } from "./capital";
+import { evaluateInterest } from "./interest-test";
+
+test("capital: unidades, primer pedido chico y entradas inválidas", () => {
+  const p = planCapital(100, 8, 4)!;
+  assert.equal(p.unidades, 12);
+  assert.equal(p.primerPedido, 3);
+  assert.equal(p.gananciaSiVendeTodo, 48);
+  assert.equal(planCapital(5, 8, 4)!.unidades, 0);
+  assert.equal(planCapital(0, 8, 4), null);
+  assert.equal(planCapital(100, 0, 4), null);
+});
+
+test("prueba de interés: pocas visitas, venta cara y datos inválidos", () => {
+  const base = { adSpend: 20, visits: 500, leads: 25, buyRatePct: 20, profitPerUnit: 10 };
+  assert.equal(evaluateInterest({ ...base, visits: 50 })!.verdict, "juntar-mas");
+  assert.equal(evaluateInterest(base)!.verdict, "seguir");
+  assert.equal(evaluateInterest({ ...base, adSpend: 40 })!.verdict, "ajustar");
+  assert.equal(evaluateInterest({ ...base, adSpend: 60 })!.verdict, "descartar");
+  assert.equal(evaluateInterest({ ...base, profitPerUnit: 0 })!.verdict, "descartar");
+  assert.equal(evaluateInterest({ ...base, leads: 900 }), null);
+});
