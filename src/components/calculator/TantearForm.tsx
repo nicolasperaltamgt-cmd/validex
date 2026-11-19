@@ -12,6 +12,8 @@ import { scoreInput } from "@/lib/score";
 import { ScoreBreakdown, ScoreDial, BAND_LABEL } from "@/components/products/ScoreDial";
 import { Input } from "@/components/kit/input";
 import { NativeSelect } from "@/components/kit/native-select";
+import { VerdictCard } from "@/components/products/VerdictCard";
+import { decide } from "@/lib/decision";
 import { ScoreInfo } from "@/components/products/ScoreInfo";
 
 const FIELDS: { key: FieldKey; label: string; hint: string; suffix: string }[] = [
@@ -35,12 +37,6 @@ const COMPETITIONS: { value: Competition; label: string }[] = [
   { value: "medium", label: "Media" },
   { value: "high", label: "Alta" },
 ];
-
-const PROXIMO: Record<"high" | "medium" | "low", string> = {
-  high: "Próximo paso: pedí cotización a dos o tres proveedores y probá con pocas unidades.",
-  medium: "Próximo paso: revisá qué costo o precio podés mejorar antes de comprar.",
-  low: "Próximo paso: no compres todavía. Probá otro producto o cambiá los números.",
-};
 
 const PLAN = [
   "Pedí cotización a dos o tres proveedores.",
@@ -362,7 +358,9 @@ export function TantearForm() {
                   <strong className="text-ink">{precioMargen(30)}</strong>.
                 </p>
               ) : null}
-              <p className="mt-3 rounded-xl bg-radar-soft px-4 py-3 text-sm font-medium text-radar-dark">{PROXIMO[out.score.band]}</p>
+              <div className="mt-4">
+                <VerdictCard decision={decide({ score: out.score.score, marginPct: out.calc.marginPct, profit: out.calc.profit })} />
+              </div>
               <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-ink-soft">
                 {PLAN.map((paso) => (
                   <li key={paso}>{paso}</li>

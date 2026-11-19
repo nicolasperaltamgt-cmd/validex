@@ -7,6 +7,10 @@ import { scoreProduct } from "@/lib/score";
 import { BAND_LABEL, ScoreBreakdown, ScoreDial } from "@/components/products/ScoreDial";
 import { SourcesPanel } from "@/components/products/SourcesPanel";
 import { CoveragePanel } from "@/components/products/CoveragePanel";
+import { VerdictCard } from "@/components/products/VerdictCard";
+import { decide } from "@/lib/decision";
+import { coverageOf } from "@/lib/coverage";
+import { sensitivityOf } from "@/lib/sensitivity";
 import { SensitivityPanel } from "@/components/products/SensitivityPanel";
 import { MeliSignalsPanel } from "@/components/products/MeliSignalsPanel";
 import { loadMeliSignals } from "@/lib/meli-live";
@@ -52,6 +56,13 @@ export default async function AnalysisPage({ params }: Props) {
   const tendencias = meli ? matchTrends(meli.trendWords, meliSignals.trends) : [];
   // Si el producto aparece en las búsquedas en alza de Mercado Libre, su tendencia pasa a figurar como "publicada" en la cobertura.
   const productoCobertura = withMeliEvidence(product, tendencias);
+  const decision = decide({
+    score: s.score,
+    marginPct: a.calc.marginPct,
+    profit: a.calc.profit,
+    firmness: sensitivityOf(product).firmness,
+    coverage: coverageOf(productoCobertura),
+  });
 
   return (
     <article>
@@ -101,6 +112,8 @@ export default async function AnalysisPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      <VerdictCard decision={decision} />
 
       {product.dataStatus !== "demo" && <CoveragePanel product={productoCobertura} />}
       {product.dataStatus !== "demo" && meli && (

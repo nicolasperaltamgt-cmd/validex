@@ -579,3 +579,11 @@ test("buscar: acentos, plurales, sinónimos y todas las palabras", () => {
   assert.equal(buscar("   ", fuentes).total, 0);
   assert.ok(puntuar("termo", { campos: [{ texto: "termo", peso: 3 }] }) > puntuar("term", { campos: [{ texto: "termo", peso: 3 }] }));
 });
+
+import { decide } from "./decision";
+
+test("decide: nunca dice comprar sin datos confirmados", () => {
+  assert.equal(decide({ score: 90, marginPct: 40, profit: 10 }).verdict, "probar-en-chico");
+  assert.equal(decide({ score: 90, marginPct: -5, profit: -1 }).verdict, "descartar");
+  assert.equal(decide({ score: 30, marginPct: 5, profit: 1 }).verdict, "descartar");
+});
