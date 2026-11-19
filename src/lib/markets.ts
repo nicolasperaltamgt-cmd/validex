@@ -47,7 +47,7 @@ const AR: MarketConfig = {
     maxPct: 17.1,
     source: "https://algoritmodigital.com.ar/cuanto-es-la-comision-de-mercado-libre-por-vender/",
   },
-  referenceRate: { value: 1560, date: "2026-11-01", source: "DolarAPI (dólar oficial, venta)" },
+  referenceRate: { value: 1580, date: "2026-11-19", source: "DolarAPI (dólar oficial, venta)" },
   marketplace: "Mercado Libre",
 };
 

@@ -14,7 +14,7 @@ import type { Product, ProductSource } from "./types";
  */
 
 const MARKET = DEFAULT_MARKET;
-/** Dólar oficial (venta) del 1/11/2026 según DolarAPI, para pasar los precios en pesos a dólares. */
+/** Dólar oficial (venta) de la fecha que figura en `lib/markets.ts` (DolarAPI), para pasar los precios en pesos a dólares. */
 export const REFERENCE_RATE_ARS = MARKET.referenceRate.value;
 /** IVA general. Los precios publicados lo incluyen; acá se usan sin IVA (neto). */
 export const IVA = 1 + MARKET.vat;
@@ -36,6 +36,8 @@ export function importTaxes(purchase: number, shipping: number): number {
 }
 
 const UPDATED = "2026-11-01";
+/** "2026-11-19" → "19/11/2026". */
+const fechaCorta = (iso: string) => iso.split("-").reverse().join("/");
 
 const S = {
   trends: {
@@ -61,7 +63,7 @@ const S = {
 } satisfies Record<string, ProductSource>;
 
 const SHARED_ASSUMPTIONS = [
-  "El precio de venta es el publicado en pesos, sin IVA y pasado a dólares oficiales de $1.560 (DolarAPI, 1/11/2026).",
+  `El precio de venta es el publicado en pesos (relevado el ${fechaCorta(UPDATED)}), sin IVA y pasado a dólares oficiales de $${REFERENCE_RATE_ARS.toLocaleString("es-AR")} (${MARKET.referenceRate.source}, ${fechaCorta(MARKET.referenceRate.date)}).`,
   "Impuestos de importación: estimamos 20,5 % sobre costo + flete. El real depende de la posición arancelaria (0 % a 35 %) y de tu situación fiscal.",
   "Comisión: 14 %. No incluye el costo fijo por unidad que Mercado Libre cobra en publicaciones de menor precio ni el costo de cuotas.",
   "El flete por unidad es una estimación nuestra, sin cotización de ningún transportista.",

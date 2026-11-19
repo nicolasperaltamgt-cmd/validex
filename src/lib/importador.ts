@@ -158,7 +158,7 @@ const RANGO_COMP = { low: 0, medium: 1, high: 2 } as const;
 const TEXTO_COMP = { low: "baja", medium: "media", high: "alta" } as const;
 
 const AVISO_DATOS =
-  "Son referencias sin verificar, relevadas el 1/11/2026. Pedí cotizaciones reales a proveedores y consultá a un contador o despachante antes de comprar.";
+  `Son referencias sin verificar: precios relevados el 1/11/2026 y dólar de referencia del ${DEFAULT_MARKET.referenceRate.date.split("-").reverse().join("/")}. Pedí cotizaciones reales a proveedores y consultá a un contador o despachante antes de comprar.`;
 
 function responderProducto(p: Product, cantidad: number): Respuesta {
   const calc = calculate({

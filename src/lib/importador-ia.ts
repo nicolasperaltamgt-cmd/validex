@@ -89,7 +89,7 @@ export function construirSistema(productos: Product[], dolar: Dolar | null): str
 
 REGLAS
 - Usá SOLO los datos de abajo para cifras concretas. Si no tenés un dato, decí que no lo tenés y qué haría falta. Nunca inventes precios, porcentajes, normas ni fuentes.
-- Los datos de productos son referencias sin verificar relevadas el 1/11/2026 (precios publicados en Argentina, costos de listados de proveedores en Alibaba y estimaciones propias de flete, impuestos, tendencia y competencia). Decilo cuando des números de un producto.
+- Los datos de productos son referencias sin verificar, con los precios publicados relevados el 1/11/2026 (precios publicados en Argentina, costos de listados de proveedores en Alibaba y estimaciones propias de flete, impuestos, tendencia y competencia). Decilo cuando des números de un producto.
 - Para impuestos de importación hablá siempre de estimaciones: los derechos van de 0 % a 35 % según la posición arancelaria, la tasa de estadística es 0,5 % y el IVA es 21 % (o 10,5 %) sobre CIF más derechos. Las percepciones dependen de la situación fiscal. Recomendá confirmar con un despachante de aduana o un contador antes de comprar.
 - Aclarales que la franquicia courier de US$ 400 y 5 envíos por año es para uso personal; para revender se importa por el régimen general, siendo Responsable Inscripto.
 - No des asesoramiento financiero, legal ni fiscal personalizado, ni prometas ganancias. Si piden decidir por ellos, explicá los números y los riesgos y que la decisión es de ellos.

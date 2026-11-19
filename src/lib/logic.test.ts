@@ -219,12 +219,15 @@ test("cobertura: solo es completo con los siete datos confirmados y estado verif
 test("mercados: Argentina conserva los valores que usaba el sitio y todo sale de una sola fuente", () => {
   assert.equal(DEFAULT_MARKET.id, "AR");
   assert.equal(MARKETS.AR, DEFAULT_MARKET);
-  assert.equal(DEFAULT_MARKET.referenceRate.value, 1560);
+  // El dólar de referencia se actualiza con la fecha; lo que importa es que tenga valor, fecha y fuente.
+  assert.ok(DEFAULT_MARKET.referenceRate.value > 0);
+  assert.match(DEFAULT_MARKET.referenceRate.date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(DEFAULT_MARKET.referenceRate.source.length > 5);
   assert.equal(DEFAULT_MARKET.vat, 0.21);
   assert.equal(importTaxRate(DEFAULT_MARKET), 0.205);
   assert.equal(DEFAULT_MARKET.commission.defaultPct, 14);
   // Los derivados del catálogo usan esos mismos valores.
-  assert.equal(netUsd(12999), 6.89);
+  assert.equal(netUsd(12999), Math.round((12999 / 1.21 / DEFAULT_MARKET.referenceRate.value) * 100) / 100);
   assert.equal(importTaxes(4, 0.8), 0.98);
   // El importador estima con los mismos derechos y tasa: CIF 100 => 20 + 0,5 + IVA sobre 120,5.
   const e = estimarImportacion(100);
@@ -360,8 +363,8 @@ test("sensibilidad: precio de equilibrio y firmeza", () => {
 });
 
 test("real-products: conversión a dólares netos de IVA e impuestos de importación", () => {
-  // 12.999 / 1,21 / 1.560 = 6,8865 => 6,89
-  assert.equal(netUsd(12999), 6.89);
+  // Precio publicado en pesos con IVA / 1,21 / dólar de referencia, redondeado a centavos.
+  assert.equal(netUsd(12999), Math.round((12999 / 1.21 / DEFAULT_MARKET.referenceRate.value) * 100) / 100);
   // (4 + 0,8) * 0,205 = 0,984 => 0,98
   assert.equal(importTaxes(4, 0.8), 0.98);
 });
