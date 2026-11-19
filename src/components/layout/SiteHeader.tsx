@@ -14,15 +14,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 /** Lo esencial: lo único que hay en el menú principal. */
 const principales = [
-  { href: "/hoy", label: t.nav.today },
-  { href: "/tantear", label: t.nav.tantear },
-  { href: "/importador", label: t.nav.importer },
-  { href: "/guardados", label: t.nav.saved },
+  { href: "/buscar", label: "Descubrir" },
+  { href: "/tantear", label: "Analizar" },
+  { href: "/guardados", label: "Seguir" },
 ];
 
 /** Lo demás vive en "Más" (celular) y en el pie de página (PC). */
 export const secundarios = [
-  { href: "/buscar", label: "Buscar ideas" },
+  { href: "/hoy", label: t.nav.today },
+  { href: "/importador", label: t.nav.importer },
   { href: "/evitar", label: "Evitá estos" },
   { href: "/oportunidades", label: t.nav.opportunities },
   { href: "/catalogo", label: t.nav.catalog },

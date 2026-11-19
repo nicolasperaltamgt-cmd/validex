@@ -13,8 +13,8 @@ const ICON = {
 
 const TABS = [
   {
-    href: "/hoy",
-    label: "Drop",
+    href: "/buscar",
+    label: "Descubrir",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" {...ICON}>
         <circle cx="12" cy="12" r="9" />
@@ -25,7 +25,7 @@ const TABS = [
   },
   {
     href: "/tantear",
-    label: "Tantear",
+    label: "Analizar",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" {...ICON}>
         <circle cx="11" cy="11" r="6.5" />
@@ -34,18 +34,8 @@ const TABS = [
     ),
   },
   {
-    href: "/importador",
-    label: "Importador",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" {...ICON}>
-        <path d="M4 5h16v11H9l-5 4z" />
-        <path d="M8 9.5h8M8 12.5h5" />
-      </svg>
-    ),
-  },
-  {
     href: "/guardados",
-    label: "Guardados",
+    label: "Seguir",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" {...ICON}>
         <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z" />
@@ -62,7 +52,7 @@ export function MobileTabBar() {
       aria-label="Pestañas"
       className="fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 rounded-full border border-ink/15 bg-paper/90 px-2 shadow-xl shadow-black/15 backdrop-blur lg:hidden"
     >
-      <ul className="grid grid-cols-4">
+      <ul className="grid grid-cols-3">
         {TABS.map((tab) => {
           const active = pathname === tab.href || pathname.startsWith(`${tab.href}/`);
           return (
