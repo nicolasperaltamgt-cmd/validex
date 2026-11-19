@@ -1,7 +1,21 @@
-# Validex — versión de prueba
+# Validex (versión de prueba)
 
-Plataforma de inteligencia comercial (Next.js 15 + TypeScript + Tailwind v4, App Router).
-**Todos los productos y cifras son datos de demostración ficticios.**
+**Antes de comprar, mirá los números.** Validex es una herramienta para evaluar un producto antes de importarlo y revenderlo en Argentina:
+costo completo (compra, flete, impuestos y comisión), margen, un **score de 0 a 100 con metodología pública** y qué tan firme es ese margen.
+
+Sitio de prueba: https://validex-prueba.netlify.app
+
+> **Estado:** versión de prueba. Los productos son **referencias reales con fuente y fecha, todavía sin verificar** con cotizaciones de proveedores.
+> Cada ficha muestra qué dato tiene fuente y cuál es una estimación. Nada se presenta como "verificado" si no lo está.
+
+## Qué hace
+
+- **Drop del día:** tres productos con su score.
+- **Tantear:** pegás un link de Alibaba y uno de Mercado Libre, escribís los dos precios y la cuenta sale sola (flete, impuestos y comisión estimados).
+- **Ficha de análisis:** cobertura del análisis (qué dato tiene fuente), firmeza del margen (mejor y peor caso, flete al doble) y señales de Mercado Libre.
+- **Evitá estos:** los productos de menor score y por qué.
+- **Importador:** guía y respuestas con reglas fijas, con las fuentes a la vista. No usa IA por defecto.
+- **Metodología:** la fórmula del score es fija y está en `/metodologia` y en `src/lib/score.ts`.
 
 ## Cómo ejecutarla
 
@@ -10,33 +24,36 @@ npm install     # solo la primera vez
 npm run dev     # abrir http://localhost:3000
 ```
 
-Comprobaciones: `npx tsc --noEmit`, `npm run lint`, `npm test` (6 pruebas de la lógica de cálculo), `npm run build`.
+Comprobaciones: `npx tsc --noEmit`, `npm run lint`, `npm test` (pruebas de la lógica), `npm run build`.
 
 ## Estructura
 
-- `src/app/` — páginas (inicio, oportunidades, catalogo, analisis, calculadora, guardados, configuracion, ayuda)
-- `src/components/` — componentes reutilizables (ui, layout, products, calculator, home)
-- `src/data/` — datos ficticios y capa de acceso (`getProducts`, `getProduct`): único lugar a cambiar para conectar Supabase u otra fuente
-- `src/lib/` — cálculo de margen, lectura de oportunidad, formatos
-- `src/i18n/` — textos en español; estructura lista para sumar idiomas
-- `src/state/` — guardados y moneda, guardados en el navegador (localStorage)
+- `src/app/`: páginas (portada, hoy, tantear, importador, evitar, catálogo, análisis, metodología, etc.).
+- `src/components/`: componentes (`kit/` con la base de interfaz, `products/`, `calculator/`, `layout/`).
+- `src/data/`: productos reales con fuentes (`real-products.ts`) y la foto de señales de Mercado Libre (`meli-signals.json`).
+- `src/lib/`: score, cálculo de costos, cobertura, sensibilidad, configuración por mercado (`markets.ts`), validación de links, etc.
+- `src/design/tokens.ts`: colores y medidas de la marca.
+- `docs/`: documentación de trabajo (auditoría, metodología de datos, plan de lanzamiento, notas de Mercado Libre).
 
-## Qué es real y qué no
+## Datos y fuentes
 
-- **Ficticio:** los 8 productos, sus precios, costos, tendencias y competencia (`src/data/products.ts`).
-- **Funciona de verdad:** búsqueda y filtros, calculadora de margen, lectura de oportunidad (reglas en `src/lib/assessment.ts`) y lista de guardados (en el navegador, o en tu cuenta si ingresás con email).
-- **Cuentas:** ingreso por enlace al email (Supabase). Requiere `.env.local` con la URL y la clave pública; sin eso la app funciona igual, sin cuentas.
-- **Datos reales:** solo la sección Oferta por categoría (`/categorias`), de la API oficial de Mercado Libre, consultada desde el servidor (`src/lib/meli.ts`).
-- **No hay:** pagos ni IA. Búsqueda, tendencias y ventas de Mercado Libre no están habilitadas todavía (ver `docs/MERCADOLIBRE.md`).
+- **Precios de venta:** publicados en Argentina (Frávega y rastreadores de precios), relevados el 1/11/2026. No se leen solos: cambian todos los días.
+- **Costos de compra:** listados de proveedores (Alibaba, Made-in-China). No son cotizaciones.
+- **Dólar de referencia:** dólar oficial de DolarAPI, con su fecha en `src/lib/markets.ts`.
+- **Mercado Libre:** tendencias, categorías y más vendidos por la API oficial, con atribución y fecha. Los precios y la cantidad de vendedores todavía no se pueden leer.
+- **Flete, impuestos, tendencia y competencia:** estimaciones propias, marcadas como tales en cada ficha.
 
-## Próximos pasos técnicos
+## Actualizar los datos de Mercado Libre
 
-1. Elegir una fuente de datos real (con autorización y documentación) y conectarla en `src/data/index.ts`.
-2. (Hecho) Cuentas y guardados permanentes con Supabase.
-3. Sumar inglés creando `src/i18n/en.ts`.
+Necesita un archivo `.env.local` con `MELI_CLIENT_ID` y `MELI_CLIENT_SECRET` (ver `.env.example`; **nunca** se guardan en el repositorio).
 
-## Cuentas y datos reales
+```bash
+npm run actualizar -- --solo-datos   # solo actualiza src/data/meli-signals.json
+```
 
-Ver `docs/PASOS-DATOS-Y-CUENTAS.md` (guía paso a paso), `supabase/schema.sql` y `.env.example`.
+## Aviso
 
-Plan para llegar a producción: `docs/PLAN-DE-LANZAMIENTO.md`.
+Las páginas de Privacidad y Términos son **borradores** y necesitan revisión legal antes de un lanzamiento real. Validex no está afiliado ni
+respaldado por Mercado Libre. Nada de lo que muestra es asesoramiento aduanero, fiscal ni una predicción de ventas.
+
+Todos los derechos reservados salvo que se indique otra licencia.
