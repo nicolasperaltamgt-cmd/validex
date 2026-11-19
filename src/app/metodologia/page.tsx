@@ -68,7 +68,7 @@ export default function MethodologyPage() {
         <h2 id="costos" className="font-display text-2xl font-bold">Cómo armamos el costo</h2>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-ink-soft">
           <li>
-            El precio de venta es el publicado en pesos, con IVA. Lo pasamos a dólares sin IVA ({Math.round((IVA - 1) * 100)} %) y al dólar oficial de
+            El precio de venta es el más bajo que verificamos en las fuentes de cada producto, o sea el que habría que igualar para vender. Es el publicado en pesos, con IVA, y cada ficha dice de qué día es. Lo pasamos a dólares sin IVA ({Math.round((IVA - 1) * 100)} %) y al dólar oficial de
             referencia de ${REFERENCE_RATE_ARS.toLocaleString("es-AR")}.
           </li>
           <li>

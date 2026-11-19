@@ -37,7 +37,7 @@ Comprobaciones: `npx tsc --noEmit`, `npm run lint`, `npm test` (pruebas de la l�
 
 ## Datos y fuentes
 
-- **Precios de venta:** publicados en Argentina (Frávega y rastreadores de precios), relevados el 1/11/2026. No se leen solos: cambian todos los días.
+- **Precios de venta:** el más bajo que se verificó en las fuentes de cada producto (Frávega y rastreadores de precios de Mercado Libre), relevados entre el 1/11/2026 y el 19/11/2026; cada ficha trae su fecha. Cuatro productos salen de listados sin una publicación única y conservan la fecha original. No se leen solos: cambian todos los días.
 - **Costos de compra:** listados de proveedores (Alibaba, Made-in-China). No son cotizaciones.
 - **Dólar de referencia:** dólar oficial de DolarAPI, con su fecha en `src/lib/markets.ts`.
 - **Mercado Libre:** tendencias, categorías y más vendidos por la API oficial, con atribución y fecha. Los precios y la cantidad de vendedores todavía no se pueden leer.
