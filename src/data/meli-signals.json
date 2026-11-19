@@ -1,7 +1,7 @@
 {
   "source": "Mercado Libre Argentina (API oficial)",
   "site": "MLA",
-  "fetchedAt": "2026-11-19T16:05:35.352Z",
+  "fetchedAt": "2026-11-19T16:40:07.246Z",
   "trends": [
     {
       "position": 1,
@@ -223,19 +223,19 @@
         },
         {
           "position": 2,
-          "name": "Auriculares Sony Bluetooth Inalámbricos Wh-ch520 Azul"
-        },
-        {
-          "position": 3,
-          "name": "Auriculares Xiaomi Redmi Buds 8 Active Inalámbricos Bluetooth 37 h In-ear Blanco"
-        },
-        {
-          "position": 4,
           "name": "Auriculares Inalámbricos Gamer Anker Soundcore P30i, Bluetooth 5.4 TWS, ANC Adaptativo 42dB, Graves Potentes, 45h Batería, Estuche 2 en 1 Soporte para Celular, IP54"
         },
         {
-          "position": 5,
+          "position": 3,
+          "name": "Bluetooth Auriculares Inalambricos Ruido Auricular Game Tws Color Negro"
+        },
+        {
+          "position": 4,
           "name": "Auriculares In-ear Xiaomi Redmi Buds 6 Play TWS Bluetooth 5.4 con Micrófono y Estuche de Carga Blanco"
+        },
+        {
+          "position": 5,
+          "name": "Auriculares inalámbricos Lenovo ThinkPlus XT80 negro con luz azul LED"
         }
       ]
     },
@@ -264,11 +264,11 @@
         },
         {
           "position": 4,
-          "name": "Daewoo Dek1310 Jarra Eléctrica Negra 1.7l"
+          "name": "Pava Electrica Unnic Pantalla Digital Tactil Acero Inoxidable Con Funcion De Temperatura Prestablecidas Pico Vertedor Con Filtro 1.7 Lts Ideal Para Mate Cafe Te Leche Base Giratoria Color Plateado"
         },
         {
           "position": 5,
-          "name": "Pava Electrica Unnic Pantalla Digital Tactil Acero Inoxidable Con Funcion De Temperatura Prestablecidas Pico Vertedor Con Filtro 1.7 Lts Ideal Para Mate Cafe Te Leche Base Giratoria Color Plateado"
+          "name": "Daewoo Dek1310 Jarra Eléctrica Negra 1.7l"
         }
       ]
     },
@@ -286,7 +286,7 @@
       "bestSellers": [
         {
           "position": 1,
-          "name": "Bebedero Fuente Para Beber Automático Gadnic Recirculación de Agua"
+          "name": "Bebedero Fuente De Agua Gadnic Automático Perro Gato Blanco"
         },
         {
           "position": 2,
@@ -298,7 +298,7 @@
         },
         {
           "position": 5,
-          "name": "Comedero Alto Elevado Inclinado Para Gatos Perros Pequeños Color Negro"
+          "name": "Bebedero Fuente Agua Automático Gatos Perros 2L Triple Filtro Advenco"
         }
       ]
     },
@@ -315,7 +315,7 @@
       "totalItems": 21548,
       "bestSellers": [
         {
-          "position": 4,
+          "position": 3,
           "name": "Cama Cucha Rascador Gato Plegable 60 X 37 Cm Premium Azul Francia"
         }
       ]
@@ -340,7 +340,7 @@
           "name": "Cortina Roller Blackout Premium 140x140cm - Blanco / Bloqueante Solar / Fácil Instalación / Tela Pvc Resistente / Aislante Térmico Y Acústico"
         },
         {
-          "position": 4,
+          "position": 5,
           "name": "Cortina Tropical Mecanico Lisa Living Comedor 2 Paños Ambiente 2m x 1,5m Color Natural Claro"
         }
       ]
@@ -375,11 +375,11 @@
         },
         {
           "position": 2,
-          "name": "Afeitadora Philips Oneblade Qp2824/10 Para Cara Y Cuerpo Color Verde lima"
+          "name": "Afeitadora Philips QP2724/10 Oneblade Recorta Modela y Afeita Carga USB"
         },
         {
           "position": 3,
-          "name": "Afeitadora Philips QP2724/10 Oneblade Recorta Modela y Afeita Carga USB"
+          "name": "Afeitadora Philips Oneblade Qp2824/10 Para Cara Y Cuerpo Color Verde lima"
         },
         {
           "position": 4,
@@ -443,11 +443,11 @@
         },
         {
           "position": 4,
-          "name": "Smartwatch Jd Venecia Sport Bluetooth Llamadas Pantalla 1.96\" Táctil Malla Color Rosa Resistente Al Agua Ip68"
+          "name": "Smartwatch Xiaomi Smart Band 10 Pro AMOLED 1.74 GPS 5ATM Negro"
         },
         {
           "position": 5,
-          "name": "Smartwatch Xiaomi Smart Band 10 Pro AMOLED 1.74 GPS 5ATM Negro"
+          "name": "Smartwatch Jd Venecia Sport Bluetooth Llamadas Pantalla 1.96\" Táctil Malla Color Rosa Resistente Al Agua Ip68"
         }
       ]
     },
@@ -472,7 +472,7 @@
         },
         {
           "position": 3,
-          "name": "Botellas Sodastream Twinpack 1 Litro Pack X2 Color Blanco"
+          "name": "Twinpack De Botellas Negras | Sodastream Color Negro"
         },
         {
           "position": 4,
@@ -536,15 +536,15 @@
         },
         {
           "position": 2,
-          "name": "Cámara De Seguridad Gadnic Conexion Inalambrica FHD 3MP Movimiento 360° Horizontal 120° Vertical Visión Nocturna Audio Bidireccional Detección Movimiento App iCSee Micro SD 128GB"
-        },
-        {
-          "position": 3,
           "name": "Camara Seguridad Geotek Ip Wifi Domo Doble Lente 6mp Exterior Vision Nocturna Deteccion Movimiento Color Blanco"
         },
         {
-          "position": 5,
+          "position": 4,
           "name": "Camara Vigilancia TP-Link Tapo C500 WIFI IP para exteriores Full Hd 1080p Detección de personas y seguimiento de movimiento con IA rotación 360°"
+        },
+        {
+          "position": 5,
+          "name": "Camara Seguridad Geotek 2mp Full Hd Wifi Vision Nocturna Deteccion de Movimiento Motorizada PTZ Color Blanco"
         }
       ]
     },
@@ -614,11 +614,11 @@
         },
         {
           "position": 4,
-          "name": "Termo Termolar R-evolution Rolha-Dupla1 de acero inoxidable 1L Marron"
+          "name": "Termo Stanley Classic Mate System de 1.2 L Verde Hammertone"
         },
         {
           "position": 5,
-          "name": "Termo Stanley Original Mate System Classic 1.2 L"
+          "name": "Termo Stanley Clásico 1.4lts Negro"
         }
       ]
     }
